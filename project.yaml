@@ -1,0 +1,17 @@
+# Card metadata consumed by https://amishchadha.com
+name: PalletPilot
+slug: palletpilot
+area: Mobility and Logistics
+status: concept          # concept | design | prototype | tested | released
+shortlisted: false
+pitch: >-
+  Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and bumper-based stopping.
+problem: >-
+  Small warehouses move pallets by hand, and powered pallet trucks with follow-me modes cost more than they can justify.
+budget_usd: 1200
+difficulty: 4  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [mobility-and-logistics, open-hardware, cern-ohl-s]
