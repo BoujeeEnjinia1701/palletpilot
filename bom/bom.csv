@@ -1,8 +1,18 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-Hub motor drive wheel module,,,,,,
-UWB anchor and tag pair,,,,,,
-Motor controller,,,,,,
-24 V LiFePO4 pack,,,,,,
-Contact bumper strips,,,,,,
-Emergency stop,,,,,,
-Microcontroller,,,,,,
+1 Drive module subframe and preload springs,1,"6 mm steel plate clamp to the donor steering yoke, trailing side cheeks, two compression springs giving about 1.1 kN adjustable preload on the drive wheels",Local fabricator,80.00,make,Indicative price; clamp pattern depends on the donor yoke (open question); bolt-on only
+2 Hub motors with spring-applied brakes,2,"24 V brushless hub servo motor, 200 mm (8 in) wheel with rubber or polyurethane tread, about 250 W rated, about 17 N m peak needed, encoder, fail-safe brake",AGV parts supplier,170.00,buy,Indicative price per motor; peak torque and brake holding torque to be confirmed from a datasheet at TRL 3
+3 Battery and electronics enclosure,1,"Folded 1.5 mm steel or aluminium box 280 x 300 x 170 mm with lid, cable glands, IP54",Local sheet metal shop,40.00,make,Indicative price; includes the lid
+4 LiFePO4 pack with BMS,1,"8S 25.6 V 20 Ah (512 Wh) LiFePO4, BMS with 50 A continuous discharge, charge temperature cut-off",Battery supplier,180.00,buy,Indicative price; about 410 Wh usable at 80 % depth of discharge
+5 Dual-channel motor driver,1,"24 V dual-channel brushless servo driver, 2 x 15 A continuous, CAN or RS-485, brake outputs",AGV parts supplier,150.00,buy,Indicative price; sold as a pair with the hub motors by some suppliers
+6 Contactor fuse and disconnect,1,"80 A main fuse, 24 V main contactor with pre-charge resistor, lockable battery disconnect",Electronics distributor,45.00,buy,Indicative price
+7 Controller and safety relay,1,"ESP32-S3 class controller with CAN transceiver and UWB SPI links; dual-channel safety relay for the stop chain",Electronics distributor,85.00,buy,Indicative price (controller about $25; safety relay about $60); firmware is not TRL 2 work
+8 Tiller control head,1,"Clamp-on head replacing the grip: thumbwheel throttle, belly-reverse paddle, mode key switch (walk or follow), horn button",Industrial controls supplier,70.00,buy,Indicative price; generic walkie tiller-head parts
+9 Emergency stops,2,"22 mm red mushroom pushbutton, twist release, two normally closed contacts, yellow backing plate (ISO 13850 style)",Industrial controls supplier,15.00,buy,Indicative price per unit; one on the tiller head and one on the enclosure lid
+10 Contact bumper,1,"Pressure-sensitive safety edge about 1.3 m long on a steel U hoop, with evaluation unit, about 40 mm compression travel",Safety edge supplier,110.00,buy,Indicative price; last-resort stop only (see PLP-PRC-001)
+11 UWB anchors,3,"Qorvo DWM3000 class UWB module on a carrier board, two on the bumper corners (about 450 mm baseline), one on the tiller head",Electronics distributor,25.00,buy,Indicative price per unit
+12 Status beacon and buzzer,1,"24 V LED beacon, amber in walk mode and blue in follow mode, with travel buzzer",Electronics distributor,25.00,buy,Indicative price
+13 Manual release lever,1,"Over-center lever that lifts the drive wheels clear of the floor and releases the brakes for pushing by hand",Local fabricator,20.00,make,Indicative price
+14 Battery charger,1,"Certified 29.2 V 5 A LiFePO4 charger, 100 to 240 V AC input",Charger supplier,45.00,buy,Indicative price; not modelled
+15 Operator UWB tag,1,"Belt or wrist tag with UWB module, rechargeable cell, stop button and vibration alert",Electronics distributor,45.00,buy,Indicative price; not modelled
+16 Handle angle sensor and gas spring,1,"Hall angle sensor on the handle pivot; gas spring that holds the handle upright in follow mode",Electronics distributor,25.00,buy,Indicative price; not modelled
+17 Wiring and hardware,1,"10 AWG power cable, drag chain or spiral wrap to the tiller head, connectors, fasteners, labels",Electronics distributor,60.00,buy,Indicative price; not modelled
