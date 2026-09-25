@@ -1,7 +1,9 @@
 # BOM notes
 
-- Row numbers 1 to 13 match the callouts in `media/exploded.png` and the components table in `docs/02-concept.md`. Rows 14 to 17 are not modelled.
-- All prices are indicative USD for one prototype, taken from typical retail prices for the part class in 2026. No supplier has been selected. Prices will be checked when the BOM is priced line by line at TRL 3.
+- Rows 1 to 13 and 18 match the callouts in `media/exploded.png`, the components table in `docs/02-concept.md` and the parts in `cad/src/model.py`. Rows 14 to 17 are not modelled.
+- Every line is priced in USD for one prototype (TRL 3, 2026-09-25). Most prices are estimates for the part class; the lines checked against a live listing are noted below. No supplier has been selected or ordered from.
+- Kit total: **$1,580** over 18 lines, $30 (1.9 %) over the $1,550 budget in `project.yaml` (raised from $1,200 by Amish on 2026-09-25, PLP-DDR-001 D2). The total is checked by `docs/04-calcs/sizing.py` [K1]. Options to close the gap are in `docs/REVIEW.md`; no line has been cut.
+- Line 2, hub motors: PLP-CAL-001 needs 25.5 N·m per motor at worst, so the spec is 30 N·m peak. Listed class prices: $165 for a 20/40 N·m, 36 to 48 V motor with no brake listed ([UU Motor SVB8S](https://www.uumotor.com/high-torque-500w-robot-8-inch-servo-hub-motor.html)) and $249 for a 40/80 N·m, 24/48 V motor ([ZLTECH 8 in](https://zltech-hubmotor.en.made-in-china.com/product/NOgmzpqvCLhr/China-Zltech-8inch-24V-48V-200rpm-300kg-Load-Gearless-Electric-DC-Agv-Direct-Drive-Wheel-Hub-Servo-Motor-with-Encoder-for-Forklift.html)). $200 each assumes a 24 V winding with a brake. The 16 N·m peak, $145 class ([UU Motor SVH8S](https://retail.uumotor.com/product/250w-8-inch-encoder-motor-svh8s/)) is too weak.
+- Line 18, obstacle lidar: Slamtec RPLIDAR C1 at $69 from [DFRobot](https://www.dfrobot.com/product-2803.html) (10 Hz typical, 12 m on white and 6 m on black targets), plus a bracket. It is the approved option 1A layer and is not safety-rated.
 - The donor manual pallet jack is not included. A new 27 x 48 in, 2,500 kg (5,500 lb) manual jack costs about $396 ([Global Industrial](https://www.globalindustrial.com/p/global-industrial-153-standard-duty-pallet-jack-truck-5500-lb-capacity-27-x-48-forks)).
-- Kit total: about $1,425, about $225 (19 %) over the $1,200 budget in `project.yaml`. Options are in `docs/REVIEW.md`; the budget is unchanged pending a decision by Amish.
-- A walk-only variant (no UWB anchors or tag, one hub motor, single-channel driver) would cost about $1,075.
+- This BOM is a costed design list, not a purchasing list. Buying parts is TRL 4 work and is on hold by Amish's instruction.

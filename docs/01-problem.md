@@ -3,7 +3,7 @@ doc_id: PLP-PRB-001
 title: PalletPilot problem statement
 project: PalletPilot
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Populate to TRL 2 (problem, users, context, constraints, out of scope, prior work with sources)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Record decisions PLP-DDR-001 (budget $1,550, layered stopping, research-use legal route, partner types); OSHA wording checked against the source
 ---
 
 # PalletPilot problem statement
@@ -60,12 +64,12 @@ So a retrofit kit only earns its place if it does something a cheap walkie does 
 
 ## Constraints
 
-- Garage-buildable prototype, about $1,200 USD for the kit. The donor manual jack is not included.
+- Garage-buildable prototype, $1,550 USD for the kit (budget raised from $1,200 by Amish on 2026-09-25, PLP-DDR-001). The donor manual jack is not included.
 - Bolt-on to a common 27 x 48 in manual jack with no welding, cutting or drilling of the jack's load-bearing structure, and removable to restore the jack.
 - Keep the jack's 75 mm lowered height, fork length and its ability to enter a standard pallet.
-- Walking pace only, with hardwired emergency stops and a stop on bumper contact, as the pitch states.
+- Walking pace only, with layered stopping as the pitch states: hardwired emergency stops, a non-contact lidar stop layer in follow mode, and a stop on bumper contact as the last layer.
 - Low-voltage (24 V class) DC system with a lithium iron phosphate pack.
-- Legal and workplace rules: in the United States a motorized pallet jack is a powered industrial truck, so every operator needs formal training and evaluation under 29 CFR 1910.178(l) ([OSHA 1910.178](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178); [summary](https://www.safetyvideos.com/OSHA-Regulations-for-Pallet-Jack-Use)). The same standard does not allow users to make modifications that affect capacity and safe operation without the manufacturer's prior written approval (1910.178(a)(4)). A retrofit on a jack in a workplace therefore needs the jack maker's approval or a different legal route. This is a central open question.
+- Legal and workplace rules: in the United States a motorized pallet jack is a powered industrial truck, so every operator needs formal training and evaluation under 29 CFR 1910.178(l) ([OSHA 1910.178](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178); [summary](https://www.safetyvideos.com/OSHA-Regulations-for-Pallet-Jack-Use)). The same standard states that "modifications and additions which affect capacity and safe operation shall not be performed by the customer or user without manufacturers prior written approval" (1910.178(a)(4), wording checked against the OSHA page on 2026-09-25). A retrofit on a jack in a workplace therefore needs the jack maker's approval. Amish decided on 2026-09-25 to document the kit for research use now and to approach a jack maker before any workplace trial (PLP-DDR-001, D8).
 - A truck that moves with no one at the tiller comes close to the scope of ISO 3691-4 for driverless industrial trucks, which calls for personnel detection that stops the truck before it contacts a person ([ISO 3691-4](https://www.iso.org/standard/70660.html); [overview](https://www.fabrico.io/blog/iso-3691-4-driverless-industrial-trucks/)). How a follow-me mode is classified must be settled before any trial with people.
 
 ## Out of scope
@@ -88,9 +92,9 @@ So a retrofit kit only earns its place if it does something a cheap walkie does 
 
 ## Open questions
 
-- Legal route for a workplace retrofit under 1910.178(a)(4): partner with a jack maker, sell or document it for a specific donor model with written approval, or limit it to non-workplace and research use. Proposed, awaiting Amish.
+- Legal route for a workplace retrofit under 1910.178(a)(4): decided 2026-09-25 (PLP-DDR-001, D8): research use now, a jack maker's written approval before any workplace trial. Which jack maker to approach is open.
 - Classification of follow-me mode (ISO 3691-4 or not) and the safety functions it then needs.
-- Which donor jack models and steering yokes to support first.
+- Which donor jack models and steering yokes to support first. Proposed, awaiting Amish (PLP-DDR-001, O3).
 - Are small sites willing to wear a UWB tag and to train every operator as a powered truck operator?
 - Typical pallet mass and move distance per shift at real sites, to replace the assumed 60 moves of 40 m.
 
@@ -98,7 +102,7 @@ So a retrofit kit only earns its place if it does something a cheap walkie does 
 
 This design is for workplaces the author does not work in, so requirements come from the people who will use it.
 
-- [ ] Identify two or three small warehouses, backrooms or workshops willing to host interviews and observation
+- [ ] Identify partners: one small warehouse and one maker space, as decided on 2026-09-25 (PLP-DDR-001, D9); named partners are picked per area later
 - [ ] Observe a full shift: pallet masses, distances, floor condition, ramps, traffic and how often the operator walks back to the jack
 - [ ] Talk to a safety professional and a jack maker about training and modification approval
 - [ ] Revise requirements (REQ) from findings before freezing the design

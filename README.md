@@ -1,24 +1,26 @@
 # PalletPilot
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Mobility and Logistics · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $1,200 USD · **Difficulty:** 4 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** $1,550 USD · **Difficulty:** 4 of 5
 
-Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and bumper-based stopping.
+Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 
 ![PalletPilot concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement PLP-DWG-001 (PDF)](cad/drawings/PLP-DWG-001.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Problem
 
-Small warehouses move pallets by hand, and powered pallet trucks with follow-me modes cost more than they can justify. Starting a 1,000 kg pallet on a manual jack takes about 270 N (estimate), at or past common ergonomic push limits. Basic lithium walkies now cost about $1,640, but follow-me trucks are forklift-class products. Full problem statement: [docs/01-problem.md](docs/01-problem.md)
+Small warehouses move pallets by hand, and powered pallet trucks with follow-me modes cost more than they can justify. Starting a 1,000 kg pallet on a manual jack takes about 270 N (estimate, PLP-CAL-001), at or past common ergonomic push limits. Basic lithium walkies now cost about $1,640, but follow-me trucks are forklift-class products. Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 ## Concept
 
-Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and bumper-based stopping.
+Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 
-A sprung module with two 24 V hub motors clamps to the jack's steering yoke, with a 25.6 V 20 Ah LiFePO4 pack and the electronics in an enclosure above it. In walk mode the operator steers with the handle and a walkie-style tiller head. In follow mode the operator wears a UWB tag and the motors steer by differential drive to hold a 1.5 m gap. First-order estimates: a full shift of 60 pallet moves on one charge, about 37 kg added, about $1,425 in parts (over the $1,200 budget). The concept study found that a bumper alone cannot stop a loaded jack in time at follow-mode speed, so non-contact sensing is proposed (awaiting Amish). Requirements not met are listed in [docs/03-requirements.md](docs/03-requirements.md).
+A sprung module with two 24 V hub motors clamps to the jack's steering yoke, with a 25.6 V 20 Ah LiFePO4 pack and the electronics in a low enclosure under the handle's sweep. In walk mode the operator steers with the handle and a walkie-style tiller head. In follow mode the operator wears a UWB tag and the motors steer by differential drive to hold a 1.5 m gap. Stopping is layered: a 2D lidar watches a 0.86 m field ahead of the truck in follow mode, hardwired emergency stops act through a safety relay, and a contact bumper is the last layer.
+
+The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 29 % of the pack left and stops from 0.6 m/s in 0.42 to 0.76 m. Three targets are missed on paper: follow bearing accuracy (about ±16° against ±10°), kit mass (41.7 kg against 40 kg) and cost ($1,580 against $1,550). Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
@@ -29,7 +31,8 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - 25.6 V 20 Ah LiFePO4 pack with BMS
 - Tiller control head with throttle, belly-reverse paddle and mode key
 - Two hardwired emergency stops and a safety relay
-- Contact bumper (safety edge)
+- 2D lidar stop layer for follow mode
+- Contact bumper (safety edge) as the last layer
 - Three UWB anchors and an operator tag
 - ESP32-S3 class controller
 
@@ -37,7 +40,7 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 ## Safety
 
-> Moving machinery near people. The design must use hardwired emergency stops, a speed limit at walking pace and a bumper that stops the unit on contact. A bumper alone cannot stop a loaded jack before contact above about 0.2 m/s, so follow mode stays at creep speed in a closed area until non-contact sensing is fitted. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface. In the United States a powered pallet jack needs trained operators and the jack maker's approval for modifications (29 CFR 1910.178). Builds are research prototypes, not certified industrial trucks. See [docs/02-concept.md](docs/02-concept.md#safety).
+> Moving machinery near people. The design uses hardwired emergency stops, walking-pace speed limits, a lidar stop layer in follow mode and a bumper that stops the unit on contact. The lidar is not safety-rated, so follow mode stays at 0.2 m/s or less in a closed area until the layer is built and tested. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface. In the United States a powered pallet jack needs trained operators and the jack maker's written approval for modifications (29 CFR 1910.178). Builds are research prototypes, not certified industrial trucks. See [docs/02-concept.md](docs/02-concept.md#safety).
 
 ## Repository layout
 
@@ -46,7 +49,7 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 | `docs/` | Problem, concept, requirements, calculations and design decisions |
 | `cad/src/` | build123d Python source, the source of truth for all geometry |
 | `cad/step/`, `cad/stl/` | Exported models for FreeCAD, other CAD tools and printing |
-| `cad/drawings/` | 2D sketches and dimensioned drawings |
+| `cad/drawings/` | General arrangement PLP-DWG-001 (generated by `cad/src/sheets.py`) |
 | `bom/` | Bill of materials |
 | `electronics/` | KiCad schematics and PCB layouts |
 | `firmware/` | Microcontroller code |
