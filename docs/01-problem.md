@@ -3,9 +3,9 @@ doc_id: PLP-PRB-001
 title: PalletPilot problem statement
 project: PalletPilot
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record decisions PLP-DDR-001 (budget $1,550, layered stopping, research-use legal route, partner types); OSHA wording checked against the source
+- version: "0.4"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish ($1,610, PLP-DDR-002)
 ---
 
 # PalletPilot problem statement
@@ -64,7 +68,7 @@ So a retrofit kit only earns its place if it does something a cheap walkie does 
 
 ## Constraints
 
-- Garage-buildable prototype, $1,550 USD for the kit (budget raised from $1,200 by Amish on 2026-09-25, PLP-DDR-001). The donor manual jack is not included.
+- Garage-buildable prototype, $1,610 USD for the kit (budget raised from $1,200 to $1,550 by Amish on 2026-09-25, PLP-DDR-001, and to $1,610 on 2026-09-26 to cover the priced BOM, PLP-DDR-002). The donor manual jack is not included.
 - Bolt-on to a common 27 x 48 in manual jack with no welding, cutting or drilling of the jack's load-bearing structure, and removable to restore the jack.
 - Keep the jack's 75 mm lowered height, fork length and its ability to enter a standard pallet.
 - Walking pace only, with layered stopping as the pitch states: hardwired emergency stops, a non-contact lidar stop layer in follow mode, and a stop on bumper contact as the last layer.

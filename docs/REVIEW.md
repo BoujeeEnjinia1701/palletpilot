@@ -149,7 +149,7 @@ Amish wrote on 2026-09-25: "i accept all your recommendations, go with them acro
 | Item | Decision | Before | After |
 | --- | --- | --- | --- |
 | O4, bumper-only stopping (R8) | Option (a): bumper-only speed limit 0.15 m/s; follow mode also 0.15 m/s until the lidar layer is tested | Limit 0.2 m/s, 62 mm stop against 40 mm travel, R8 at risk; interim follow 0.2 m/s | Limit 0.15 m/s, 38 mm stop, R8 met on paper; interim follow 0.15 m/s |
-| O5, overruns and R5 | Accept the mass and cost overruns for now, recheck at a motor quote, no budget change; evaluate angle-of-arrival UWB and lidar leg tracking at TRL 4 (on hold) | Budget $1,550 | Budget $1,550 (unchanged); R5 evaluation on hold |
+| O5, overruns and R5 | Accept the mass and cost overruns for now, recheck at a motor quote, no budget change; evaluate angle-of-arrival UWB and lidar leg tracking at TRL 4 (on hold) | Budget $1,550 | Budget $1,550 (unchanged); R5 evaluation on hold. Cost overrun decided by Amish, 2026-09-26: budget set to $1,610 (PLP-DDR-002 v0.2) |
 | O6, stop chain (R9) | Add a second main contactor in series, one per safety relay channel | One contactor; BOM line 6 $45; BOM $1,580; kit 41.7 kg | Two contactors; line 6 $75; BOM $1,610 (3.9 % over); kit 42.0 kg |
 
 Files changed: `docs/04-calcs/sizing.py` and PLP-CAL-001 v0.2 (stop table, [S3], requirement table, mass, cost); PLP-REQ-001 v0.4 (R4, R8, R9 restated; status); PLP-PRC-001 v0.4 (components, key numbers, design choices, safety); PLP-DDR-001 v0.2 (O4 to O6 marked decided); new PLP-DDR-002 v0.1; `bom/bom.csv` line 6 and `bom/bom-notes.md`; `cad/src/model.py` (two contactors) with STEP and STL re-exported; `cad/src/sheets.py` and PLP-DWG-001 to Rev P2; `cad/src/concept_media.py` key figures and flow (pack 292 to 293 Wh) with all media regenerated; `README.md`; `project.yaml` (DDR-002 added as evidence; budget, pitch and problem unchanged). Small knock-on changes: push-force rise 3.9 % to 4.0 %, yoke load at 1,500 kg 6.80 to 6.81 kN.
@@ -194,3 +194,21 @@ TRL 4 remains on hold by Amish's instruction. No build, test, purchase, PCB or f
 
 Decide O2 and O3. Paper work that remains at TRL 3: a motor quote with brake data to recheck the mass and cost overruns, a PL estimate of the two-contactor stop chain, and a donor survey from published jack drawings.
 
+
+## Session 2026-09-26: sources strengthened
+
+Amish asked on 2026-09-26 to fix the weaker sources in the README. Changes (README only; no controlled document changed):
+
+- What sparked the idea: VentureBeat replaced by Piaggio Fast Forward's own press release of October 15, 2019 (GlobeNewswire), which gives the $3,250 price, the November 18, 2019 sale date, 6 mph and 40 lb. The wording now says "visual sensors", as the release does. The easyPILOT Follow mention now links Jungheinrich's press release. INSPIRATIONS.md line updated to the new source.
+- By country or region: Japan now cites the Statistics Bureau of Japan (29.3 % aged 65 or over, October 1, 2024). India and Brazil were rewritten to state their World Bank Logistics Performance Index 2023 scores (3.4 and 3.2), the only claim the source supports. Kenya and East Africa was replaced by South Africa (LPI 2023 score 3.7), because no Kenya figure could be verified in the LPI 2023 table.
+- United States: OSHA 1910.178 now carries a link to the standard.
+- Kept and rechecked: BLS warehousing rate (4.8, 2024), BLS private industry rate (2.3, 2024), EU-OSHA MSD figures.
+
+## Session 2026-09-26: budget approved
+
+On 2026-09-26 Amish wrote: "i approve all the budget items." The cost overrun accepted for now under O5 is decided: budget set to $1,610 to cover the priced BOM, recorded in PLP-DDR-002 v0.2.
+
+- `project.yaml`: `budget_usd` 1550 to 1610. The priced BOM is exactly $1,610 over 18 lines, so the figure covers it with no margin.
+- R17: **not met** ($60 over $1,550, accepted for now) to **met**. Requirement status is now 11 met, 2 not met (R5, R15 mass), 2 at risk and 3 not verifiable.
+- `docs/04-calcs/sizing.py` now checks against $1,610 and was rerun; PLP-CAL-001 v0.3, PLP-REQ-001 v0.5, PLP-PRC-001 v0.5, PLP-PRB-001 v0.4, `README.md` and `bom/bom-notes.md` quote the new figure. The concept blueprint quotes the kit cost only, so `media/` was not regenerated.
+- The motor quote remains the next paper check for the R15 mass overrun and for R17, which has no cost margin left. O1 to O3 are still awaiting Amish.

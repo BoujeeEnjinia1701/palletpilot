@@ -3,9 +3,9 @@ doc_id: PLP-PRC-001
 title: PalletPilot design precis
 project: PalletPilot
 doc_type: Design precis
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.5"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish ($1,610, PLP-DDR-002); cost status restated
 ---
 
 # PalletPilot design precis
 
-PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Three targets are missed on paper: follow bearing accuracy (about ±16° against ±10°), kit mass (42.0 kg against 40 kg) and cost ($1,610 against the approved $1,550); Amish has accepted the mass and cost overruns for now, to be rechecked at a motor quote (PLP-DDR-002). The lidar is not safety-rated, so the kit is a research prototype for a closed area.
+PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (42.0 kg against 40 kg); Amish has accepted the mass overrun for now, to be rechecked at a motor quote (PLP-DDR-002). The kit cost of $1,610 is within the $1,610 budget Amish approved on 2026-09-26. The lidar is not safety-rated, so the kit is a research prototype for a closed area.
 
 ![Hero render](../media/hero.png)
 
@@ -103,7 +107,7 @@ Table 2. Drive, stopping, tracking, energy, mass and cost.
 | Handle clearance over the enclosure | 40 mm at 70°, 14 mm lowered flat | R11 met |
 | Added length at floor level | 290 mm | R15 length met |
 | Kit mass | 42.0 kg | R15 mass not met (accepted for now) |
-| Kit parts cost | $1,610 | R17 ($1,550) not met by $60 (accepted for now) |
+| Kit parts cost | $1,610 | R17 ($1,610) met, no margin |
 | Donor jack (not in kit) | about $396 new | |
 
 Three findings shaped the TRL 3 layout. First, the TRL 2 enclosure sat above the handle pivot, so the handle would have struck it at about 51°, inside the walk band; the enclosure is now lower and the beacon and second emergency stop have moved. Second, 1.1 kN of preload left the 2 % ramp at risk, so it is now 1.5 kN; with the jack empty the steer wheels then lift slightly and the drive wheels carry the yoke, which is acceptable. Third, because the drive axle is offset from the steering axis, the motors cannot swing the yoke at standstill (98 N·m available against 135 N·m of scrub), so follow mode steers only while rolling, and hand steering at standstill is about 112 N heavier at the grip.
@@ -115,7 +119,7 @@ For comparison, a complete 1,500 kg lithium walkie costs about $1,640 ([Home Dep
 Amish decided the TRL 2 review items on 2026-09-25 (PLP-DDR-001), going with each recommendation.
 
 - **Layered stopping (D1).** A low-cost 2D lidar is the main stopping layer in follow mode, the bumper is the last layer, follow mode runs at 0.6 m/s or less, and trials are for research in a closed area. A safety-rated laser scanner is the named route to workplace use. The pitch now reads "layered stopping".
-- **Budget (D2).** $1,550 for the kit, donor jack excluded.
+- **Budget (D2).** $1,550 for the kit, donor jack excluded; raised to $1,610 by Amish on 2026-09-26 to cover the priced BOM (PLP-DDR-002).
 - **Drive layout (D3).** Two hub motors on a sprung module on the yoke, differential drive in follow mode.
 - **Power (D4).** 24 V LiFePO4, 20 Ah, not a SwapCell pack; the SwapCell interface changes approved for the portfolio do not apply.
 - **Mounting (D5).** Everything on the yoke, now checked for handle clearance (R11 met) and steering bearing load (no added vertical load; up to 750 N horizontal).
@@ -127,7 +131,7 @@ Amish decided the TRL 2 review items on 2026-09-25 (PLP-DDR-001), going with eac
 Amish decided the items raised at TRL 3 on 2026-09-25 (PLP-DDR-002), again going with each recommendation.
 
 - **Bumper-only speed (O4).** Any operation that relies on the bumper alone is limited to 0.15 m/s; the 40 mm edge is kept rather than a 65 mm edge that would push the added length past 300 mm.
-- **Overruns (O5).** The 2.0 kg mass and $60 cost overruns are accepted for now and rechecked when a motor is quoted; the budget stays $1,550. Closing the R5 bearing gap (angle-of-arrival UWB or lidar leg tracking) is to be evaluated at TRL 4, which is on hold.
+- **Overruns (O5).** The 2.0 kg mass and $60 cost overruns are accepted for now and rechecked when a motor is quoted. The cost overrun is closed by the $1,610 budget Amish approved on 2026-09-26. Closing the R5 bearing gap (angle-of-arrival UWB or lidar leg tracking) is to be evaluated at TRL 4, which is on hold.
 - **Stop chain (O6).** A second main contactor in series, one per safety relay channel, for about $30.
 
 Still open: follow-mode classification under ISO 3691-4, donor models to support first, and named partners.

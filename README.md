@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** $1,550 USD · **Difficulty:** 4 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** $1,610 USD · **Difficulty:** 4 of 5
 
 Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 
@@ -39,16 +39,16 @@ In the European Union, about three in five workers report musculoskeletal compla
 
 | Country or region | Why it matters there |
 | --- | --- |
-| United States | Warehousing injury rate about twice the private industry average ([BLS](https://www.bls.gov/iag/tgs/iag493.htm)); OSHA 1910.178 sets the training and modification-approval route |
+| United States | Warehousing injury rate about twice the private industry average ([BLS](https://www.bls.gov/iag/tgs/iag493.htm)); [OSHA 1910.178](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178) sets the training and modification-approval route |
 | European Union | About three in five workers report musculoskeletal complaints ([EU-OSHA](https://healthy-workplaces.osha.europa.eu/en/previous-campaigns/musculoskeletal-disorders-2020-22/what-issue)); many small distributors and workshops share manual jacks |
-| Japan | An ageing workforce in logistics makes reducing push force and walking a practical way to keep experienced staff working |
-| India | Manual jacks are common at small distributors; a low-cost, locally repairable retrofit avoids importing a complete powered truck |
-| Brazil | Small wholesalers and supermarkets that move pallets by hand and cannot justify a powered fleet |
-| Kenya and East Africa | Distributors and packhouses where powered trucks are scarce and a kit built from commodity parts can be maintained locally |
+| Japan | 29.3 % of the population was 65 or older on October 1, 2024 ([Statistics Bureau of Japan](https://www.stat.go.jp/english/data/jinsui/2024np/index.html)); cutting push force and walking helps older staff keep working |
+| India | Scored 3.4 of 5 in the World Bank's 2023 Logistics Performance Index ([World Bank, Connecting to Compete 2023](https://documents1.worldbank.org/curated/en/099042123145531599/pdf/P17146804a6a570ac0a4f80895e320dda1e.pdf)); small distributors that still move pallets by hand could gain a low-cost, locally repairable retrofit instead of importing a complete powered truck |
+| Brazil | Scored 3.2 of 5 in the 2023 Logistics Performance Index ([World Bank](https://documents1.worldbank.org/curated/en/099042123145531599/pdf/P17146804a6a570ac0a4f80895e320dda1e.pdf)); small wholesalers and supermarkets that move pallets by hand are the target users |
+| South Africa | Scored 3.7 of 5 in the 2023 Logistics Performance Index ([World Bank](https://documents1.worldbank.org/curated/en/099042123145531599/pdf/P17146804a6a570ac0a4f80895e320dda1e.pdf)); distributors and packhouses could fit a kit built from commodity parts and maintain it locally |
 
 ## What sparked the idea
 
-The starting point was Piaggio Fast Forward's gita, a personal cargo robot that went on sale on November 18, 2019 for $3,250. It pairs with its owner through on-board cameras and sensors and follows them at up to about 2.7 m/s (6 mph), carrying up to about 18 kg (40 lb) ([VentureBeat](https://venturebeat.com/business/gita-is-a-3250-personal-cargo-robot-that-follows-you-around)). At the other end of the scale, follow-me operation for pallets comes as an option on full order-picking trucks such as Jungheinrich's easyPILOT Follow. Nothing sat between them: a follow-me mode for a 1,000 kg pallet at a price a small site can pay. PalletPilot fills that gap by adding the follow-me mode, with layered stopping, to the manual jack the site already owns.
+The starting point was Piaggio Fast Forward's gita, a personal cargo robot that went on sale on November 18, 2019 for $3,250. At the push of a button it pairs with its leader and uses visual sensors to follow them at up to about 2.7 m/s (6 mph), carrying up to about 18 kg (40 lb) ([Piaggio Fast Forward press release, October 15, 2019](https://www.globenewswire.com/news-release/2019/10/15/1929794/0/en/Piaggio-Fast-Forward-Introduces-the-All-New-gita-Robot.html)). At the other end of the scale, follow-me operation for pallets comes as an option on full order-picking trucks: Jungheinrich's easyPILOT Follow lets its low-level order pickers follow an operator who wears a control unit ([Jungheinrich](https://www.jungheinrich.com/en/press-events/press-releases/easypilot-follow-faster-order-picking-with-the-new-semi-automatic-control-unit-158956)). Nothing sat between them: a follow-me mode for a 1,000 kg pallet at a price a small site can pay. PalletPilot fills that gap by adding the follow-me mode, with layered stopping, to the manual jack the site already owns.
 
 ## Problem
 
@@ -60,7 +60,7 @@ Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit wi
 
 A sprung module with two 24 V hub motors clamps to the jack's steering yoke, with a 25.6 V 20 Ah LiFePO4 pack and the electronics in a low enclosure under the handle's sweep. In walk mode the operator steers with the handle and a walkie-style tiller head. In follow mode the operator wears a UWB tag and the motors steer by differential drive to hold a 1.5 m gap. Stopping is layered: a 2D lidar watches a 0.86 m field ahead of the truck in follow mode, hardwired emergency stops act through a dual-channel safety relay and two contactors in series, and a contact bumper is the last layer.
 
-The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 29 % of the pack left and stops from 0.6 m/s in 0.42 to 0.76 m. Three targets are missed on paper: follow bearing accuracy (about ±16° against ±10°), kit mass (42.0 kg against 40 kg) and cost ($1,610 against $1,550); Amish has accepted the mass and cost overruns for now, to be rechecked at a motor quote. Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md) and [PLP-DDR-002](docs/decisions/0002-recommendations-accepted.md).
+The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 29 % of the pack left and stops from 0.6 m/s in 0.42 to 0.76 m. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (42.0 kg against 40 kg); Amish has accepted the mass overrun for now, to be rechecked at a motor quote. The kit cost of $1,610 matches the budget Amish approved to cover the priced BOM. Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md) and [PLP-DDR-002](docs/decisions/0002-recommendations-accepted.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
@@ -99,6 +99,12 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (PLP-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `PLP-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 

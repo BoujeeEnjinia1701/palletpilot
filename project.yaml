@@ -22,7 +22,7 @@ pitch: >-
   Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 problem: >-
   Small warehouses move pallets by hand, and powered pallet trucks with follow-me modes cost more than they can justify.
-budget_usd: 1550
+budget_usd: 1610
 difficulty: 4  # 1 easiest, 5 hardest
 hero_image: media/hero.png
 licenses:

@@ -3,9 +3,9 @@ doc_id: PLP-REQ-001
 title: PalletPilot requirements
 project: PalletPilot
 doc_type: Requirements
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.5"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish
 ---
 
 # PalletPilot requirements
 
-These requirements are checked by calculation in PLP-CAL-001. Ten of eighteen requirement lines are met on paper, three are not met (R5 bearing accuracy, R15 kit mass, R17 cost), two are at risk (R7, R9), and three cannot be verified at TRL 3 (R1, R6, R16). Targets are still to be validated with users after site visits (see PLP-PRB-001). Decisions recorded in PLP-DDR-001 on 2026-09-25 changed R2, R4, R7 and R17; decisions in PLP-DDR-002 on the same date restated R4 and R8 (bumper-only and untested follow mode at 0.15 m/s) and R9 (two contactors in series).
+These requirements are checked by calculation in PLP-CAL-001. Eleven of eighteen requirement lines are met on paper, two are not met (R5 bearing accuracy, R15 kit mass), two are at risk (R7, R9), and three cannot be verified at TRL 3 (R1, R6, R16). Targets are still to be validated with users after site visits (see PLP-PRB-001). Decisions recorded in PLP-DDR-001 on 2026-09-25 changed R2, R4, R7 and R17; decisions in PLP-DDR-002 on the same date restated R4 and R8 (bumper-only and untested follow mode at 0.15 m/s) and R9 (two contactors in series). On 2026-09-26 Amish approved the budget: R17's target is $1,610, which covers the priced BOM, so R17 is met (PLP-DDR-002).
 
 The **design load case** is a 1,000 kg pallet on a 64 kg donor jack with a kit of about 42.0 kg, about 1,106 kg in total, on a level, dry, sealed concrete floor.
 
@@ -55,13 +59,13 @@ Table 1. Requirements.
 | R14 | Push by hand when unpowered | One lever lifts the drive wheels clear in 10 s or less (brakes need no release once the wheels are clear); unpowered push force no more than 10 % above the bare jack | Design review; later push-force test | Met on paper: +4.0 % push force; lever effort about 117 N |
 | R15 | Keep the jack usable | Kit mass 40 kg or less; overall length increase 300 mm or less at floor level; lowered fork height and pallet entry unchanged | Mass estimate; model check | **Partly met**: 290 mm added length (met); 42.0 kg (**not met**, 2.0 kg over; accepted for now, PLP-DDR-002) |
 | R16 | Indoor environment | Operate at 0 to 40 °C; electronics and connectors IP54; no charging below 0 °C | Datasheets and design review | Not verifiable at TRL 3; set by the specification of bought parts |
-| R17 | Affordable | Kit parts cost $1,550 or less, donor jack excluded (budget decided, D2) | Priced BOM (`bom/bom.csv`) | **Not met**: $1,610, $60 (3.9 %) over; accepted for now with no budget change, PLP-DDR-002 |
+| R17 | Affordable | Kit parts cost $1,610 or less, donor jack excluded (budget decided, D2; approved at $1,610 by Amish, 2026-09-26, PLP-DDR-002) | Priced BOM (`bom/bom.csv`) | Met: $1,610, at the budget with no margin; motor price still to be rechecked at a quote |
 
 ## Requirements not met or at risk
 
 - **R5, follow bearing accuracy, is not met.** Filtering brings the error to about ±16°; ±10° would need a 706 mm anchor baseline, wider than the jack. Amish decided to evaluate angle-of-arrival modules and lidar leg tracking at TRL 4, which is on hold (PLP-DDR-002).
 - **R15 mass is not met** by 2.0 kg. The 30 N·m class hub motors weigh about 7 kg each; the second contactor adds 0.3 kg. Amish accepted the overrun for now, to be rechecked at the motor quote (PLP-DDR-002).
-- **R17, cost, is not met** by $60 (3.9 %): the motors' pricing uncertainty plus the $30 second contactor. Accepted for now with no budget change, to be rechecked at the motor quote (PLP-DDR-002).
+- **R17, cost, is met with no margin**: $1,610 against the $1,610 budget Amish approved on 2026-09-26 (it was $60 over the former $1,550). Any rise at the motor quote would take it over again (PLP-DDR-002).
 - **R7 is at risk.** The stopping distances fit the lidar field on paper, but the sensor is not safety-rated, so this cannot support an ISO 3691-4 claim.
 - **R9 is at risk** until the stop chain, now with two contactors in series, has a PL calculation.
 

@@ -3,9 +3,9 @@ doc_id: PLP-DDR-002
 title: PalletPilot recommendations accepted
 project: PalletPilot
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's acceptance of the TRL 3 review recommendations and what changed in the repo
+- version: "0.2"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: "Budget set to $1,610 to cover the priced BOM: decided by Amish, 2026-09-26; R17 met"
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted for items O4 to O6; items O1 to O3 remain proposed
+- **Status:** accepted for items O4 to O6, and for the budget on 2026-09-26; items O1 to O3 remain proposed
 
 ## Context
 
@@ -35,7 +39,7 @@ The options for each item are those in `docs/REVIEW.md` (TRL 3 session), PLP-DDR
 | # | Item | Decision | What changed in the repo |
 | --- | --- | --- | --- |
 | O4 | Bumper-only stopping (R8): (a) limit bumper-only speed to 0.15 m/s, or (b) an edge with 65 mm or more of travel | Decided by Amish, 2026-09-25: go with recommendation. Option (a): any operation that relies on the bumper alone is limited to 0.15 m/s. Because the lidar layer is untested, follow mode also runs at 0.15 m/s or less until that layer is built and tested (was 0.2 m/s) | R8 target restated from 0.2 to 0.15 m/s and now met on paper (38 mm stop within 40 mm of travel); R4 interim follow limit 0.2 to 0.15 m/s; PLP-CAL-001 stop table and [S3] line; safety sections in PLP-PRC-001 and README; note on PLP-DWG-001 |
-| O5 | Mass (1.7 kg) and cost ($30) overruns, and the R5 bearing gap | Decided by Amish, 2026-09-25: go with recommendation. Accept both overruns for now and recheck them at a motor quote, with no budget change. For R5, evaluate angle-of-arrival UWB and lidar leg tracking at TRL 4; decided but on hold, since TRL 4 is on hold | `budget_usd` stays at 1550. R15 mass and R17 are still reported as not met, marked "accepted for now". No R5 design change |
+| O5 | Mass (1.7 kg) and cost ($30) overruns, and the R5 bearing gap | Decided by Amish, 2026-09-25: go with recommendation. Accept both overruns for now and recheck them at a motor quote, with no budget change. For R5, evaluate angle-of-arrival UWB and lidar leg tracking at TRL 4; decided but on hold, since TRL 4 is on hold | `budget_usd` stays at 1550. R15 mass and R17 are still reported as not met, marked "accepted for now". No R5 design change. The cost part is superseded by the 2026-09-26 budget decision below |
 | O6 | Stop chain for PL d (R9): a second contactor or a driver with rated safe torque off | Decided by Amish, 2026-09-25: go with recommendation. Add a second main contactor in series, one per safety relay channel | BOM line 6 from $45 to $75; model part 6 now shows two contactors; kit mass 41.7 to 42.0 kg; BOM total $1,580 to $1,610; R9 target text restated; PLP-DWG-001 to Rev P2; PLP-CAL-001 to v0.2. R9 stays at risk until the PL is calculated |
 
 *Table 2. Items still open.*
@@ -45,6 +49,10 @@ The options for each item are those in `docs/REVIEW.md` (TRL 3 session), PLP-DDR
 | O1 | Named site and co-design partners (partner types were decided in PLP-DDR-001 D9) | Proposed, awaiting Amish; partners are picked per area later |
 | O2 | Classification of follow mode under ISO 3691-4 and the safety functions it then needs | Proposed, awaiting Amish; no recommendation made |
 | O3 | Which donor jack models and steering yokes to support first | Proposed, awaiting Amish; no recommendation made |
+
+### Budget, 2026-09-26
+
+On 2026-09-26 Amish wrote: "i approve all the budget items." Budget set to $1,610 to cover the priced BOM: decided by Amish, 2026-09-26. The priced BOM is $1,610 over 18 lines (`bom/bom.csv`), so `budget_usd` in `project.yaml` moves from 1550 to 1610 and R17 moves from not met (accepted for now) to met, with no margin. The motor quote is still the next paper check, since any rise in the motor price would take R17 over again. `docs/04-calcs/sizing.py` now checks against $1,610 and was rerun; PLP-CAL-001 v0.3, PLP-REQ-001 v0.5, PLP-PRC-001 v0.5, PLP-PRB-001 v0.4, `README.md` and `bom/bom-notes.md` were updated. The concept blueprint quotes the kit cost, not the budget, so `media/` was not regenerated. Requirement status is now 11 met, 2 not met (R5, R15 mass), 2 at risk and 3 not verifiable.
 
 ## Consequences
 

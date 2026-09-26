@@ -218,7 +218,8 @@ out("G4", f"release lever effort {A['preload']*throw/(lever*eff):.0f} N (cam thr
 with open(ROOT / "bom" / "bom.csv") as f:
     bom = list(csv.DictReader(f))
 total = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in bom)
-out("K1", f"BOM total ${total:,.0f} over {len(bom)} lines against budget $1,550 ({(total/1550-1)*100:+.1f} %)")
+BUDGET = 1610  # budget_usd in project.yaml, approved by Amish 2026-09-26 (PLP-DDR-002)
+out("K1", f"BOM total ${total:,.0f} over {len(bom)} lines against budget ${BUDGET:,} ({(total/BUDGET-1)*100:+.1f} %)")
 
 # ------------------------------------------------------------------ R. requirement table
 status = [
@@ -240,7 +241,7 @@ status = [
     ("R15a", "Kit mass 40 kg or less", f"{kit:.1f} kg", "Not met" if kit > 40 else "Met"),
     ("R15b", "Added length 300 mm or less", f"{D['added_length']:.0f} mm", "Met" if D["added_length"] <= 300 else "Not met"),
     ("R16", "0 to 40 degC, IP54, no charge below 0 degC", "By specification of bought parts", "Not verifiable at TRL 3"),
-    ("R17", "Kit parts $1,550 or less", f"${total:,.0f}", "Met" if total <= 1550 else "Not met"),
+    ("R17", f"Kit parts ${BUDGET:,} or less", f"${total:,.0f}", "Met" if total <= BUDGET else "Not met"),
 ]
 print()
 for r in status:

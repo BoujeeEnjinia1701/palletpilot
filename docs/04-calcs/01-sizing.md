@@ -3,9 +3,9 @@ doc_id: PLP-CAL-001
 title: PalletPilot sizing calculations
 project: PalletPilot
 doc_type: Calculation
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-09-26'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,11 +17,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.3"
+  date: '2026-09-26'
+  author: Amish Chadha
+  change: Budget approved by Amish ($1,550 to $1,610, PLP-DDR-002); script rerun; R17 not met to met
 ---
 
 # PalletPilot sizing calculations
 
-On paper, PalletPilot meets ten of its eighteen requirement lines, misses three, has two at risk, and three cannot be verified at TRL 3. The drive, ramp, bumper, energy, charging, parking, handle clearance, length and hand-push targets are met. The misses are follow-mode bearing accuracy (R5, about ±16° against ±10°), kit mass (R15, 42.0 kg against 40 kg) and cost (R17, $1,610 against the approved $1,550). Version 0.2 applies Amish's 2026-09-25 decisions in PLP-DDR-002: the bumper-only speed is limited to 0.15 m/s (R8 now met), a second main contactor is added to the stop chain (+$30, +0.3 kg), and the mass and cost overruns are accepted for now with no budget change. The approved lidar layer stops the loaded truck from 0.6 m/s in 0.42 to 0.76 m, inside a 0.86 m protective field that stays clear of the operator it follows. That is the core of the layered-stopping case, but the sensor is not safety-rated, so R7 stays at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [F3], is the line of the script's output that carries it.
+On paper, PalletPilot meets eleven of its eighteen requirement lines, misses two, has two at risk, and three cannot be verified at TRL 3. The drive, ramp, bumper, energy, charging, parking, handle clearance, length and hand-push targets are met. The misses are follow-mode bearing accuracy (R5, about ±16° against ±10°) and kit mass (R15, 42.0 kg against 40 kg). Cost (R17) is met with no margin: $1,610 against the $1,610 budget Amish approved on 2026-09-26 (it was $1,550 in v0.2). Version 0.2 applies Amish's 2026-09-25 decisions in PLP-DDR-002: the bumper-only speed is limited to 0.15 m/s (R8 now met), a second main contactor is added to the stop chain (+$30, +0.3 kg), and the mass and cost overruns are accepted for now with no budget change. Version 0.3 applies only the budget change to $1,610 (PLP-DDR-002); no design number changed. The approved lidar layer stops the loaded truck from 0.6 m/s in 0.42 to 0.76 m, inside a 0.86 m protective field that stays clear of the operator it follows. That is the core of the layered-stopping case, but the sensor is not safety-rated, so R7 stays at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [F3], is the line of the script's output that carries it.
 
 > **Safety:** These are first-principles estimates for a paper proof of concept of moving machinery that carries up to 1.6 t near people's feet, with a 512 Wh lithium pack. They do not replace brake, stop-chain, detection or electrical tests, and they give no basis for ISO 3691-4 or ISO 13849-1 claims. Nothing may be built or run on the strength of this note. See PLP-PRC-001, Safety.
 
@@ -128,7 +132,7 @@ The release lever (400 mm, over-center cam with a 25 mm throw) needs about 117 N
 
 ## Cost
 
-The 18 BOM lines total $1,610, $60 (3.9 %) over the approved $1,550 [K1]. The overrun comes from the stronger hub motors ($200 each against $170 at TRL 2) and the second main contactor ($30); the lidar and its bracket add $80. Amish decided on 2026-09-25 to accept the mass and cost overruns for now and recheck them when a motor is quoted, with no budget change (PLP-DDR-002, O5). The motor price is the least certain line, but on the numbers **R17 is not met**.
+The 18 BOM lines total $1,610, exactly the $1,610 budget Amish approved on 2026-09-26 [K1]; against the former $1,550 they were $60 (3.9 %) over. The overrun comes from the stronger hub motors ($200 each against $170 at TRL 2) and the second main contactor ($30); the lidar and its bracket add $80. Amish decided on 2026-09-25 to accept the mass and cost overruns for now and recheck them when a motor is quoted (PLP-DDR-002, O5), and on 2026-09-26 set the budget to $1,610 to cover the priced BOM. On the numbers **R17 is met**, with no margin; the motor price is the least certain line.
 
 ## Results against requirements
 
@@ -153,9 +157,9 @@ The 18 BOM lines total $1,610, $60 (3.9 %) over the approved $1,550 [K1]. The ov
 | R15a | Kit mass 40 kg or less | 42.0 kg | **Not met** |
 | R15b | Added length 300 mm or less | 290 mm | Met |
 | R16 | 0 to 40 °C, IP54, no charging below 0 °C | By specification of bought parts | Not verifiable at TRL 3 |
-| R17 | Kit parts $1,550 or less | $1,610 | **Not met** |
+| R17 | Kit parts $1,610 or less | $1,610 | Met (no margin; not met against $1,550 in v0.2) |
 
-Totals: 10 met, 3 not met, 2 at risk, 3 not verifiable at TRL 3 [R0].
+Totals: 11 met, 2 not met, 2 at risk, 3 not verifiable at TRL 3 [R0] (v0.2: 10 met, 3 not met).
 
 ## Checks against earlier figures
 
