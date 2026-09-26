@@ -37,7 +37,9 @@ Requirements not met or at risk: R7 (non-contact stop in follow mode), R5 (beari
 
 Market context found: a complete 1,500 kg lithium walkie now costs about $1,640 and the PowerPallet 2000 retrofit about $2,084. A walk-only kit plus a new donor jack costs about the same as a new walkie, so PalletPilot's case rests on follow mode and on reusing existing jacks.
 
-### Proposed, awaiting Amish
+### Proposed, awaiting Amish (now decided)
+
+All nine items below: Decided by Amish, 2026-09-25: go with recommendation (PLP-DDR-001, D1 to D9).
 
 1. **Follow-mode stopping and the pitch.** Options: (A) add a low-cost lidar or time-of-flight sensor as the main stopping layer, bumper as last resort, follow mode 0.6 m/s, research use in a closed area; (B) safety-rated laser scanner (over $1,000 on its own); (C) bumper only with follow mode at 0.2 m/s; (D) drop follow mode. Recommendation: A for the prototype, with B named as the route to workplace use. This would change "bumper-based stopping" in the pitch to "layered stopping"; `project.yaml` is unchanged until you decide.
 2. **Budget.** Options: (a) raise `budget_usd` from $1,200 to about $1,450 (about $1,550 with option 1A); (b) keep $1,200 and cut to the walk-only variant (about $1,075); (c) keep $1,200 and cut elsewhere (for example a single hub motor plus a steering actuator, cheaper bumper). Recommendation: (a), since follow mode is the reason to build the kit. `project.yaml` is unchanged at $1,200.
@@ -107,14 +109,14 @@ Other findings: the motors cannot swing the yoke at standstill (98 N·m availabl
 
 Decided by Amish, 2026-09-25, going with the recommendation: D1 layered stopping with a low-cost lidar layer, bumper last, follow 0.6 m/s, research use in a closed area, safety-rated scanner named for workplace use, pitch "layered stopping"; D2 budget $1,550; D3 dual hub motors on a sprung yoke module; D4 24 V LiFePO4 20 Ah, not SwapCell; D5 everything on the yoke; D6 speeds 1.2, 0.8, 0.3 and 0.6 m/s (follow 0.2 m/s until the lidar layer is tested); D7 1,000 kg design load, 1,500 kg at 0.8 m/s or less; D8 research use now and a jack maker's written approval before any workplace trial; D9 partner types, one small warehouse and one maker space. `budget_usd` is now 1550 and the pitch is reworded in `project.yaml` and `README.md`; the problem line is unchanged (no rewording was recommended). The SwapCell interface decisions do not apply, since PalletPilot has its own pack.
 
-### Proposed, awaiting Amish
+### Proposed, awaiting Amish (items 4 to 6 now decided)
 
 1. Named site and co-design partners (O1); partners are picked per area later.
 2. Follow-mode classification under ISO 3691-4 (O2). No recommendation.
 3. Donor models to support first (O3). No recommendation.
-4. Bumper-only stopping (O4, R8): (a) limit bumper-only speed to 0.15 m/s, or (b) an edge with 65 mm or more of travel (adds about 25 mm of length, to about 315 mm, over the 300 mm in R15). Recommendation: (a), since the lidar is the primary layer in follow mode.
-5. Overruns (O5): cost $30 over and mass 1.7 kg over. Options: accept both as within estimate uncertainty and recheck when a motor is quoted; choose a lighter motor with published torque; or raise the budget to $1,600. Recommendation: accept for now and recheck at the motor quote, with no budget change. R5: angle-of-arrival UWB or lidar leg tracking; recommendation: evaluate both at TRL 4, when allowed.
-6. Stop chain (O6, R9): add a second contactor or a driver with rated safe torque off (about $30). Recommendation: add the second contactor, which would push cost to about $1,610.
+4. Bumper-only stopping (O4, R8): (a) limit bumper-only speed to 0.15 m/s, or (b) an edge with 65 mm or more of travel (adds about 25 mm of length, to about 315 mm, over the 300 mm in R15). Recommendation: (a), since the lidar is the primary layer in follow mode. **Decided by Amish, 2026-09-25: go with recommendation** (PLP-DDR-002).
+5. Overruns (O5): cost $30 over and mass 1.7 kg over. Options: accept both as within estimate uncertainty and recheck when a motor is quoted; choose a lighter motor with published torque; or raise the budget to $1,600. Recommendation: accept for now and recheck at the motor quote, with no budget change. R5: angle-of-arrival UWB or lidar leg tracking; recommendation: evaluate both at TRL 4, when allowed. **Decided by Amish, 2026-09-25: go with recommendation** (PLP-DDR-002; the R5 evaluation is on hold with TRL 4).
+6. Stop chain (O6, R9): add a second contactor or a driver with rated safe torque off (about $30). Recommendation: add the second contactor, which would push cost to about $1,610. **Decided by Amish, 2026-09-25: go with recommendation** (PLP-DDR-002).
 
 ### Safety concerns
 
@@ -137,3 +139,58 @@ The 1910.178(a)(4) and (l)(1)(i) wording was checked against the OSHA page in th
 ### Recommended next step
 
 TRL 4 is on hold by Amish's instruction. Next, decide items 4 to 6 above, then run a paper follow-up at TRL 3: a donor survey from published jack drawings (yoke geometry, pivot height), a motor quote with brake data, and a PL estimate of the stop chain. For reference only, TRL 4 would need: a bench build of the drive module on one donor jack, measured rolling resistance, friction and stopping distances, lidar detection tests with dark clothing and a test piece, UWB bearing trials, a stop-chain test, a TST report with `environment: lab`, and build log entries.
+
+## Session 2026-09-25: recommendations accepted
+
+Amish wrote on 2026-09-25: "i accept all your recommendations, go with them across all repos." Every open item with a recommendation is now decided in favor of it and recorded in `docs/decisions/0002-recommendations-accepted.md` (PLP-DDR-002). Items without a recommendation stay open. TRL stays at 3.
+
+### Decisions applied and what changed
+
+| Item | Decision | Before | After |
+| --- | --- | --- | --- |
+| O4, bumper-only stopping (R8) | Option (a): bumper-only speed limit 0.15 m/s; follow mode also 0.15 m/s until the lidar layer is tested | Limit 0.2 m/s, 62 mm stop against 40 mm travel, R8 at risk; interim follow 0.2 m/s | Limit 0.15 m/s, 38 mm stop, R8 met on paper; interim follow 0.15 m/s |
+| O5, overruns and R5 | Accept the mass and cost overruns for now, recheck at a motor quote, no budget change; evaluate angle-of-arrival UWB and lidar leg tracking at TRL 4 (on hold) | Budget $1,550 | Budget $1,550 (unchanged); R5 evaluation on hold |
+| O6, stop chain (R9) | Add a second main contactor in series, one per safety relay channel | One contactor; BOM line 6 $45; BOM $1,580; kit 41.7 kg | Two contactors; line 6 $75; BOM $1,610 (3.9 % over); kit 42.0 kg |
+
+Files changed: `docs/04-calcs/sizing.py` and PLP-CAL-001 v0.2 (stop table, [S3], requirement table, mass, cost); PLP-REQ-001 v0.4 (R4, R8, R9 restated; status); PLP-PRC-001 v0.4 (components, key numbers, design choices, safety); PLP-DDR-001 v0.2 (O4 to O6 marked decided); new PLP-DDR-002 v0.1; `bom/bom.csv` line 6 and `bom/bom-notes.md`; `cad/src/model.py` (two contactors) with STEP and STL re-exported; `cad/src/sheets.py` and PLP-DWG-001 to Rev P2; `cad/src/concept_media.py` key figures and flow (pack 292 to 293 Wh) with all media regenerated; `README.md`; `project.yaml` (DDR-002 added as evidence; budget, pitch and problem unchanged). Small knock-on changes: push-force rise 3.9 % to 4.0 %, yoke load at 1,500 kg 6.80 to 6.81 kN.
+
+The README gained the sections Concept rationale, Burning platform, Where it could be used and What sparked the idea. All docs PDFs, the drawing and the media were regenerated with the designmolecule.com footer.
+
+### Requirement status (PLP-CAL-001 v0.2)
+
+10 met, 3 not met, 2 at risk, 3 not verifiable at TRL 3 (was 9, 3, 3, 3).
+
+| ID | Status | Value against target |
+| --- | --- | --- |
+| R5 | **Not met** | Bearing ±16° (2σ) against ±10°; fixes evaluated at TRL 4, on hold |
+| R15 mass | **Not met** | 42.0 kg against 40 kg; accepted for now |
+| R17 | **Not met** | $1,610 against $1,550 ($60, 3.9 %); accepted for now |
+| R7 | At risk | Lidar stop 0.42 to 0.76 m inside a 0.86 m field; sensor not safety-rated |
+| R9 | At risk | Two contactors in series; PL not calculated |
+| R1, R6, R16 | Not verifiable at TRL 3 | Donor survey, firmware, bought-part specifications |
+| R2, R3, R4, R8, R10, R11, R12, R13, R14, R15 length | Met | R8 now met: 0.15 m/s stops in 38 mm of 40 mm travel |
+
+### Still awaiting Amish
+
+- O1: named site and co-design partners (picked per area later).
+- O2: classification of follow mode under ISO 3691-4. No recommendation.
+- O3: donor jack models to support first. No recommendation.
+
+### Cross-repo actions
+
+None. PalletPilot has its own 24 V pack and no interface with another repo.
+
+### Safety
+
+- R8 now rests on a speed limit, so the 0.15 m/s cap in bumper-only operation and in untested follow mode must be enforced by the controller and checked in any later firmware review.
+- The two-contactor chain still needs a PL calculation before any claim toward PL d.
+- The other safety concerns in the TRL 3 session stand.
+
+### TRL 4
+
+TRL 4 remains on hold by Amish's instruction. No build, test, purchase, PCB or firmware work was done.
+
+### Recommended next step
+
+Decide O2 and O3. Paper work that remains at TRL 3: a motor quote with brake data to recheck the mass and cost overruns, a PL estimate of the two-contactor stop chain, and a donor survey from published jack drawings.
+

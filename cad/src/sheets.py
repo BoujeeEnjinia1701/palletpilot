@@ -1,4 +1,4 @@
-"""PalletPilot general arrangement sheet PLP-DWG-001, Rev P1 (TRL 3).
+"""PalletPilot general arrangement sheet PLP-DWG-001, Rev P2 (TRL 3).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/PLP-DWG-001.svg, .pdf and .png from the parametric model in
@@ -60,10 +60,11 @@ def main():
     asm = build(with_donor=True)
     views = project_views(asm, work / "asm")
     bb = asm.bounding_box()
-    s = Sheet(project="PalletPilot", title="General arrangement", dwg_no="PLP-DWG-001", rev="P1",
+    s = Sheet(project="PalletPilot", title="General arrangement", dwg_no="PLP-DWG-001", rev="P2",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Kit on a 27 x 48 in donor jack (grey, reference); parts per bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
-              revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC")])
+              revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
+                         ("P2", "Second contactor; bumper-only 0.15 m/s; mass note (PLP-DDR-002)", DATE, "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
@@ -114,10 +115,11 @@ def main():
         f"Preload 1.5 kN on the drive wheels (springs on the subframe)",
         f"Enclosure {P['enc_x1']-P['enc_x0']:.0f} x {2*P['enc_half_w']:.0f} x {P['enc_top']-P['enc_z0']:.0f}; top {P['enc_top']:.0f} under pivot {P['pivot_z']:.0f}",
         f"Handle clears enclosure: 40 at 70 deg, {D['handle_clear_90']:.0f} horizontal",
-        f"Bumper face {D['added_length']:.0f} behind steer wheels; edge travel {P['edge_travel']:.0f}",
+        f"Bumper face {D['added_length']:.0f} behind steer wheels; edge travel {P['edge_travel']:.0f}; bumper-only 0.15 m/s max",
         "Lidar protective field 0.86 m ahead of the bumper (PLP-CAL-001)",
         f"UWB anchors {D['anchor_baseline']:.0f} apart at the bumper corners",
-        "Kit about 41.7 kg (PLP-CAL-001); donor is reference only",
+        "Two contactors in series in the enclosure (stop chain)",
+        "Kit about 42.0 kg (PLP-CAL-001); donor is reference only",
     ], x=276, y=150, width=146)
     out = s.save(ROOT / "cad" / "drawings" / "PLP-DWG-001")
     txt = out.read_text()

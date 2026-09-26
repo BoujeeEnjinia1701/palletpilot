@@ -3,7 +3,7 @@ doc_id: PLP-DDR-001
 title: PalletPilot TRL 2 review decisions
 project: PalletPilot
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's decisions on the TRL 2 review items and the items that remain open
+- version: "0.2"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted for items D1 to D9; items O1 to O6 remain proposed
+- **Status:** accepted for items D1 to D9; items O4 to O6 decided on 2026-09-25 in PLP-DDR-002; items O1 to O3 remain proposed
 
 ## Context
 
@@ -46,16 +50,16 @@ The options for each item are those in `docs/REVIEW.md` (TRL 2 session) and in P
 | D8 | Legal route for workplace use | Document the kit for research use now, and approach a jack maker for written approval under 29 CFR 1910.178(a)(4) before any workplace trial. Decided by Amish, 2026-09-25: go with recommendation. |
 | D9 | First site partner types | One small warehouse and one maker space. Decided by Amish, 2026-09-25: go with recommendation. The named partners remain open (O1). |
 
-*Table 2. Items that remain open (no recommendation was made, or raised at TRL 3).*
+*Table 2. Items left open at v0.1 (no recommendation was made, or raised at TRL 3). O4 to O6 are now decided in PLP-DDR-002.*
 
 | # | Item | Status |
 | --- | --- | --- |
 | O1 | Named site and co-design partners | Proposed, awaiting Amish; partners are picked per area later |
 | O2 | Classification of follow mode under ISO 3691-4 and the safety functions it then needs | Proposed, awaiting Amish; no recommendation made |
 | O3 | Which donor jack models and steering yokes to support first | Proposed, awaiting Amish; no recommendation made |
-| O4 | Bumper-only speed or bumper travel (R8): 0.15 m/s limit or an edge with 65 mm or more of travel | Proposed, awaiting Amish (raised by PLP-CAL-001) |
-| O5 | Closing the mass (1.7 kg) and cost ($30) overruns, and the R5 bearing gap | Proposed, awaiting Amish (raised by PLP-CAL-001) |
-| O6 | A second contactor or rated safe torque off for PL d (R9) | Proposed, awaiting Amish (raised by PLP-CAL-001) |
+| O4 | Bumper-only speed or bumper travel (R8): 0.15 m/s limit or an edge with 65 mm or more of travel | Decided by Amish, 2026-09-25: go with recommendation (0.15 m/s limit); see PLP-DDR-002 |
+| O5 | Closing the mass (1.7 kg) and cost ($30) overruns, and the R5 bearing gap | Decided by Amish, 2026-09-25: go with recommendation (accept for now, recheck at the motor quote, no budget change; R5 fixes evaluated at TRL 4, on hold); see PLP-DDR-002 |
+| O6 | A second contactor or rated safe torque off for PL d (R9) | Decided by Amish, 2026-09-25: go with recommendation (second contactor); see PLP-DDR-002 |
 
 ## Consequences
 

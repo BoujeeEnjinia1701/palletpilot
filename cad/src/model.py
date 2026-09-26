@@ -156,14 +156,15 @@ def build_parts(P=PARAMS):
     out["enclosure"] = ("Battery and electronics enclosure", shell, "#0F766E", 3, (620, 0, 260))
     out["lid"] = ("Enclosure lid", box(ex0, ex1, -ey, ey, etop - lid_t, etop), "#115E59", None, (620, 0, 980))
 
-    # 4 pack, 5 driver, 6 contactor, 7 controller (inside the enclosure)
+    # 4 pack, 5 driver, 6 contactors, 7 controller (inside the enclosure)
     z0 = ez0 + et
     out["pack"] = ("LiFePO4 pack 25.6 V 20 Ah with BMS",
                    box(ex0 + 8, ex0 + 8 + P["pack_w"], -P["pack_l"] / 2, P["pack_l"] / 2, z0, z0 + P["pack_h"]),
                    "#D4A017", 4, (620, 0, 460))
     out["driver"] = ("Dual-channel motor driver", box(325, ex1 - 8, -135, 10, z0, z0 + 45), "#B45309", 5, (760, 0, 580))
-    out["contactor"] = ("Contactor, fuse and disconnect",
-                        box(335, 400, 40, 130, z0, z0 + 65)
+    # two main contactors in series, one per safety relay channel (PLP-DDR-002, O6)
+    out["contactor"] = ("Contactors (2), fuse and disconnect",
+                        box(335, 400, 40, 82, z0, z0 + 65) + box(335, 400, 88, 130, z0, z0 + 65)
                         + Pos(365, ey + 15, 270) * Rot(90, 0, 0) * Cylinder(20, 30), "#991B1B", 6, (760, 0, 720))
     out["controller"] = ("Controller and safety relay",
                          box(325, ex1 - 8, -135, 10, z0 + 50, z0 + 65) + box(410, ex1 - 8, 40, 130, z0, z0 + 60),

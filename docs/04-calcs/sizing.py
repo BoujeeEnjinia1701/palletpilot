@@ -36,7 +36,7 @@ A = dict(
     t_rated=12.0,              # N m per motor, specified minimum continuous torque
     t_brake=20.0,              # N m per motor, specified minimum spring-brake dynamic torque
     a_level=0.30, a_ramp=0.10, a_heavy=0.20,   # m/s2 acceleration settings
-    v_walk=1.2, v_forks=0.8, v_creep=0.3, v_follow=0.6, v_bumper=0.2,
+    v_walk=1.2, v_forks=0.8, v_creep=0.3, v_follow=0.6, v_bumper=0.15,   # bumper-only limit decided 2026-09-25 (PLP-DDR-002, O4); was 0.2
     eff_drive=0.70, p_ctrl=9.2, shift_h=8.0, soc_use=0.80, eff_cell=0.95, eff_chg=0.88,
     pack_v=25.6, pack_ah=20.0, chg_a=5.0, cv_h=0.5,
     moves=60, dist=40.0, starts=4,
@@ -59,7 +59,7 @@ hoop_len = 2 * (D["bumper_face_x"] - P["edge_depth"] - P["bumper_x0"]) / 1e3 + 2
 bumper = hoop_len * 1.76 + 1.3 * 0.6 + 0.8                  # 40 x 20 x 2 tube, edge profile, mounts
 masses = {
     "1 Subframe and springs": subframe, "2 Hub motors (2 x 7.0 kg)": 14.0, "3 Enclosure (aluminium)": enclosure,
-    "4 Pack with BMS": pack, "5 Motor driver": 1.0, "6 Contactor, fuse, disconnect": 0.8,
+    "4 Pack with BMS": pack, "5 Motor driver": 1.0, "6 Contactors (2), fuse, disconnect": 1.1,
     "7 Controller and safety relay": 0.4, "8 Tiller head": 1.5, "9 Emergency stops": 0.2, "10 Bumper": bumper,
     "11 UWB anchors": 0.15, "12 Beacon": 0.2, "13 Release lever": 0.8, "16 Handle sensor and gas spring": 0.5,
     "17 Wiring and hardware": 2.0, "18 Lidar and bracket": 0.5,
@@ -141,7 +141,8 @@ stops = [
     ("follow 0.6 m/s, lidar stop, 1,500 kg, 2 % downgrade", A["v_follow"], m_heavy, f_ctrl, A["td_lidar"], A["grade"]),
     ("follow 0.6 m/s, bumper only, level", A["v_follow"], m, f_ebrk, A["td_bumper"], 0),
     ("creep 0.3 m/s, bumper only, level", A["v_creep"], m, f_ebrk, A["td_bumper"], 0),
-    ("0.2 m/s, bumper only, level", A["v_bumper"], m, f_ebrk, A["td_bumper"], 0),
+    ("0.15 m/s bumper-only limit, level", A["v_bumper"], m, f_ebrk, A["td_bumper"], 0),
+    ("0.2 m/s, bumper only, level (TRL 3 v0.1 limit)", 0.2, m, f_ebrk, A["td_bumper"], 0),
 ]
 res = {}
 for name, v, mass, f, td, gr in stops:
@@ -153,8 +154,9 @@ a_e = (f_ebrk + m * G * A["crr"]) / m
 tr = P["edge_travel"] / 1000
 v_b = (-A["td_bumper"] + math.sqrt(A["td_bumper"] ** 2 + 2 * tr / a_e)) * a_e
 out("S3", f"bumper-only speed that stops within {P['edge_travel']:.0f} mm travel: {v_b:.2f} m/s; "
-          f"at 0.2 m/s the edge would need {res['0.2 m/s, bumper only, level']*1000:.0f} mm")
-need_travel_02 = res["0.2 m/s, bumper only, level"] * 1000
+          f"at the 0.15 m/s limit the truck travels {res['0.15 m/s bumper-only limit, level']*1000:.0f} mm; "
+          f"at the former 0.2 m/s it would need {res['0.2 m/s, bumper only, level (TRL 3 v0.1 limit)']*1000:.0f} mm")
+need_travel_lim = res["0.15 m/s bumper-only limit, level"] * 1000
 field = max(res[k] for k in res if "lidar" in k) + A["field_margin"]
 limit = A["gap"] - A["gap_tol"] - A["tag_to_legs"]
 out("S4", f"lidar protective field length {field:.2f} m ahead of the bumper face (worst lidar stop plus {A['field_margin']} m); "
@@ -228,8 +230,8 @@ status = [
     ("R5", "Gap +/-0.3 m, bearing +/-10 deg", f"gap +/-{2*A['sigma_r']/math.sqrt(n):.2f} m; bearing +/-{2*s_tot:.0f} deg (2 sigma)", "Not met"),
     ("R6", "Stop within 0.3 s of tag loss", f"timing budget {A['td_tag']:.2f} s; firmware not written", "Not verifiable at TRL 3"),
     ("R7", "Stop without contact from 0.6 m/s (lidar layer)", f"stop {max(res[k] for k in res if 'lidar' in k):.2f} m inside a {field:.2f} m field; sensor not safety-rated", "At risk"),
-    ("R8", "Bumper stop in 100 ms; bumper-only 0.2 m/s or less", f"0.10 s chain; 0.2 m/s needs {need_travel_02:.0f} mm travel vs {P['edge_travel']:.0f} mm; {v_b:.2f} m/s fits", "At risk"),
-    ("R9", "Hardwired stops, PL d", "Dual-channel relay, one contactor; PL not calculated", "At risk"),
+    ("R8", "Bumper stop in 100 ms; bumper-only 0.15 m/s or less", f"0.10 s chain; 0.15 m/s stops in {need_travel_lim:.0f} mm of {P['edge_travel']:.0f} mm travel", "Met" if need_travel_lim <= P["edge_travel"] else "Not met"),
+    ("R9", "Hardwired stops, PL d", "Dual-channel relay, two contactors in series; PL not calculated", "At risk"),
     ("R10", "Brakes hold 2 % with power off", f"{2*A['t_brake']:.0f} N m spec vs {hold*A['r']:.1f} N m", "Met"),
     ("R11", "Handle 20 to 70 deg band; belly reverse", f"handle clears the enclosure by {clr70:.0f} mm at 70 deg, {D['handle_clear_90']:.0f} mm at 90 deg", "Met"),
     ("R12", "Shift with 20 % left", f"{w_pack:.0f} of {usable:.0f} Wh; {(usable-w_pack)/usable*100:.0f} % left", "Met"),
