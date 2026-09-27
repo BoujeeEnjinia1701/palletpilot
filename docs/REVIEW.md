@@ -212,3 +212,30 @@ On 2026-09-26 Amish wrote: "i approve all the budget items." The cost overrun ac
 - R17: **not met** ($60 over $1,550, accepted for now) to **met**. Requirement status is now 11 met, 2 not met (R5, R15 mass), 2 at risk and 3 not verifiable.
 - `docs/04-calcs/sizing.py` now checks against $1,610 and was rerun; PLP-CAL-001 v0.3, PLP-REQ-001 v0.5, PLP-PRC-001 v0.5, PLP-PRB-001 v0.4, `README.md` and `bom/bom-notes.md` quote the new figure. The concept blueprint quotes the kit cost only, so `media/` was not regenerated.
 - The motor quote remains the next paper check for the R15 mass overrun and for R17, which has no cost margin left. O1 to O3 are still awaiting Amish.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26. This session added `cad/src/product_model.py`, an appearance model for photoreal renders, and pointed the README hero image at `media/render-hero.png` with a link to `media/render-exploded.png`. The render files are produced separately.
+
+### What product_model.py adds
+
+- `product_parts()`, `TITLE` and three `RENDER_VIEWS`: hero (kit on the loaded jack with the operator), exploded, and a detail view of the drive end without context.
+- Drive module: filleted subframe plate, trailing cheeks with rounded ends, bolt heads and axle nuts, coil preload springs on their seats.
+- Hub motors: grooved tyres, machined hub faces with face bolts, cable exits.
+- Enclosure: filleted teal body with side louvers and a lid gasket line, a charcoal lid frame with a clear polycarbonate window over the pack, BMS, driver, contactors, controller and safety relay (lit status light), lid screws, cable glands, name plate and battery warning label, the rear emergency stop on its yellow plate, and the red disconnect knob.
+- Contact bumper split into a yellow steel hoop and a black safety edge with marking; white UWB anchor radomes on the corners; lidar puck with base, scan window and cap on its bracket; manual release lever with a red grip.
+- Tiller head: body, rubber grips with end caps, thumbwheel throttles, belly-reverse paddle, key switch, horn button, emergency stop, UWB anchor and an amber beacon lit for walk mode; spiral-wrapped cable from a lid gland up the handle.
+- Context: the donor jack, a 48 x 40 in stringer pallet with cartons, and the shared clay mannequin in a push pose holding the grips, with a belt and the operator UWB tag.
+
+### Differences from model.py
+
+Each is Proposed, awaiting Amish. No controlled document or model.py dimension was changed.
+
+1. **Handle angle.** The renders show the handle at 40 degrees from vertical (mid walk band); model.py shows 20 degrees, the upright edge of the band. At 20 degrees the grips would sit at about 1.24 m, above a natural hand height for a 1.75 m operator. Recommendation: accept 40 degrees for renders only and leave model.py at 20 degrees.
+2. **Tiller head width.** The grips span 248 mm over their end caps against the 220 mm `head_w`, so two hands fit beside the head body. Recommendation: accept for renders and revisit `head_w` when a tiller head is chosen.
+3. **Tiller UWB anchor position.** The anchor radome sits under the left grip on the head body instead of 35 mm outboard of the head, where the grips now are. Recommendation: accept; the anchor stays on the head as the concept requires.
+4. **Parts not modelled in model.py.** The operator tag (BOM 15) and the spiral-wrapped tiller cable (BOM 17) are shown for the renders. Recommendation: keep them in the appearance model only.
+
+### TRL
+
+This is an appearance model only: no tolerances, fabrication detail, PCB layout or firmware. `trl` stays 3 and TRL 4 remains on hold by Amish's instruction.
