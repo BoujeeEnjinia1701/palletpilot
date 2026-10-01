@@ -17,6 +17,9 @@ from model import build_parts, box  # noqa: E402
 src = build_parts()
 parts = [Part(name, shape, color, bom, explode) for name, shape, color, bom, explode in
          sorted(src.values(), key=lambda v: -1 if v[3] is None and v[0].startswith("Donor") else (v[3] or 99))]
+for _p in parts:                    # pull the two far-right exploded parts in so their callouts stay off the image edge
+    if _p.bom in (9, 18):
+        _p.explode = (_p.explode[0] - 110, _p.explode[1], _p.explode[2])
 
 # Context for the hero render only: a 48 x 40 in stringer pallet with cartons over the forks
 PX0, PX1 = -1225.0, -5.0
