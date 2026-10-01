@@ -245,3 +245,48 @@ This is an appearance model only: no tolerances, fabrication detail, PCB layout 
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-10-01: kit 1.7.0, constructable design and prototype build plan
+
+Kit 1.7.0 installed (`.kit/`, `.claude/commands/`, `CLAUDE.md`). Following `.claude/commands/build-plan.md` and STANDARDS section 18, the model was checked for constructability with build123d and made buildable under Amish's 2026-09-30 instruction ("If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations."). No git commit or push was made in this copy.
+
+### Design changes made for construction (PLP-DDR-003, Draft, open for Amish's review)
+
+- **Yoke clamp.** The 20 mm slab and loose tongue became a 6 mm top plate resting on the yoke plate with a 62 mm notch round the pump, and a 10 mm lower jaw with a packing bar; four M12 bolts behind the yoke's edge grip the yoke plate. Nothing is drilled in the jack (R1).
+- **Sprung drive arms.** The welded trailing cheeks and floating spring towers became two 10 mm drive arms on a 20 mm pivot pin in rear hangers behind the wheels, each pushed down by a 100 N/mm spring at its front end (arm ratio 1.77; 423 N per spring gives 750 N per wheel).
+- **Hub motor mounting.** Each motor's shaft passes through its arm with a 5 mm spacer and a nut.
+- **Manual release.** The unconnected lever became a 16 mm cam shaft in front hangers with two 22 mm eccentric cams, a crank, a link and a 400 mm over-center lever on a bracket with a stop (a parallelogram). Raising the lever lifts the saddles 22 mm and, through slotted straps, the drive wheels 10 mm clear; peak effort about 58 N (was estimated at 117 N).
+- **Bumper.** The solid block mounted on the moving cheeks became a 40 x 20 x 2 tube hoop bolted into rivet nuts on brackets welded under the top plate, with the safety edge on the front (50 mm deep, 40 mm travel) and both sides; side legs shortened to start 120 mm behind the steering axis.
+- **Lidar and anchors.** Lidar on a bent strap bracket on the hoop; the two anchors on corner plates on the hoop, tops at 180 mm, below the 200 mm scan plane.
+- **Enclosure.** Four riveted angle feet bolted to the top plate; holes for the rear stop and the disconnect; box 89 mm plus a 6 mm lid (95 mm as before).
+- **Steering.** The kit's drive end reaches the jack's frame head at about 44° of turn on the reference donor (the top plate corners at 34°). Top plate corners cut back 50 mm and two rubber steering stops (new BOM line 19) meet the frame at 40° each way.
+- **Donor reference geometry** corrected so the donor's own parts no longer overlap (yoke plate above the steer wheels, frame head 100 mm ahead of the steering axis).
+
+`python cad/src/model.py --check` passes: 36 components, no overlaps, all 46 contacts touch, no collision with the lever raised, and the stops meet the frame before any other kit part.
+
+### Results and numbers
+
+- Kit mass 44.4 kg (was 42.0 kg); R15 mass not met by 4.4 kg.
+- Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target); lines 1, 3 and 13 repriced, line 19 added.
+- PLP-CAL-001 v0.4 rerun: worst motor torque 25.6 N·m of 30; ramp margin 1.53; bumper-only stop 39 mm of 40 mm; 28 % of usable energy left; release effort 58 N; steering range [G5]. Requirement status unchanged: 10 met, 2 not met (R5, R15 mass), 2 at risk (R7, R9), 3 not verifiable (R1, R6, R16); R17 is reported against the target.
+- Documents: PLP-BLD-001 v0.1 (`docs/05-build-plan.md`, new), PLP-DEC-001 v0.1 (`docs/06-design-decisions.md`, new), PLP-DDR-003 v0.1 (new), PLP-CAL-001 v0.4, PLP-REQ-001 v0.6, PLP-PRC-001 v0.6, `bom/bom.csv`, `bom/bom-notes.md`, `README.md` (links line and "Building the prototype"), `project.yaml` (`design_state: constructable`, evidence).
+- Drawings and pictures: PLP-DWG-001 Rev P4; making sketches PLP-DWG-101 to 111 (11); 10 joint close-ups; 15 step pictures; overview; block-level wiring; concept media (PLP-DWG-010 Rev P2) and STEP/STL regenerated from the model. Pictures come from `cad/src/build_plan_media.py`.
+
+### Proposed, awaiting Amish (in PLP-DEC-001)
+
+1. Steering range of about 40° each way with the kit fitted, against about 90° bare; the precis no longer says the kit steers like the bare jack. Recommendation: accept for the prototype and measure the turning circle at TRL 4.
+2. Kit mass 44.4 kg against 40 kg. Recommendation: accept for the prototype, recheck at the motor quote.
+3. Wheel lift of 10 mm with the release raised. Recommendation: accept for smooth indoor floors.
+4. to 6. Still open from PLP-DDR-001: ISO 3691-4 classification (O2), donor models (O3), named partners (O1).
+
+### Stale until regenerated on Amish's Mac
+
+The photoreal renders (`media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`; not present in this cloud copy, made on Amish's Mac), `media/card.png` and `media/social-preview.png`, and the appearance model `cad/src/product_model.py`, still show the concept's trailing cheeks, spring towers, solid bumper block and unlinked release lever. The design changed visibly (sprung arms, tube hoop, cam-and-link release, clamp jaw), so all of them are stale.
+
+### Safety
+
+The build plan carries eight safety stops (battery handling, first power with the wheels lifted, stop-chain checks before the motors turn, cordoned area, no follow mode until the lidar layer is tested, charging). The welds on the hangers and hoop carry the drive and spring loads and need a competent welder. The steering stops prevent steel-on-steel contact with the jack frame at full turn.
+
+### Recommended next step
+
+Amish to review PLP-DDR-003 and decide open decisions 1 to 3 in PLP-DEC-001; then the donor survey (O3), which sets the packing bar, clamp, notch and stop angle. TRL 4 stays on hold.

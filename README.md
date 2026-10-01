@@ -2,13 +2,13 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386426216.svg)](https://zenodo.org/badge/latestdoi/1386426216) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/palletpilot/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/palletpilot/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/palletpilot/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/palletpilot)
 
-**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** $1,610 USD · **Difficulty:** 4 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** $1,610 USD (estimated cost $1,690) · **Difficulty:** 4 of 5
 
 Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 
 ![PalletPilot: powered follow-me retrofit kit for a manual pallet jack, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement PLP-DWG-001 (PDF)](cad/drawings/PLP-DWG-001.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement PLP-DWG-001 (PDF)](cad/drawings/PLP-DWG-001.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Prototype build plan](docs/05-build-plan.md) · [Design decisions](docs/06-design-decisions.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -60,7 +60,7 @@ Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit wi
 
 A sprung module with two 24 V hub motors clamps to the jack's steering yoke, with a 25.6 V 20 Ah LiFePO4 pack and the electronics in a low enclosure under the handle's sweep. In walk mode the operator steers with the handle and a walkie-style tiller head. In follow mode the operator wears a UWB tag and the motors steer by differential drive to hold a 1.5 m gap. Stopping is layered: a 2D lidar watches a 0.86 m field ahead of the truck in follow mode, hardwired emergency stops act through a dual-channel safety relay and two contactors in series, and a contact bumper is the last layer.
 
-The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 29 % of the pack left and stops from 0.6 m/s in 0.42 to 0.76 m. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (42.0 kg against 40 kg); Amish has accepted the mass overrun for now, to be rechecked at a motor quote. The kit cost of $1,610 matches the budget Amish approved to cover the priced BOM. Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md) and [PLP-DDR-002](docs/decisions/0002-recommendations-accepted.md).
+The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 28 % of the pack left and stops from 0.6 m/s in 0.42 to 0.76 m. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). With the kit fitted the jack steers about 40° each way, against about 90° bare. Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md) and [PLP-DDR-002](docs/decisions/0002-recommendations-accepted.md); the changes that made the design buildable are in [PLP-DDR-003](docs/decisions/0003-design-for-construction.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
@@ -77,6 +77,12 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - ESP32-S3 class controller
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
+
+## Building the prototype
+
+The [prototype build plan](docs/05-build-plan.md) (PLP-BLD-001) shows how to make each of the 17 components and fit them to a donor jack in 15 steps, with a making sketch for every made part, close-ups of the joints and a picture for every step. Eleven parts are cut, drilled, welded or folded in a small fabrication shop; the motors, battery, electronics, safety edge, lidar and tiller head are bought. The subframe grips the jack's yoke plate between a top plate and a bolted jaw, so nothing on the jack is drilled. It is a plan, not a record of a build: building and testing to it is TRL 4 work. Decisions still open are in the [design decisions register](docs/06-design-decisions.md).
+
+![PalletPilot kit: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
 ## Safety
 

@@ -30,19 +30,19 @@ context = [Part("Pallet", pallet, "#C8A97E"), Part("Cartons, about 1,000 kg", ca
 
 render_all(
     parts, project="PalletPilot", title="Pallet jack retrofit concept", dwg_no="PLP-DWG-010",
-    date="2026-09-25",
+    date="2026-10-01", rev="P2",
     key_figures=["Design load 1,000 kg; 1,500 kg on level floors at 0.8 m/s",
                  "Walk up to 1.2 m/s; follow up to 0.6 m/s",
                  "Layered stopping: lidar field 0.86 m, bumper last",
                  "Lidar stop from 0.6 m/s: 0.42 m level (PLP-CAL-001)",
                  "Pack 512 Wh: shift uses 293 of 410 Wh usable",
-                 "Kit about 42.0 kg; about $1,610 in parts"],
+                 "Kit about 44.4 kg; about $1,690 in parts"],
     context=context,
-    cut_exclude=("Contact bumper (safety edge)", "Bumper mounts", "UWB anchors (3)", "UWB anchor, right", "Manual release lever"),
+    cut_exclude=("Contact bumper (hoop and safety edge)", "UWB anchors (3)", "Manual release: cam shaft, lever, springs", "Steering stops"),
     flow={"title": "energy per 8 h shift, 60 pallet moves (estimates, PLP-CAL-001)", "unit": "Wh",
-          "stages": [("Wall outlet (AC)", 350), ("Pack, delivered", 293), ("Motor driver input", 219),
-                     ("Work at the wheels", 153)],
-          "losses": [(0, "Charging (est.)", 57), (1, "Controls and lidar (est.)", 74),
+          "stages": [("Wall outlet (AC)", 351), ("Pack, delivered", 293), ("Motor driver input", 220),
+                     ("Work at the wheels", 154)],
+          "losses": [(0, "Charging (est.)", 58), (1, "Controls and lidar (est.)", 74),
                      (2, "Motors (est.)", 66)]},
 )
 for d in (ROOT / "media").glob("_views*"):

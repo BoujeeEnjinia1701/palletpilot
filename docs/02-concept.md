@@ -3,9 +3,9 @@ doc_id: PLP-PRC-001
 title: PalletPilot design precis
 project: PalletPilot
 doc_type: Design precis
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-09-26'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,11 +29,15 @@ revisions:
   date: '2026-09-26'
   author: Amish Chadha
   change: Budget approved by Amish ($1,610, PLP-DDR-002); cost status restated
+- version: "0.6"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: "Constructable design (PLP-DDR-003): drive module, release, mass, cost and steering range; budget as a value-engineering target"
 ---
 
 # PalletPilot design precis
 
-PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (42.0 kg against 40 kg); Amish has accepted the mass overrun for now, to be rechecked at a motor quote (PLP-DDR-002). The kit cost of $1,610 is within the $1,610 budget Amish approved on 2026-09-26. The lidar is not safety-rated, so the kit is a research prototype for a closed area.
+PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). The design was made constructable on 2026-10-01 (PLP-DDR-003, Draft) and the prototype build plan is PLP-BLD-001; with the kit fitted the jack steers about 40° each way, against about 90° bare (open decision 1 in PLP-DEC-001). The lidar is not safety-rated, so the kit is a research prototype for a closed area.
 
 ![Hero render](../media/hero.png)
 
@@ -41,12 +45,12 @@ PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke 
 
 ## How it works
 
-1. **Drive.** A steel subframe clamps to the jack's steering yoke. Two 200 mm hub motors sit on trailing cheeks 180 mm from the steering axis, toward the handle end, on a 260 mm track that passes beside the steer wheels. Springs press them onto the floor with 1.5 kN of preload. They turn with the yoke, so the kit steers with the handle like the bare jack.
+1. **Drive.** A steel subframe clamps to the jack's steering yoke: its top plate sits on the yoke plate with the pump in a notch, and a lower jaw bolted to it grips the yoke plate from below, so nothing is drilled in the jack. Two 200 mm hub motors sit on drive arms that pivot behind them, 180 mm from the steering axis toward the handle end, on a 260 mm track that passes beside the steer wheels. Springs at the arms' front ends press them onto the floor with 1.5 kN of preload. They turn with the yoke, so the kit steers with the handle; rubber stops limit the turn to about 40° each way, where the bare jack turns about 90° (PLP-DDR-003).
 2. **Walk mode.** The operator holds the tiller as usual and sets speed with a thumbwheel. As on a factory walkie, drive is enabled only with the handle between about 20° and 70° from vertical, a belly-reverse paddle pushes the truck away if it pins the operator, and releasing the handle to upright brakes the truck. The two motors run at equal torque so the handle steers freely.
 3. **Follow mode.** With the key switch set to follow and the handle latched upright by a gas spring, the operator walks ahead of the drive end wearing a UWB tag. Two anchors on the bumper corners and one on the tiller head measure range to the tag. The controller turns the two motors at different speeds while the truck rolls, and this steers the yoke toward the tag. It holds a 1.5 m gap, stops when the operator stops, and stops if the tag is lost, the tag's stop button is pressed or the gap exceeds 3 m.
 4. **Layered stopping.** In follow mode a 2D lidar just inside the bumper face watches a 0.86 m protective field ahead of the truck, 885 mm wide, and commands a controlled stop when anything enters it; a longer warning field slows the truck first. The contact bumper, the two emergency stops and the tag stop open a dual-channel safety relay that drops two main contactors in series, and the spring-applied hub motor brakes close when power is removed.
 5. **Charge.** A certified 29.2 V, 5 A charger fills the pack from a wall outlet in about 4.5 h overnight.
-6. **Push by hand.** A release lever raises the spring seats and lifts the drive wheels clear so the jack can be pushed as a manual jack if the pack is flat or the kit fails.
+6. **Push by hand.** Raising a release lever turns a cam shaft that lifts the spring saddles; slotted straps then lift the drive arms, so the drive wheels clear the floor by about 10 mm and the jack can be pushed as a manual jack if the pack is flat or the kit fails.
 
 ![Energy flow](../media/flow.png)
 
@@ -60,7 +64,7 @@ Table 1. Main components.
 
 | # | Component | Choice | Notes |
 | --- | --- | --- | --- |
-| 1 | Drive module subframe | 6 mm steel plate clamp to the yoke with a tongue under the yoke plate, trailing cheeks, two springs giving 1.5 kN preload | Clamp pattern per donor model; about 9.8 kg |
+| 1 | Drive module | 6 mm steel top plate on the yoke plate with a notch round the pump, a lower jaw and four M12 bolts gripping the yoke; two drive arms on a pivot pin behind the wheels; two springs at the arm fronts giving 1.5 kN preload | Clamp fit per donor model; about 10.6 kg (PLP-DDR-003) |
 | 2 | Hub motors | Two 24 V brushless hub servo motors, 200 mm, 12 N·m continuous and 30 N·m peak or more, spring-applied brakes of 20 N·m or more | About 7 kg each; brake data to confirm |
 | 3 | Enclosure | 2 mm aluminium box 270 x 300 x 95 mm, IP54, top at 320 mm, below the 350 mm handle pivot | Turns with the yoke; never on the forks |
 | 4 | Battery | 8S6P LiFePO4, 25.6 V, 20 Ah (512 Wh), BMS with charge temperature cut-off | About 4.9 kg |
@@ -72,7 +76,7 @@ Table 1. Main components.
 | 10 | Contact bumper | Pressure-sensitive safety edge, 40 mm travel, on a U hoop around the drive end | Last stopping layer |
 | 11 | UWB anchors | Three DWM3000 class modules: two on the bumper corners (450 mm baseline), one on the tiller head | Range about 10 cm precision ([Qorvo](https://www.qorvo.com/products/p/DWM3000)) |
 | 12 | Status beacon and buzzer | On the tiller head; amber in walk mode, blue in follow mode | Moved off the lid for handle clearance |
-| 13 | Manual release lever | 400 mm over-center lever lifts the drive wheels | About 117 N effort |
+| 13 | Manual release | 400 mm over-center lever turns a cam shaft through a link; the cams raise the spring saddles and straps lift the drive wheels about 10 mm | About 58 N peak effort |
 | 18 | Obstacle lidar | 2D time-of-flight lidar (RPLIDAR C1 class, 10 Hz, 12 m on white and 6 m on black targets), scan plane 200 mm above the floor | Approved stopping layer; not safety-rated ([DFRobot](https://www.dfrobot.com/product-2803.html)) |
 | 14 to 17 | Charger, operator tag, handle sensor and gas spring, wiring | See `bom/bom.csv` | Not modelled |
 
@@ -86,7 +90,7 @@ Table 1. Main components.
 
 ## Key numbers
 
-All values come from PLP-CAL-001, which lists its assumptions and the full requirement table. The design load case is 1,106 kg in total (1,000 kg pallet, 64 kg jack, 42.0 kg kit) on level, dry, sealed concrete.
+All values come from PLP-CAL-001, which lists its assumptions and the full requirement table. The design load case is 1,108 kg in total (1,000 kg pallet, 64 kg jack, 44.4 kg kit) on level, dry, sealed concrete.
 
 Table 2. Drive, stopping, tracking, energy, mass and cost.
 
@@ -102,12 +106,12 @@ Table 2. Drive, stopping, tracking, energy, mass and cost.
 | Bumper-only speed limit | 0.15 m/s; stops in 38 mm of 40 mm travel | R8 met |
 | Parking brake on 2 % | 40 N·m available, 21.7 N·m needed | R10 met |
 | UWB bearing error | ±16° (2σ) after filtering | R5 not met |
-| Energy from the pack per shift | 293 Wh of 410 Wh usable (29 % left) | R12 met |
+| Energy from the pack per shift | 293 Wh of 410 Wh usable (28 % left) | R12 met |
 | Charge time at 5 A | 4.5 h | R13 met |
 | Handle clearance over the enclosure | 40 mm at 70°, 14 mm lowered flat | R11 met |
 | Added length at floor level | 290 mm | R15 length met |
-| Kit mass | 42.0 kg | R15 mass not met (accepted for now) |
-| Kit parts cost | $1,610 | R17 ($1,610) met, no margin |
+| Kit mass | 44.4 kg | R15 mass not met (2.0 kg over accepted for now; the rest open) |
+| Kit parts cost | $1,690 | USD 80 over the USD 1,610 value-engineering target |
 | Donor jack (not in kit) | about $396 new | |
 
 Three findings shaped the TRL 3 layout. First, the TRL 2 enclosure sat above the handle pivot, so the handle would have struck it at about 51°, inside the walk band; the enclosure is now lower and the beacon and second emergency stop have moved. Second, 1.1 kN of preload left the 2 % ramp at risk, so it is now 1.5 kN; with the jack empty the steer wheels then lift slightly and the drive wheels carry the yoke, which is acceptable. Third, because the drive axle is offset from the steering axis, the motors cannot swing the yoke at standstill (98 N·m available against 135 N·m of scrub), so follow mode steers only while rolling, and hand steering at standstill is about 112 N heavier at the grip.

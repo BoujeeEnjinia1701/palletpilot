@@ -47,22 +47,25 @@ A = dict(
 )
 
 # ------------------------------------------------------------------ B. mass
-steel, alu = 7850.0, 2680.0
-top_plate = (P["plate_x1"] - P["plate_x0"]) / 1e3 * 2 * P["plate_half_w"] / 1e3 * P["plate_t"] / 1e3 * steel
-cheeks = 2 * (P["cheek_x1"] - P["cheek_x0"]) / 1e3 * 0.135 * 2 * P["plate_t"] / 1e3 * steel
-clamp_hw = 2.5                                              # clamp block, tongue, bolts, spring towers, axle clamps
-subframe = top_plate + cheeks + clamp_hw
+# Made steel and aluminium parts are weighed from their modelled volume (model.masses, PLP-DDR-003);
+# bought parts use class figures.
+from model import build_components, masses as model_masses  # noqa: E402
+C_ = build_components()
+MM = model_masses(C_)
 ex = (P["enc_x1"] - P["enc_x0"]) / 1e3; ey = 2 * P["enc_half_w"] / 1e3; ez = (P["enc_top"] - P["enc_z0"]) / 1e3
-enclosure = 2 * (ex * ey + ex * ez + ey * ez) * 0.002 * alu + 0.3   # 2 mm aluminium plus hinges and glands
-pack = 48 * 0.085 + 0.8                                     # 8S6P 26650 cells at 85 g plus BMS and case
-hoop_len = 2 * (D["bumper_face_x"] - P["edge_depth"] - P["bumper_x0"]) / 1e3 + 2 * P["bumper_half_w"] / 1e3
-bumper = hoop_len * 1.76 + 1.3 * 0.6 + 0.8                  # 40 x 20 x 2 tube, edge profile, mounts
+enclosure = 2 * (ex * ey + ex * ez + ey * ez) * 0.002 * 2680.0 + 0.3   # 2 mm aluminium plus hinges and glands
+edge_len = (2 * P["bumper_half_w"] + 2 * (D["hoop_x0"] - P["bumper_x0"])) / 1e3
+subframe = MM["subframe"] + MM["jaw"] + MM["arm_r"] + MM["arm_l"] + MM["pivot_pin"]
+release = MM["camshaft"] + MM["link"] + MM["lever"] + MM["saddles"] + MM["straps"] + MM["lever_pins"] + 2 * 0.15
+bumper = MM["hoop"] + edge_len * 0.6 + 0.3                  # hoop from the model, edge profile 0.6 kg/m, evaluation unit
 masses = {
-    "1 Subframe and springs": subframe, "2 Hub motors (2 x 7.0 kg)": 14.0, "3 Enclosure (aluminium)": enclosure,
-    "4 Pack with BMS": pack, "5 Motor driver": 1.0, "6 Contactors (2), fuse, disconnect": 1.1,
+    "1 Drive module: top plate, jaw, arms, pivot": subframe, "2 Hub motors (2 x 7.0 kg)": 14.0,
+    "3 Enclosure (aluminium) and feet": enclosure + MM["feet"],
+    "4 Pack with BMS": 48 * 0.085 + 0.8, "5 Motor driver": 1.0, "6 Contactors (2), fuse, disconnect": 1.1,
     "7 Controller and safety relay": 0.4, "8 Tiller head": 1.5, "9 Emergency stops": 0.2, "10 Bumper": bumper,
-    "11 UWB anchors": 0.15, "12 Beacon": 0.2, "13 Release lever": 0.8, "16 Handle sensor and gas spring": 0.5,
-    "17 Wiring and hardware": 2.0, "18 Lidar and bracket": 0.5,
+    "11 UWB anchors": 0.15, "12 Beacon": 0.2, "13 Release mechanism and springs": release,
+    "16 Handle sensor and gas spring": 0.5, "17 Wiring and hardware": 2.0,
+    "18 Lidar and bracket": 0.2 + MM["lidar_bracket"], "19 Steering stops": MM["steer_stops"],
 }
 kit = sum(masses.values())
 for k, v in masses.items():
@@ -210,16 +213,25 @@ out("G2", f"added length at floor level {D['added_length']:.0f} mm (bumper face 
           f"{D['bare_rear_x']:.0f}); overall {D['overall_len']:.0f} mm against {D['bare_len']:.0f} mm bare")
 out("G3", f"drive wheel tread to rigid hoop {P['bumper_clear']:.0f} mm; lidar scan plane {P['lidar_scan_z']:.0f} mm above the floor, "
           f"above the hoop ({P['bumper_z1']:.0f}) and anchors ({P['anchor_top']:.0f})")
-throw, lever, eff = 25.0, 400.0, 0.8
-out("G4", f"release lever effort {A['preload']*throw/(lever*eff):.0f} N (cam throw {throw:.0f} mm, lever {lever:.0f} mm, 80 % efficiency); "
-          f"unpowered rolling force rises {kit/(A['pallet']+A['jack'])*100:.1f} % with the drive wheels lifted (R14 limit 10 %)")
+throw, lever, eff = P["cam_e"], P["lever_len"], 0.8
+# the cam turns a quarter turn while the lever does, so the peak lever effort is spring force x eccentricity / lever
+f_spr = 2 * D["spring_force"]
+effort = f_spr * throw / (lever * eff)
+out("G4", f"release: two springs of {D['spring_force']:.0f} N at the arm fronts (arm ratio {D['arm_ratio']:.2f}); cam eccentricity "
+          f"{throw:.0f} mm; peak lever effort {effort:.0f} N on a {lever:.0f} mm lever (80 % efficiency); wheels lift "
+          f"{D['wheel_lift']:.0f} mm; unpowered rolling force rises {kit/(A['pallet']+A['jack'])*100:.1f} % with the drive wheels lifted (R14 limit 10 %)")
+from model import steer_clear  # noqa: E402
+sc = steer_clear(C_, verbose=False)
+out("G5", f"steering range with the kit fitted: stops meet the jack frame at {P['steer_stop_deg']:.0f} deg each way; "
+          f"the first kit part would reach the frame at {min(v[1][0] for v in sc.values())} deg (reference donor geometry)")
 
 # ------------------------------------------------------------------ K. cost
 with open(ROOT / "bom" / "bom.csv") as f:
     bom = list(csv.DictReader(f))
 total = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in bom)
-BUDGET = 1610  # budget_usd in project.yaml, approved by Amish 2026-09-26 (PLP-DDR-002)
-out("K1", f"BOM total ${total:,.0f} over {len(bom)} lines against budget ${BUDGET:,} ({(total/BUDGET-1)*100:+.1f} %)")
+BUDGET = 1610  # budget_usd in project.yaml: a value-engineering target, not a limit (Amish, 2026-10-01)
+out("K1", f"BOM total ${total:,.0f} over {len(bom)} lines; value-engineering target ${BUDGET:,}; "
+          f"${abs(total-BUDGET):,.0f} {'over' if total > BUDGET else 'under'} the target ({(total/BUDGET-1)*100:+.1f} %)")
 
 # ------------------------------------------------------------------ R. requirement table
 status = [
@@ -237,11 +249,12 @@ status = [
     ("R11", "Handle 20 to 70 deg band; belly reverse", f"handle clears the enclosure by {clr70:.0f} mm at 70 deg, {D['handle_clear_90']:.0f} mm at 90 deg", "Met"),
     ("R12", "Shift with 20 % left", f"{w_pack:.0f} of {usable:.0f} Wh; {(usable-w_pack)/usable*100:.0f} % left", "Met"),
     ("R13", "Charge in 5 h or less", f"{t_chg:.1f} h", "Met"),
-    ("R14", "Push by hand; 10 s release; +10 % force max", f"+{kit/(A['pallet']+A['jack'])*100:.1f} %; lever {A['preload']*throw/(lever*eff):.0f} N", "Met"),
+    ("R14", "Push by hand; 10 s release; +10 % force max", f"+{kit/(A['pallet']+A['jack'])*100:.1f} %; lever {effort:.0f} N", "Met"),
     ("R15a", "Kit mass 40 kg or less", f"{kit:.1f} kg", "Not met" if kit > 40 else "Met"),
     ("R15b", "Added length 300 mm or less", f"{D['added_length']:.0f} mm", "Met" if D["added_length"] <= 300 else "Not met"),
     ("R16", "0 to 40 degC, IP54, no charge below 0 degC", "By specification of bought parts", "Not verifiable at TRL 3"),
-    ("R17", f"Kit parts ${BUDGET:,} or less", f"${total:,.0f}", "Met" if total <= BUDGET else "Not met"),
+    ("R17", f"Kit parts against the ${BUDGET:,} value-engineering target", f"${total:,.0f}",
+     "Within the target" if total <= BUDGET else f"Over the target by ${total-BUDGET:,.0f}"),
 ]
 print()
 for r in status:
