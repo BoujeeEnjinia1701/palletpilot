@@ -3,7 +3,7 @@ doc_id: PLP-BLD-001
 title: PalletPilot prototype build plan
 project: PalletPilot
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: First build plan; design made constructable (PLP-DDR-003)
+  - version: "0.2"
+    date: '2026-10-01'
+    author: Amish Chadha
+    change: Steering range stated in section 3.2 (about 40° each way, turning radius roughly 1.5 m about the load wheels); aisle turn added to the first checks
 ---
 
 # PalletPilot prototype build plan
@@ -75,7 +79,7 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 ### 3.2 Steering stops (bought, make 2)
 
-**What it is and what it is made from.** A hard rubber block (about 80 Shore A), 40 x 40 x 20, under each front corner of the top plate.
+**What it is and what it is made from.** A hard rubber block (about 80 Shore A), 40 x 40 x 20, under each front corner of the top plate. The stops set how far the jack steers with the kit fitted: about 40° each way, against about 90° for a bare jack, for a turning radius of roughly 1.5 m about the load wheels.
 
 **How to make it.**
 
@@ -452,6 +456,7 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | --- | --- | --- | --- |
 | Clamp and fit | R1 | Time the fitting and removal; look for any drilled or damaged part of the jack | No change to the jack; fitted in 2 h or less, removed in 1 h or less |
 | Steering stops | R1, R15 | Turn the handle fully each way, power off | The rubber stops touch the frame first; record the angle (40° expected) |
+| Aisle turn | R15 | Walk mode at creep speed with the design load: turn from an aisle into a standard pallet bay; measure the turning radius about the load wheels | The kit makes the right-angle turn into the bay; radius recorded (roughly 1.5 m expected) |
 | Handle clearance | R11 | Lower the handle to horizontal over the enclosure | 14 or more of clearance; none of the kit touched |
 | Release | R14 | Raise the lever with a spring balance at the grip; time it | Both wheels clear the floor by about 10; effort under 120 N; under 10 s |
 | Hand push | R14 | Spring balance on the handle, lever up, jack empty and loaded | Push force within 10 % of the bare jack's |
@@ -489,7 +494,7 @@ Stop at each point. Carry on only when everything listed is true.
 - Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`): overlaps, contacts, the release lever's raised state and the steering sweep; STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/PLP-DWG-101` to `PLP-DWG-111`.
 - General arrangement: `cad/drawings/PLP-DWG-001.pdf`, Rev P4.
-- Calculations: `docs/04-calcs/01-sizing.md` (PLP-CAL-001 v0.4) and `docs/04-calcs/sizing.py`; mass [B0], [B1], loads [C1] to [C3], torque [F4], stopping [S2], [S3], release [G4], steering [G5].
+- Calculations: `docs/04-calcs/01-sizing.md` (PLP-CAL-001 v0.5) and `docs/04-calcs/sizing.py`; mass [B0], [B1], loads [C1] to [C3], torque [F4], stopping [S2], [S3], release [G4], steering [G5].
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (PLP-DDR-003), with PLP-DDR-001 and PLP-DDR-002; open decisions in `docs/06-design-decisions.md` (PLP-DEC-001).
-- Requirements: `docs/03-requirements.md` (PLP-REQ-001 v0.6).
+- Requirements: `docs/03-requirements.md` (PLP-REQ-001 v0.7).

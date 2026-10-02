@@ -290,3 +290,46 @@ The build plan carries eight safety stops (battery handling, first power with th
 ### Recommended next step
 
 Amish to review PLP-DDR-003 and decide open decisions 1 to 3 in PLP-DEC-001; then the donor survey (O3), which sets the packing bar, clamp, notch and stop angle. TRL 4 stays on hold.
+
+## Session 2026-10-01: steering range decided
+
+Amish, 2026-10-01: "i accept your recommendations for PalletPilot". He was shown the recommendation for open decision 1 of the design decisions register (PLP-DEC-001 v0.1), the steering range, so only that item (PLP-DDR-003, A1) is decided. The kit mass (A2), the wheel lift (A3), the Table 1 changes of PLP-DDR-003 and the other open items stay open. No design change; trl stays 3; no build or test work was done.
+
+### Accepted, as recommended
+
+| Register item (v0.1) | Decision |
+| --- | --- |
+| 1 | Steering range, option (a): accept about 40° each way with the kit fitted for the prototype; set the rubber stops from the donor survey; correct the wording so the kit no longer claims to steer like the bare jack. **Go or no-go gate:** the TRL 4 aisle test must show the kit can make a right-angle turn into a standard pallet bay; if it cannot, the drive layout changes before TRL 5 (option c, for example one centre drive wheel under the yoke, which reopens D3) |
+
+### What changed
+
+- `docs/06-design-decisions.md` (PLP-DEC-001 v0.2): item 1 moved to Decisions made, dated 2026-10-01, with Amish's words, the go or no-go gate and the record (PLP-DDR-003, A1); open items renumbered 1 to 5.
+- `docs/decisions/0003-design-for-construction.md` (PLP-DDR-003 v0.2): status line records that A1 is decided with Amish's words, and that Table 1, A2 and A3 stay open; Table 3 marks A1 accepted, with the gate added to its recommendation; a consequence states the range and the gate.
+- Steering wording: the range is now stated plainly as about 40° each way with the kit fitted, set by rubber stops (about 90° for a bare jack), a turning radius of roughly 1.5 m about the load wheels, confirmed in the TRL 4 aisle test.
+  - `README.md`: walk-mode paragraph.
+  - `docs/02-concept.md` (PLP-PRC-001 v0.7): summary (no longer points at an open decision) and walk mode, which said only that "the handle steers freely".
+  - `docs/03-requirements.md` (PLP-REQ-001 v0.7): no requirement covers manoeuvrability, so none was added or restated; a TRL 4 verification note for the steering range sits with the requirements not met or at risk, with the aisle test as its pass criterion and gate.
+  - `docs/05-build-plan.md` (PLP-BLD-001 v0.2): section 3.2 (steering stops) states the range and radius; Table 3 (first checks) gains an "Aisle turn" check; references to PLP-CAL-001 v0.5 and PLP-REQ-001 v0.7.
+  - `docs/04-calcs/01-sizing.md` (PLP-CAL-001 v0.5): the steering paragraph called the range "open decision 1"; it now records the decision, the radius and its basis (load rollers 1,130 mm from the steering axis on the reference donor). No number changed; the script was not rerun.
+- `project.yaml` pitch, `CITATION.cff` and `docs/01-problem.md` were checked: none claims the kit steers like the bare jack (the pitch is "Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit..."), so they are unchanged. The bare-jack claim survives only as history in PLP-DDR-003 and the register's decision text.
+- PDFs regenerated with `python3 .kit/render.py`.
+
+The roughly 1.5 m radius is a plain-geometry estimate: with 40° of steer and the load rollers 1,130 mm behind the steering axis, the turning centre lies about 1.35 m to the side of the load-roller midpoint, and the outer load wheel runs at about 1.6 m. Requirement status is unchanged: 10 met, 2 not met (R5, R15 mass), 2 at risk (R7, R9), 3 not verifiable at TRL 3 (R1, R6, R16); R17 USD 80 over its value-engineering target.
+
+### Still open (PLP-DEC-001)
+
+1. Kit mass of 44.4 kg against 40 kg (A2).
+2. Drive wheel lift of 10 mm (A3).
+3. Classification of follow mode under ISO 3691-4.
+4. Donor jack models and steering yokes to support first.
+5. Named site and co-design partners.
+
+Acceptance of the PLP-DDR-003 Table 1 changes is also still open.
+
+### Safety
+
+Unchanged. The rubber stops keep steel parts of the kit off the jack's frame at full turn. Operators used to a bare jack will find the wider turn; the aisle test runs at creep speed in the cordoned test area.
+
+### Recommended next step
+
+Amish decides A2, A3 and the Table 1 changes of PLP-DDR-003; then the donor survey (O3), which sets the stop angle, packing bar, clamp and notch. At TRL 4 the aisle test is the first go or no-go gate: **if the kit cannot make a right-angle turn into a standard pallet bay, change the drive layout (option c, for example one centre drive wheel under the yoke, reopening D3) before TRL 5.** TRL 4 stays on hold.

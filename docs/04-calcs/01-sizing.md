@@ -3,7 +3,7 @@ doc_id: PLP-CAL-001
 title: PalletPilot sizing calculations
 project: PalletPilot
 doc_type: Calculation
-version: "0.4"
+version: "0.5"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -25,6 +25,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Rerun on the constructable model (PLP-DDR-003); mass from modelled volumes, release mechanism [G4] and steering range [G5]; budget treated as a value-engineering target
+- version: "0.5"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Steering range paragraph records Amish's decision (PLP-DDR-003 A1) and the TRL 4 aisle test gate; no number changed, script not rerun
 ---
 
 # PalletPilot sizing calculations
@@ -134,7 +138,7 @@ Moving the drive axle 40 mm closer to the steering axis and widening the drive t
 
 **Release (PLP-DDR-003).** Each drive arm pivots behind its wheel; its spring acts at the arm's front end, 1.77 times as far from the pivot as the wheel, so 423 N per spring gives 750 N per wheel. The 400 mm lever turns a cam shaft a quarter turn through a link; each 22 mm eccentric cam lifts its spring saddle 22 mm, the springs unload after 4.2 mm and slotted straps then lift the arms, so the drive wheels clear the floor by about 10 mm. The peak effort at the grip is about 58 N, half the 117 N estimated for the concept's cam, and with the drive wheels lifted the unpowered push force rises only 4.2 % [G4].
 
-**Steering range.** With the kit fitted, the drive end swings into the jack's frame head when the handle is turned far. On the reference donor (frame head 100 mm ahead of the steering axis) the first kit part would reach it at 44°; two rubber stops meet it at 40° each way [G5], against about 90° for a bare jack. This is open decision 1 in PLP-DEC-001.
+**Steering range.** With the kit fitted, the drive end swings into the jack's frame head when the handle is turned far. On the reference donor (frame head 100 mm ahead of the steering axis) the first kit part would reach it at 44°; two rubber stops meet it at 40° each way [G5], against about 90° for a bare jack. That gives a turning radius of roughly 1.5 m about the load wheels (on the reference donor the load rollers are 1,130 mm from the steering axis). Amish accepted this range for the prototype on 2026-10-01 (PLP-DDR-003, A1; PLP-DEC-001); the TRL 4 aisle test confirms it and is a go or no-go gate for the drive layout.
 
 ## Cost
 

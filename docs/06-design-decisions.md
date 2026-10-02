@@ -3,7 +3,7 @@ doc_id: PLP-DEC-001
 title: PalletPilot design decisions register
 project: PalletPilot
 doc_type: Design decisions register
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Register opened with the build plan; open decisions from PLP-DDR-001 to 003 and the review note; budget treated as a value-engineering target
+  - version: "0.2"
+    date: '2026-10-01'
+    author: Amish Chadha
+    change: Amish accepted the recommendation of open item 1 (steering range, option a, with a TRL 4 aisle test as a go or no-go gate; PLP-DDR-003 A1); moved to decisions made; open items renumbered 1 to 5
 ---
 
 # PalletPilot design decisions register
@@ -23,12 +27,11 @@ Every design decision still to be made, and every decision made, in one place. E
 
 | # | Decision needed | Options | Recommendation | Affects in the build | Source |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Steering range with the kit fitted: about 40° each way on the reference donor, against about 90° bare; the concept said the kit steers like the bare jack | (a) Accept for the prototype, set the stops from the donor survey, measure the turning circle at TRL 4; (b) narrow the drive end for perhaps 48°, which narrows the anchor baseline and worsens R5; (c) a different drive layout, reopening D3 | (a), and state the range in the precis and README | Steering stop position (section 3.2); pitch wording | PLP-DDR-003, A1 |
-| 2 | Kit mass of 44.4 kg against R15's 40 kg (2.0 kg over was accepted for now) | (a) Accept for the prototype and recheck at the motor quote; (b) lighten now (5 mm top plate, tube lever, hollow pivot pin, about 1.5 kg) | (a), keeping (b) for the TRL 4 drawings | Plate thickness, lever and pin stock | PLP-DDR-003, A2 |
-| 3 | Drive wheel lift of 10 mm with the release lever raised | (a) Accept for smooth indoor floors; (b) lower the cam shaft and raise the hangers for about 15 mm | (a) | Cam throw, hanger height | PLP-DDR-003, A3 |
-| 4 | Classification of follow mode under ISO 3691-4 and the safety functions it then needs | Classify as a driverless truck function, or as an operator-controlled truck with an assist mode | None yet | Not part of the TRL 3 build; sets the stop functions and sensor rating needed later | PLP-DDR-001, O2 |
-| 5 | Donor jack models and steering yokes to support first | Survey three common 27 x 48 in, 2,500 kg jacks from published drawings | None yet | Packing bar thickness, clamp and notch, steering stop angle | PLP-DDR-001, O3 |
-| 6 | Named site and co-design partners (types decided: one small warehouse, one maker space) | Picked per area later | None yet | None in the build | PLP-DDR-001, O1 |
+| 1 | Kit mass of 44.4 kg against R15's 40 kg (2.0 kg over was accepted for now) | (a) Accept for the prototype and recheck at the motor quote; (b) lighten now (5 mm top plate, tube lever, hollow pivot pin, about 1.5 kg) | (a), keeping (b) for the TRL 4 drawings | Plate thickness, lever and pin stock | PLP-DDR-003, A2 |
+| 2 | Drive wheel lift of 10 mm with the release lever raised | (a) Accept for smooth indoor floors; (b) lower the cam shaft and raise the hangers for about 15 mm | (a) | Cam throw, hanger height | PLP-DDR-003, A3 |
+| 3 | Classification of follow mode under ISO 3691-4 and the safety functions it then needs | Classify as a driverless truck function, or as an operator-controlled truck with an assist mode | None yet | Not part of the TRL 3 build; sets the stop functions and sensor rating needed later | PLP-DDR-001, O2 |
+| 4 | Donor jack models and steering yokes to support first | Survey three common 27 x 48 in, 2,500 kg jacks from published drawings | None yet | Packing bar thickness, clamp and notch, steering stop angle | PLP-DDR-001, O3 |
+| 5 | Named site and co-design partners (types decided: one small warehouse, one maker space) | Picked per area later | None yet | None in the build | PLP-DDR-001, O1 |
 
 ## To confirm when parts are bought
 
@@ -58,3 +61,4 @@ Value-engineering target: USD 1,610 (a hypothetical control target, not a limit)
 | 2026-09-26 | Budget set to USD 1,610 to cover the priced BOM | Amish: "i approve all the budget items." | PLP-DDR-002 v0.2 |
 | 2026-09-30 | Make the design physically buildable while drawing the build plan; outstanding decisions go in this register, not in the build plan | Amish: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." | PLP-DDR-003 (Draft, open for review) |
 | 2026-10-01 | The budget is a value-engineering target, reported as over or under, never as a limit | Amish: "the budgets are a hypothethical control target to ensure we are thinking along a value engineering lens." | This register; PLP-CAL-001 v0.4 |
+| 2026-10-01 | Steering range (open item 1 in register v0.1): option (a). Accept about 40° each way with the kit fitted for the prototype (a bare jack turns about 90°), turning radius roughly 1.5 m about the load wheels; set the rubber stops from the donor survey; the precis, README and requirements no longer say the kit steers like the bare jack. **Go or no-go gate:** the TRL 4 aisle test must show the kit can make a right-angle turn into a standard pallet bay; if it cannot, the drive layout changes before TRL 5 (option c, for example one centre drive wheel under the yoke, which reopens D3) | Amish: "i accept your recommendations for PalletPilot" | PLP-DDR-003, A1 |

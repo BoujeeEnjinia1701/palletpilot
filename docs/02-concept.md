@@ -3,7 +3,7 @@ doc_id: PLP-PRC-001
 title: PalletPilot design precis
 project: PalletPilot
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -33,11 +33,15 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: "Constructable design (PLP-DDR-003): drive module, release, mass, cost and steering range; budget as a value-engineering target"
+- version: "0.7"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Steering range decided by Amish (PLP-DDR-003 A1, option a); range and turning radius stated in the summary and walk mode, with the TRL 4 aisle test as a go or no-go gate
 ---
 
 # PalletPilot design precis
 
-PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). The design was made constructable on 2026-10-01 (PLP-DDR-003, Draft) and the prototype build plan is PLP-BLD-001; with the kit fitted the jack steers about 40° each way, against about 90° bare (open decision 1 in PLP-DEC-001). The lidar is not safety-rated, so the kit is a research prototype for a closed area.
+PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). The design was made constructable on 2026-10-01 (PLP-DDR-003, Draft) and the prototype build plan is PLP-BLD-001; with the kit fitted the jack steers about 40° each way, set by rubber stops, against about 90° for a bare jack, so it turns more widely: a turning radius of roughly 1.5 m about the load wheels. Amish accepted this range for the prototype on 2026-10-01 (PLP-DEC-001); the TRL 4 aisle test confirms it and is a go or no-go gate for the drive layout. The lidar is not safety-rated, so the kit is a research prototype for a closed area.
 
 ![Hero render](../media/hero.png)
 
@@ -46,7 +50,7 @@ PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke 
 ## How it works
 
 1. **Drive.** A steel subframe clamps to the jack's steering yoke: its top plate sits on the yoke plate with the pump in a notch, and a lower jaw bolted to it grips the yoke plate from below, so nothing is drilled in the jack. Two 200 mm hub motors sit on drive arms that pivot behind them, 180 mm from the steering axis toward the handle end, on a 260 mm track that passes beside the steer wheels. Springs at the arms' front ends press them onto the floor with 1.5 kN of preload. They turn with the yoke, so the kit steers with the handle; rubber stops limit the turn to about 40° each way, where the bare jack turns about 90° (PLP-DDR-003).
-2. **Walk mode.** The operator holds the tiller as usual and sets speed with a thumbwheel. As on a factory walkie, drive is enabled only with the handle between about 20° and 70° from vertical, a belly-reverse paddle pushes the truck away if it pins the operator, and releasing the handle to upright brakes the truck. The two motors run at equal torque so the handle steers freely.
+2. **Walk mode.** The operator holds the tiller as usual and sets speed with a thumbwheel. As on a factory walkie, drive is enabled only with the handle between about 20° and 70° from vertical, a belly-reverse paddle pushes the truck away if it pins the operator, and releasing the handle to upright brakes the truck. The two motors run at equal torque so the handle steers freely, but not as far as on a bare jack: two rubber stops limit the turn to about 40° each way, for a turning radius of roughly 1.5 m about the load wheels (to be confirmed in the TRL 4 aisle test).
 3. **Follow mode.** With the key switch set to follow and the handle latched upright by a gas spring, the operator walks ahead of the drive end wearing a UWB tag. Two anchors on the bumper corners and one on the tiller head measure range to the tag. The controller turns the two motors at different speeds while the truck rolls, and this steers the yoke toward the tag. It holds a 1.5 m gap, stops when the operator stops, and stops if the tag is lost, the tag's stop button is pressed or the gap exceeds 3 m.
 4. **Layered stopping.** In follow mode a 2D lidar just inside the bumper face watches a 0.86 m protective field ahead of the truck, 885 mm wide, and commands a controlled stop when anything enters it; a longer warning field slows the truck first. The contact bumper, the two emergency stops and the tag stop open a dual-channel safety relay that drops two main contactors in series, and the spring-applied hub motor brakes close when power is removed.
 5. **Charge.** A certified 29.2 V, 5 A charger fills the pack from a wall outlet in about 4.5 h overnight.

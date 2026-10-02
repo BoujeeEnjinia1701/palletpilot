@@ -3,7 +3,7 @@ doc_id: PLP-REQ-001
 title: PalletPilot requirements
 project: PalletPilot
 doc_type: Requirements
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: "Constructable design (PLP-DDR-003): mass, release and cost figures; R17 reported against the value-engineering target"
+- version: "0.7"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: TRL 4 verification note for the steering range decided by Amish (PLP-DDR-003 A1); no requirement changed
 ---
 
 # PalletPilot requirements
@@ -70,6 +74,7 @@ Table 1. Requirements.
 - **R5, follow bearing accuracy, is not met.** Filtering brings the error to about ±16°; ±10° would need a 706 mm anchor baseline, wider than the jack. Amish decided to evaluate angle-of-arrival modules and lidar leg tracking at TRL 4, which is on hold (PLP-DDR-002).
 - **R15 mass is not met** by 4.4 kg. The 30 N·m class hub motors weigh about 7 kg each; the second contactor adds 0.3 kg; the parts added to make the design constructable (clamp jaw, drive arms, pivot pin, cam shaft and lever) add 2.4 kg (PLP-DDR-003). Amish accepted 2.0 kg over for now, to be rechecked at the motor quote (PLP-DDR-002); the larger figure is open decision 2 in PLP-DEC-001.
 - **R17, cost, is USD 80 over its value-engineering target**: USD 1,690 against USD 1,610. Savings worth trying are listed in PLP-DEC-001.
+- **Steering range (no requirement covers it; verified at TRL 4).** With the kit fitted the jack steers about 40° each way, set by rubber stops, against about 90° for a bare jack, for a turning radius of roughly 1.5 m about the load wheels (PLP-DDR-003, P9). Amish accepted this range for the prototype on 2026-10-01 (PLP-DDR-003, A1). Verification: the TRL 4 aisle test, a go or no-go gate. Pass when the loaded kit makes a right-angle turn from an aisle into a standard pallet bay; if it cannot, the drive layout changes before TRL 5 (PLP-DEC-001).
 - **R7 is at risk.** The stopping distances fit the lidar field on paper, but the sensor is not safety-rated, so this cannot support an ISO 3691-4 claim.
 - **R9 is at risk** until the stop chain, now with two contactors in series, has a PL calculation.
 

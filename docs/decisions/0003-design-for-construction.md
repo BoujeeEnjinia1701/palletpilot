@@ -3,7 +3,7 @@ doc_id: PLP-DDR-003
 title: PalletPilot design for construction
 project: PalletPilot
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -13,12 +13,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: A1 (steering range) accepted by Amish as recommended, option (a), with the TRL 4 aisle test as a go or no-go gate; Table 1, A2 and A3 stay open
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. The items in Table 3 change what the kit does or how it is pitched, so they are Proposed, awaiting Amish, and are listed in the design decisions register (PLP-DEC-001).
+- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. The items in Table 3 change what the kit does or how it is pitched, so they are Proposed, awaiting Amish, and are listed in the design decisions register (PLP-DEC-001). A1 is decided: Amish, 2026-10-01: "i accept your recommendations for PalletPilot". He was given the recommendation for A1 only, so A1 is decided as recommended (option a, with the TRL 4 aisle test as a go or no-go gate) and recorded in PLP-DEC-001; the changes in Table 1 and items A2 and A3 stay open.
 
 ## Context
 
@@ -53,11 +57,11 @@ The changes keep what the kit does: the same drive layout (two 200 mm hub motors
 | Drawings | PLP-DWG-001 Rev P4; making sketches PLP-DWG-101 to 111 added; concept blueprint PLP-DWG-010 Rev P2. | Follows the model. |
 | Documents | PLP-REQ-001 v0.6 and PLP-PRC-001 v0.6: mass, cost, release and steering figures. | Follows the model. |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Proposed, awaiting Amish; A1 accepted by Amish as recommended on 2026-10-01.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | Steering range. With the kit fitted the jack steers about 40° each way, against about 90° bare, on the reference donor. The concept says the kit "steers with the handle like the bare jack"; it does not. A wider turn needs more room in aisles. | (a) Accept for the prototype, set the stops from the donor survey and measure the turning circle at TRL 4; (b) narrow the drive end (hoop sides inboard, release moved) for perhaps 48°, at the cost of a narrower anchor baseline and a worse R5; (c) a different drive layout, for example one centre drive wheel under the yoke, which reopens D3. | (a), and state the steering range in the precis and README. |
+| A1 | Steering range. With the kit fitted the jack steers about 40° each way, against about 90° bare, on the reference donor. The concept says the kit "steers with the handle like the bare jack"; it does not. A wider turn needs more room in aisles. | (a) Accept for the prototype, set the stops from the donor survey and measure the turning circle at TRL 4; (b) narrow the drive end (hoop sides inboard, release moved) for perhaps 48°, at the cost of a narrower anchor baseline and a worse R5; (c) a different drive layout, for example one centre drive wheel under the yoke, which reopens D3. | (a), and state the steering range in the precis and README; make the TRL 4 aisle test a go or no-go gate: if the kit cannot make a right-angle turn into a standard pallet bay, change the drive layout (option c) before TRL 5. **Accepted by Amish, 2026-10-01.** |
 | A2 | Mass. The kit is 44.4 kg against R15's 40 kg; Amish accepted 2.0 kg over for now. | (a) Accept for the prototype and recheck at the motor quote; (b) lighten now: 5 mm top plate, tube lever, hollow pivot pin (about 1.5 kg). | (a), keeping (b) as savings to try in the TRL 4 drawings. |
 | A3 | Wheel lift. The lever lifts the drive wheels 10 mm clear. A larger lift needs a larger cam, which the top plate's height does not leave room for. | (a) Accept 10 mm for smooth indoor floors; (b) lower the cam shaft and raise the hangers for about 15 mm. | (a). |
 
@@ -66,4 +70,5 @@ The changes keep what the kit does: the same drive layout (two 200 mm hub motors
 - `design_state: constructable` in `project.yaml`. The build plan PLP-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`); open decisions are in PLP-DEC-001.
 - Requirement status is unchanged: 10 met, 2 not met (R5, R15 mass), 2 at risk (R7, R9), 3 not verifiable at TRL 3 (R1, R6, R16); R17 is reported against the value-engineering target, USD 80 over.
 - The photoreal renders (`media/render-*.png`), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept subframe, cheeks, springs and release lever; they need updating on Amish's Mac, where Blender is.
+- With A1 accepted (2026-10-01), the prototype steers about 40° each way with the kit fitted, set by rubber stops (a bare jack turns about 90°), for a turning radius of roughly 1.5 m about the load wheels; the range is confirmed in the TRL 4 aisle test. The precis (PLP-PRC-001 v0.7), README, requirements (PLP-REQ-001 v0.7) and build plan (PLP-BLD-001 v0.2) state this range. The TRL 4 aisle test is a go or no-go gate: if the kit cannot make a right-angle turn into a standard pallet bay, the drive layout changes before TRL 5 (option c, for example one centre drive wheel under the yoke, which reopens D3 of PLP-DDR-001).
 - The donor survey (R1, O3) now sets four numbers in the build: the yoke plate's thickness (packing bar), its rear edge and the pump's position (notch and clamp), and the frame head's position (steering stop angle).
