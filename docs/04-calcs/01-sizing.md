@@ -3,9 +3,9 @@ doc_id: PLP-CAL-001
 title: PalletPilot sizing calculations
 project: PalletPilot
 doc_type: Calculation
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,11 +29,15 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Steering range paragraph records Amish's decision (PLP-DDR-003 A1) and the TRL 4 aisle test gate; no number changed, script not rerun
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "R15a status against the 45 kg prototype limit decided by Amish on 2026-10-02; totals updated; no figures changed"
 ---
 
 # PalletPilot sizing calculations
 
-On paper, PalletPilot meets ten of its eighteen requirement lines, misses two, has two at risk, three cannot be verified at TRL 3, and cost is reported against its value-engineering target. The drive, ramp, bumper, energy, charging, parking, handle clearance, length and hand-push targets are met. The misses are follow-mode bearing accuracy (R5, about ±16° against ±10°) and kit mass (R15, 44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). Version 0.4 reruns the note on the constructable model of PLP-DDR-003: made parts are weighed from their modelled volumes, the release lever is sized from the cam and arm geometry, and the steering range with the kit fitted is checked. Version 0.2 applies Amish's 2026-09-25 decisions in PLP-DDR-002: the bumper-only speed is limited to 0.15 m/s (R8 now met), a second main contactor is added to the stop chain (+$30, +0.3 kg), and the mass and cost overruns are accepted for now with no budget change. Version 0.3 applies only the budget change to $1,610 (PLP-DDR-002); no design number changed. The approved lidar layer stops the loaded truck from 0.6 m/s in 0.42 to 0.76 m, inside a 0.86 m protective field that stays clear of the operator it follows. That is the core of the layered-stopping case, but the sensor is not safety-rated, so R7 stays at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [F3], is the line of the script's output that carries it.
+On paper, PalletPilot meets eleven of its eighteen requirement lines, misses one, has two at risk, three cannot be verified at TRL 3, and cost is reported against its value-engineering target. The drive, ramp, bumper, energy, charging, parking, handle clearance, length and hand-push targets are met. The miss is follow-mode bearing accuracy (R5, about ±16° against ±10°); the kit mass (R15, 44.4 kg) meets the 45 kg prototype limit set by Amish on 2026-10-02 (PLP-DEC-001) and misses the 40 kg goal. Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). Version 0.4 reruns the note on the constructable model of PLP-DDR-003: made parts are weighed from their modelled volumes, the release lever is sized from the cam and arm geometry, and the steering range with the kit fitted is checked. Version 0.2 applies Amish's 2026-09-25 decisions in PLP-DDR-002: the bumper-only speed is limited to 0.15 m/s (R8 now met), a second main contactor is added to the stop chain (+$30, +0.3 kg), and the mass and cost overruns are accepted for now with no budget change. Version 0.3 applies only the budget change to $1,610 (PLP-DDR-002); no design number changed. The approved lidar layer stops the loaded truck from 0.6 m/s in 0.42 to 0.76 m, inside a 0.86 m protective field that stays clear of the operator it follows. That is the core of the layered-stopping case, but the sensor is not safety-rated, so R7 stays at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [F3], is the line of the script's output that carries it.
 
 > **Safety:** These are first-principles estimates for a paper proof of concept of moving machinery that carries up to 1.6 t near people's feet, with a 512 Wh lithium pack. They do not replace brake, stop-chain, detection or electrical tests, and they give no basis for ISO 3691-4 or ISO 13849-1 claims. Nothing may be built or run on the strength of this note. See PLP-PRC-001, Safety.
 
@@ -59,7 +63,7 @@ The note checks every requirement in PLP-REQ-001 v0.6 against the design in PLP-
 
 ## Mass and axle loads
 
-The kit weighs about 44.4 kg on the truck [B1], 4.4 kg over R15. The two hub motors (14 kg) and the drive module (10.6 kg: top plate, lower jaw, drive arms and pivot pin) are 55 % of it; the release mechanism adds 3.3 kg [B0]. Making the design constructable added 2.4 kg (PLP-DDR-003). The design total is 1,108 kg, and 1,608 kg with a 1,500 kg pallet [B2].
+The kit weighs about 44.4 kg on the truck [B1], 4.4 kg over R15's 40 kg goal and 0.6 kg under its 45 kg prototype limit (decided 2026-10-02). The two hub motors (14 kg) and the drive module (10.6 kg: top plate, lower jaw, drive arms and pivot pin) are 55 % of it; the release mechanism adds 3.3 kg [B0]. Making the design constructable added 2.4 kg (PLP-DDR-003). The design total is 1,108 kg, and 1,608 kg with a 1,500 kg pallet [B2].
 
 The steer axle carries 41.5 % of the pallet. The yoke's ground load is 4.79 kN at 1,000 kg and 6.83 kN at 1,500 kg [C1]. With 1.5 kN of spring preload on the drive wheels, the steer wheels keep 3.29 kN at the design load [C2]. With the jack empty, the yoke load (0.72 kN) is below the preload, so the steer wheels lift and the drive wheels carry the yoke; traction is then 0.34 g, which is ample [C3]. The preload springs are stiff (about 100 N/mm, 4.2 mm of preload compression), so the springs extend only about 2 mm before the load balances and the steer wheels lift only about 1.2 mm.
 
@@ -164,12 +168,12 @@ Value-engineering target: USD 1,610 (`budget_usd`, a hypothetical control target
 | R12 | Shift with 20 % or more left | 293 of 410 Wh; 28 % left | Met |
 | R13 | Charge in 5 h or less | 4.5 h | Met |
 | R14 | Release in 10 s; push force +10 % or less | +4.2 %; lever 58 N; wheels lift 10 mm | Met |
-| R15a | Kit mass 40 kg or less | 44.4 kg | **Not met** |
+| R15a | Kit mass 45 kg or less for the prototype (40 kg goal) | 44.4 kg | Met for the prototype (goal not met) |
 | R15b | Added length 300 mm or less | 290 mm | Met |
 | R16 | 0 to 40 °C, IP54, no charging below 0 °C | By specification of bought parts | Not verifiable at TRL 3 |
 | R17 | Kit parts against the $1,610 value-engineering target | $1,690 | Over the target by $80 |
 
-Totals: 10 met, 2 not met, 2 at risk, 3 not verifiable at TRL 3, and R17 over its value-engineering target by $80 [R0].
+Totals: 11 met, 1 not met (R5), 2 at risk, 3 not verifiable at TRL 3, and R17 over its value-engineering target by $80 [R0].
 
 ## Checks against earlier figures
 

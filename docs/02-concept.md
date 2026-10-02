@@ -3,9 +3,9 @@ doc_id: PLP-PRC-001
 title: PalletPilot design precis
 project: PalletPilot
 doc_type: Design precis
-version: "0.7"
+version: "0.8"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -37,6 +37,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Steering range decided by Amish (PLP-DDR-003 A1, option a); range and turning radius stated in the summary and walk mode, with the TRL 4 aisle test as a go or no-go gate
+- version: "0.8"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Follow mode classification, donor survey, partners, R15 and wheel lift decided by Amish on 2026-10-02 (PLP-DEC-001)"
 ---
 
 # PalletPilot design precis
@@ -54,7 +58,7 @@ PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke 
 3. **Follow mode.** With the key switch set to follow and the handle latched upright by a gas spring, the operator walks ahead of the drive end wearing a UWB tag. Two anchors on the bumper corners and one on the tiller head measure range to the tag. The controller turns the two motors at different speeds while the truck rolls, and this steers the yoke toward the tag. It holds a 1.5 m gap, stops when the operator stops, and stops if the tag is lost, the tag's stop button is pressed or the gap exceeds 3 m.
 4. **Layered stopping.** In follow mode a 2D lidar just inside the bumper face watches a 0.86 m protective field ahead of the truck, 885 mm wide, and commands a controlled stop when anything enters it; a longer warning field slows the truck first. The contact bumper, the two emergency stops and the tag stop open a dual-channel safety relay that drops two main contactors in series, and the spring-applied hub motor brakes close when power is removed.
 5. **Charge.** A certified 29.2 V, 5 A charger fills the pack from a wall outlet in about 4.5 h overnight.
-6. **Push by hand.** Raising a release lever turns a cam shaft that lifts the spring saddles; slotted straps then lift the drive arms, so the drive wheels clear the floor by about 10 mm and the jack can be pushed as a manual jack if the pack is flat or the kit fails.
+6. **Push by hand.** Raising a release lever turns a cam shaft that lifts the spring saddles; slotted straps then lift the drive arms, so the drive wheels clear the floor by about 10 mm (enough for smooth indoor floors only, decided 2026-10-02) and the jack can be pushed as a manual jack if the pack is flat or the kit fails.
 
 ![Energy flow](../media/flow.png)
 
@@ -114,7 +118,7 @@ Table 2. Drive, stopping, tracking, energy, mass and cost.
 | Charge time at 5 A | 4.5 h | R13 met |
 | Handle clearance over the enclosure | 40 mm at 70°, 14 mm lowered flat | R11 met |
 | Added length at floor level | 290 mm | R15 length met |
-| Kit mass | 44.4 kg | R15 mass not met (2.0 kg over accepted for now; the rest open) |
+| Kit mass | 44.4 kg | R15 met for the prototype (45 kg limit, decided 2026-10-02); 4.4 kg over the 40 kg goal |
 | Kit parts cost | $1,690 | USD 80 over the USD 1,610 value-engineering target |
 | Donor jack (not in kit) | about $396 new | |
 
@@ -142,14 +146,14 @@ Amish decided the items raised at TRL 3 on 2026-09-25 (PLP-DDR-002), again going
 - **Overruns (O5).** The 2.0 kg mass and $60 cost overruns are accepted for now and rechecked when a motor is quoted. The cost overrun is closed by the $1,610 budget Amish approved on 2026-09-26. Closing the R5 bearing gap (angle-of-arrival UWB or lidar leg tracking) is to be evaluated at TRL 4, which is on hold.
 - **Stop chain (O6).** A second main contactor in series, one per safety relay channel, for about $30.
 
-Still open: follow-mode classification under ISO 3691-4, donor models to support first, and named partners.
+Decided on 2026-10-02 (PLP-DEC-001): follow mode is treated as a driverless truck function under ISO 3691-4; the donor survey covers a Crown PTH 50 series class jack, a distributor's standard model such as Uline's and the Harbor Freight Pittsburgh 5,500 lb jack; the first candidate partners to approach are Dallas Makerspace and a small food bank or charity warehouse in the Dallas and Fort Worth area.
 
 ## Safety
 
 > **Safety:** PalletPilot is moving machinery that carries up to 1.5 t close to people's feet and legs, and it contains a lithium battery. Every build is a research prototype for a closed test area, not a certified industrial truck. Do not use it in a workplace until the questions below are answered.
 
 - **Crushing and collision.** A loaded jack at 1.2 m/s carries about 796 J and needs 1.2 to 1.6 m to stop on the level, and 2.7 m on a 2 % downgrade. Foot injuries under the drive end and pinning against racking or walls are the classic walkie hazards. Use the belly-reverse paddle, handle-angle braking, walking-pace speed limits, safety footwear and a bumper hoop that shields the wheels. Never ride on the jack.
-- **Follow mode.** The truck moves with no hand on the tiller. The lidar layer is not safety-rated and its detection of dark or shiny clothing at shin height is unproven. Until it is built and tested, follow mode runs only at 0.15 m/s or less, the bumper-only limit, in a cordoned area with no other people present. Loss of the tag, a tag stop press, a gap over 3 m, a lidar fault or any other fault must stop the truck with brakes applied.
+- **Follow mode.** The truck moves with no hand on the tiller. The lidar layer is not safety-rated and its detection of dark or shiny clothing at shin height is unproven. Until it is built and tested, follow mode runs only at 0.15 m/s or less, the bumper-only limit, in a cordoned area with no other people present. Loss of the tag, a tag stop press, a gap over 3 m, a lidar fault or any other fault must stop the truck with brakes applied. Follow mode is treated as a driverless truck function under ISO 3691-4 (decided 2026-10-02), so its personnel detection and stopping functions must meet that standard before any trial with people present.
 - **Emergency stop.** The emergency stops and bumper act through a hardwired dual-channel safety relay and two main contactors in series, never only through software. The spring-applied brakes close on loss of power. The performance level (target PL d) is still to be calculated.
 - **Runaway on slopes.** Emergency braking falls by about 40 % on a 2 % downgrade. Do not use on ramps steeper than 2 %, and do not move 1,500 kg loads on any ramp.
 - **Lithium pack.** LiFePO4 is more stable than other lithium-ion chemistries but still stores 512 Wh and can deliver very high currents. Use a BMS with cell-level protection and a charge temperature cut-off, fuse the pack at the terminal, provide a lockable disconnect, charge on a non-combustible surface away from stored goods, and do not charge below 0 °C or a pack that is damaged or swollen.
@@ -158,8 +162,8 @@ Still open: follow-mode classification under ISO 3691-4, donor models to support
 
 ## Open questions
 
-- Classification of follow mode under ISO 3691-4 and the safety functions it then needs.
-- Donor survey of three common jacks: yoke geometry, handle pivot height (the enclosure clears a 350 mm pivot by 14 mm), steering bearing condition.
+- Personnel detection and stopping functions to ISO 3691-4 for follow mode (classified as a driverless truck function on 2026-10-02): which safety-rated sensor and what performance level.
+- Donor survey of three jacks (decided 2026-10-02: a Crown PTH 50 series class model, a distributor's standard model such as Uline's and the Harbor Freight Pittsburgh 5,500 lb jack): yoke geometry, handle pivot height (the enclosure clears a 350 mm pivot by 14 mm), steering bearing condition.
 - Floor friction and rolling resistance on real floors, which set the traction margins.
 - Hub motor with a published 24 V winding, peak torque and brake torque at about 7 kg or less.
 - Closing the R5 bearing gap: angle-of-arrival UWB or lidar leg tracking.

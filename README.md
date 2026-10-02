@@ -86,7 +86,7 @@ The [prototype build plan](docs/05-build-plan.md) (PLP-BLD-001) shows how to mak
 
 ## Safety
 
-> Moving machinery near people. The design uses hardwired emergency stops, walking-pace speed limits, a lidar stop layer in follow mode and a bumper that stops the unit on contact. The lidar is not safety-rated, so follow mode stays at 0.15 m/s or less in a closed area until the layer is built and tested. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface. In the United States a powered pallet jack needs trained operators and the jack maker's written approval for modifications (29 CFR 1910.178). Builds are research prototypes, not certified industrial trucks. See [docs/02-concept.md](docs/02-concept.md#safety).
+> Moving machinery near people. The design uses hardwired emergency stops, walking-pace speed limits, a lidar stop layer in follow mode and a bumper that stops the unit on contact. The lidar is not safety-rated, so follow mode stays at 0.15 m/s or less in a closed area until the layer is built and tested. Follow mode is treated as a driverless truck function under ISO 3691-4, so its personnel detection and stopping functions must meet that standard before any trial with people present. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface. In the United States a powered pallet jack needs trained operators and the jack maker's written approval for modifications (29 CFR 1910.178). Builds are research prototypes, not certified industrial trucks. See [docs/02-concept.md](docs/02-concept.md#safety).
 
 ## Repository layout
 

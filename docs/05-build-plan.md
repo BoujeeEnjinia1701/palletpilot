@@ -3,9 +3,9 @@ doc_id: PLP-BLD-001
 title: PalletPilot prototype build plan
 project: PalletPilot
 doc_type: Build plan
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Steering range stated in section 3.2 (about 40° each way, turning radius roughly 1.5 m about the load wheels); aisle turn added to the first checks
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Release for smooth indoor floors only; safety stop S7 treats follow mode under ISO 3691-4 (decided by Amish on 2026-10-02)"
 ---
 
 # PalletPilot prototype build plan
@@ -224,7 +228,7 @@ Each spring is squashed about 4 by the cam when the wheels are down, which puts 
 
 *Figure 14. Release link making sketch (PLP-DWG-108).*
 
-**What it is and what it is made from.** The lever on the left of the enclosure that lifts the drive wheels for pushing by hand, and the link that joins it to the cam shaft's crank. 20 x 10 flat bar with a 28 mm tube grip; link from 20 x 8 flat bar.
+**What it is and what it is made from.** The lever on the left of the enclosure that lifts the drive wheels for pushing by hand, and the link that joins it to the cam shaft's crank. It lifts the wheels about 10 mm, so the release is for smooth indoor floors only (PLP-DEC-001). 20 x 10 flat bar with a 28 mm tube grip; link from 20 x 8 flat bar.
 
 **How to make it.**
 
@@ -476,7 +480,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S4. Before the motors turn.** Both emergency stops and the edge open both contactors (section 5, stop chain). Driver current limits set to the motors' ratings; speed limited to the creep setting.
 - **S5. Before the wheels go down on the floor under power.** A cordoned, level, dry area with no other people in it; the operator wears safety footwear; walk mode only, with the handle-angle drive band and belly-reverse paddle checked with the wheels lifted. No load on the forks.
 - **S6. Before any load goes on the forks.** All checks of section 5 pass empty. Start with a light pallet and work up; no ramps.
-- **S7. Follow mode.** Not run until the lidar layer is built and tested, and then only at 0.15 m/s or less in a cordoned area with no other people present, the operator wearing the tag with its stop button.
+- **S7. Follow mode.** Follow mode is treated as a driverless truck function under ISO 3691-4 (PLP-DEC-001): no trial with people present until its personnel detection and stopping functions meet that standard. Not run until the lidar layer is built and tested, and then only at 0.15 m/s or less in a cordoned area with no other people present, the operator wearing the tag with its stop button.
 - **S8. Charging.** Only with the certified charger, on the charging spot, never below 0 °C and never a damaged or swollen pack; never left unattended on a first charge.
 
 ## 7. Tools, skills and workspace

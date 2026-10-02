@@ -333,3 +333,34 @@ Unchanged. The rubber stops keep steel parts of the kit off the jack's frame at 
 ### Recommended next step
 
 Amish decides A2, A3 and the Table 1 changes of PLP-DDR-003; then the donor survey (O3), which sets the stop angle, packing bar, clamp and notch. At TRL 4 the aisle test is the first go or no-go gate: **if the kit cannot make a right-angle turn into a standard pallet bay, change the drive layout (option c, for example one centre drive wheel under the yoke, reopening D3) before TRL 5.** TRL 4 stays on hold.
+
+## Session 2026-10-02: open decisions decided
+
+Amish approved every recommendation for the open decisions on 2026-10-02: "i approve your recommendations for all 555 open decisions."
+
+### Decisions recorded
+
+Five, all moved to "Decisions made" in PLP-DEC-001 (open items 1 to 5): kit mass of 44.4 kg accepted for the prototype with R15's prototype limit restated as 45 kg and about 1.5 kg of savings carried into the TRL 4 drawings (PLP-DDR-003, A2); 10 mm drive wheel lift for smooth indoor floors only (PLP-DDR-003, A3); follow mode treated as a driverless truck function under ISO 3691-4; a donor survey of three widely sold jacks (a Crown PTH 50 series class model, a distributor's standard model such as Uline's, the Harbor Freight Pittsburgh 5,500 lb jack); Dallas Makerspace and a small food bank or charity warehouse in the Dallas and Fort Worth area as the first candidate partners to approach.
+
+### Documents changed
+
+- `docs/06-design-decisions.md` PLP-DEC-001 v0.3: decisions made; open decisions section now reads "None"; To confirm item 1 and the value engineering note updated.
+- `docs/decisions/0003-design-for-construction.md` PLP-DDR-003 v0.3: A2 and A3 accepted (status Draft kept); the Table 1 changes stay open.
+- `docs/03-requirements.md` PLP-REQ-001 v0.8: R15 restated with a 45 kg prototype limit (now met for the prototype); R7 tied to ISO 3691-4; summary counts.
+- `docs/04-calcs/01-sizing.md` PLP-CAL-001 v0.6: R15a status and totals; no figures changed.
+- `docs/01-problem.md` PLP-PRB-001 v0.5 and `docs/02-concept.md` PLP-PRC-001 v0.8: follow mode classification, donor survey, first candidate partners, R15 and the wheel lift.
+- `docs/05-build-plan.md` PLP-BLD-001 v0.3: the release is for smooth indoor floors only; safety stop S7 treats follow mode under ISO 3691-4.
+- `README.md`: Safety note states the ISO 3691-4 treatment of follow mode.
+
+### Follow-up actions to carry approved decisions into the design
+
+1. Decision 1 (calculations): set R15a's prototype limit to 45 kg in `docs/04-calcs/sizing.py` so that its printed status matches PLP-CAL-001.
+2. Decision 1 (model, drawings): carry the 5 mm top plate, tube lever and hollow pivot pin (about 1.5 kg) into the model and the TRL 4 drawings.
+3. Decision 3 (BOM, calculations): choose a safety-rated personnel detection sensor and define the stopping functions to ISO 3691-4; re-specify the lidar line and rerun the R7 stopping case for it.
+4. Decision 4 (model, drawings): after the donor survey, set the packing bar thickness, clamp holes, notch and steering stop angle for the three surveyed jacks.
+
+### Points found in the review
+
+- The design for construction changes P1 to P10 (DDR-003, Table 1) are still open for Amish's review, but the register has no row for accepting them. They should get one; the recommendation is to accept.
+- R15: the register said "2.0 kg over was accepted for now", but the kit is now 4.4 kg over; the accepted figure was out of date (now superseded by the 45 kg prototype limit).
+- Cost is $1,690 against the $1,610 target, $80 over, all of it from parts added for construction.
