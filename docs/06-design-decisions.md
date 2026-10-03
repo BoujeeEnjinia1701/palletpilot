@@ -3,7 +3,7 @@ doc_id: PLP-DEC-001
 title: PalletPilot design decisions register
 project: PalletPilot
 doc_type: Design decisions register
-version: "0.3"
+version: "0.5"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,6 +21,14 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Amish approved the recommendations for all five open decisions; moved to decisions made; To confirm item 1 and the value engineering note updated"
+  - version: "0.4"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Design for construction (PLP-DDR-003, Table 1, P1 to P10) accepted by Amish on 2026-10-02; the 2026-09-30 row no longer says open for review"
+  - version: "0.5"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Approved follow-ups carried out: row added to decisions made; value engineering section restated (safety scanner, USD 5,065, 42.9 kg); To confirm items 4, 5 and 6 updated"
 ---
 
 # PalletPilot design decisions register
@@ -38,17 +46,18 @@ None. All open decisions were decided on 2026-10-02.
 | 1 | The donor jack's yoke plate thickness, rear edge position and width, the pump diameter, and the distance from the steering axis to the frame head, for each of the three jacks in the donor survey decided on 2026-10-02 (a Crown PTH 50 series class model, a distributor's standard model such as Uline's, the Harbor Freight Pittsburgh 5,500 lb jack) | They set the packing bar, the clamp holes, the notch and the steering stop angle | PLP-DDR-003; R1 |
 | 2 | The hub motor's 24 V winding, peak torque (30 N·m or more), brake holding torque (20 N·m or more), mass and its shaft's diameter and flats | They set the drive arm's axle hole and the mass and stopping figures | PLP-DDR-002; PLP-CAL-001 |
 | 3 | The preload spring: about 34 mm outside diameter, about 65 mm free length, about 100 N/mm | It sets the 750 N per wheel preload and the 10 mm wheel lift | PLP-DDR-003; PLP-CAL-001 [G4] |
-| 4 | The safety edge profile's travel (40 mm or more at the front), its evaluation unit's category and response time | R8's 0.15 m/s limit rests on 40 mm of travel and a 100 ms chain | PLP-DDR-002; R8 |
+| 4 | The safety edge profile's travel (40 mm or more at the front, now 68 mm high), its evaluation unit's category and response time | R8's 0.15 m/s limit rests on 40 mm of travel and a 100 ms chain | PLP-DDR-002; R8 |
 | 5 | The tiller head fits the donor handle tube and carries the beacon, stop and anchor | The head clamps on the handle; the grip width is still open in the appearance model | REVIEW (2026-09-26) |
-| 6 | The lidar's mounting holes and scan plane height above its base | The bracket shelf is drilled to suit and sets the 200 mm scan plane | PLP-DDR-003 |
+| 6 | The safety scanner's mounting holes, its scan plane height above its base (about 40 mm assumed), its response time (70 ms assumed) and the exact size of its body (about 107 x 80 x 118 mm assumed) | The bracket shelf is drilled to suit, they set the 173 mm scan plane and the 0.80 m protective field, and the body must clear the enclosure by 5 mm | PLP-DDR-003; ISO 3691-4 decision of 2026-10-02 |
 
 ## Value engineering
 
-Value-engineering target: USD 1,610 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). Main cost drivers and savings worth trying:
+Value-engineering target: USD 1,610 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 5,065 (USD 3,455 over the target). Main cost drivers and savings worth trying:
 
-- The largest lines are the two hub motors (USD 400), the battery (USD 180), the motor driver (USD 150), the drive module (USD 130) and the contact bumper (USD 110); together they are about 57 % of the kit.
+- The safety laser scanner for personnel detection is USD 3,455 (USD 3,444.30 listed for a SICK nanoScan3 class unit, plus a shelf), 68 % of the kit. It replaced a USD 80 lidar line when Amish decided on 2026-10-02 that follow mode is treated under ISO 3691-4. The next largest lines are the two hub motors (USD 400), the battery (USD 180), the motor driver (USD 150), the drive module (USD 130) and the contact bumper (USD 110).
 - Making the design constructable added USD 80: the drive module with its clamp, arms and pivot (USD 90 to USD 130), the release mechanism with its cams, link, springs and straps (USD 20 to USD 45), the enclosure feet (USD 5) and the steering stops (USD 10).
-- Savings worth trying: a motor sold with its driver as a pair (the class prices run from USD 165 to USD 249 per motor), batching the laser-cut plate parts into one order, and a tube lever and hollow pivot pin, which also save mass (with the 5 mm top plate, about 1.5 kg; to be carried into the TRL 4 drawings, decided 2026-10-02).
+- The 5 mm top plate, tube lever and hollow pivots decided on 2026-10-02 are in the model and cut the kit mass by about 2.0 kg (kit now 42.9 kg); they change no price.
+- Savings worth trying: a smaller or cheaper safety scanner that still meets PL d and fits in front of the enclosure (a refurbished Hokuyo UAM-05LP-T301 is listed at USD 1,347.53 but its 143 x 110 x 110 mm body does not fit as the kit is laid out), a motor sold with its driver as a pair (the class prices run from USD 165 to USD 249 per motor), and batching the laser-cut plate parts into one order.
 
 ## Decisions made
 
@@ -57,7 +66,7 @@ Value-engineering target: USD 1,610 (a hypothetical control target, not a limit)
 | 2026-09-25 | TRL 2 review items D1 to D9: layered stopping with a low-cost lidar layer, budget, dual hub motors on a sprung yoke module, 24 V LiFePO4, everything on the yoke, speeds, kit rating, legal route, partner types | Amish: "proceed with all of your recommendations across all batches. Make sure we don't proceed to TRL 4 on any of them." | PLP-DDR-001 |
 | 2026-09-25 | Bumper-only speed limited to 0.15 m/s (O4); mass and cost overruns accepted for now, R5 fixes evaluated at TRL 4 (O5); a second main contactor in series (O6) | Amish: "i accept all your recommendations, go with them across all repos." | PLP-DDR-002 |
 | 2026-09-26 | Budget set to USD 1,610 to cover the priced BOM | Amish: "i approve all the budget items." | PLP-DDR-002 v0.2 |
-| 2026-09-30 | Make the design physically buildable while drawing the build plan; outstanding decisions go in this register, not in the build plan | Amish: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." | PLP-DDR-003 (Draft, open for review) |
+| 2026-09-30 | Make the design physically buildable while drawing the build plan; outstanding decisions go in this register, not in the build plan | Amish: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." The changes themselves were accepted on 2026-10-02 (below) | PLP-DDR-003 |
 | 2026-10-01 | The budget is a value-engineering target, reported as over or under, never as a limit | Amish: "the budgets are a hypothethical control target to ensure we are thinking along a value engineering lens." | This register; PLP-CAL-001 v0.4 |
 | 2026-10-01 | Steering range (open item 1 in register v0.1): option (a). Accept about 40° each way with the kit fitted for the prototype (a bare jack turns about 90°), turning radius roughly 1.5 m about the load wheels; set the rubber stops from the donor survey; the precis, README and requirements no longer say the kit steers like the bare jack. **Go or no-go gate:** the TRL 4 aisle test must show the kit can make a right-angle turn into a standard pallet bay; if it cannot, the drive layout changes before TRL 5 (option c, for example one centre drive wheel under the yoke, which reopens D3) | Amish: "i accept your recommendations for PalletPilot" | PLP-DDR-003, A1 |
 | 2026-10-02 | Kit mass of 44.4 kg accepted for the prototype (option a); R15's prototype limit restated as 45 kg, rechecked at the motor quote, and the 1.5 kg of savings of option (b) (5 mm top plate, tube lever, hollow pivot pin) carried into the TRL 4 drawings (open item 1) | Amish: "i approve your recommendations for all 555 open decisions." | PLP-DDR-003, A2 |
@@ -65,3 +74,5 @@ Value-engineering target: USD 1,610 (a hypothetical control target, not a limit)
 | 2026-10-02 | Follow mode is treated as a driverless truck function under ISO 3691-4, with personnel detection and stopping functions to that standard; it is reclassified as an operator-controlled assist mode only if a standards body or a notified body confirms that the walking follower counts as the operator (open item 3) | Amish: "i approve your recommendations for all 555 open decisions." | PLP-DDR-001, O2 |
 | 2026-10-02 | Donor jacks to support first: a survey of three widely sold 27 x 48 in, 2,500 kg hand pallet jacks with published dimensioned drawings, a professional model such as the Crown PTH 50 series, a distributor's standard model such as Uline's, and the low-cost Harbor Freight Pittsburgh 5,500 lb jack (open item 4) | Amish: "i approve your recommendations for all 555 open decisions." | PLP-DDR-001, O3 |
 | 2026-10-02 | Partners near Irving: Dallas Makerspace as the first candidate maker space, and a small food bank or charity warehouse in the Dallas and Fort Worth area as the first candidate warehouse, which trials only after the jack maker's written approval under D8 (open item 5) | Amish: "i approve your recommendations for all 555 open decisions." | PLP-DDR-001, O1 |
+| 2026-10-02 | Design for construction accepted: the changes P1 to P10 in Table 1, as made | Amish: "APPROVED: Design-for-construction changes in 10 repos (CityTwin, CoolShade, PalletPilot, Heliolite, PotholeLog, EarthPress, ReadyKit, CellCheck, CargoMule and ThermaCart)" | [PLP-DDR-003](decisions/0003-design-for-construction.md), Table 1 |
+| 2026-10-02 | Every follow-up action of the open-decision sign-off that needs CAD, drawing, picture, BOM or calculation work is carried out: the 5 mm top plate, tube lever and hollow pivots in the model; a safety laser scanner (SICK nanoScan3 class) in place of the lidar with the personnel stop to ISO 3691-4 stop category 1 and the R7 case rerun; R15a restated to 45 kg in the script. The donor survey dimensions (packing bar, clamp holes, notch, stop angle) wait for the surveyed jacks | Amish: "APPROVED CHANGES, COMPLETE THESE" | [REVIEW.md](REVIEW.md), session 2026-10-02 (approved follow-ups carried out) |

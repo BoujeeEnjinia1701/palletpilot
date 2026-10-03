@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386426216.svg)](https://zenodo.org/badge/latestdoi/1386426216) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/palletpilot/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/palletpilot/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/palletpilot/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/palletpilot)
 
-**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** $1,610 USD (estimated cost $1,690) · **Difficulty:** 4 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** $1,610 USD (estimated cost $5,065) · **Difficulty:** 4 of 5
 
 Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 
@@ -12,7 +12,7 @@ Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit wi
 
 ## Concept rationale
 
-Most small sites already own one or more manual pallet jacks, and the jack's forks, pump and load wheels already do the hard part: lifting and carrying the pallet. What the operator lacks is drive and, for picking, a way to stop walking back to the handle. A bolt-on drive module on the steering yoke adds both without touching the jack's load path, and it can be removed to restore the jack. The kit uses parts a small shop can buy or make: AGV hub motors, a 24 V LiFePO4 pack, folded sheet metal, a commodity 2D lidar and UWB modules.
+Most small sites already own one or more manual pallet jacks, and the jack's forks, pump and load wheels already do the hard part: lifting and carrying the pallet. What the operator lacks is drive and, for picking, a way to stop walking back to the handle. A bolt-on drive module on the steering yoke adds both without touching the jack's load path, and it can be removed to restore the jack. The kit uses parts a small shop can buy or make: AGV hub motors, a 24 V LiFePO4 pack, folded sheet metal, a safety laser scanner and UWB modules.
 
 Keeping the design open matters because the likely users have no dealer service contract. Published drawings, a priced bill of materials and the sizing script let a maintenance person repair it, adapt the clamp to another donor jack, and check the safety numbers for themselves. The kit is a research prototype, not a certified industrial truck.
 
@@ -58,9 +58,9 @@ Small warehouses move pallets by hand, and powered pallet trucks with follow-me 
 
 Retrofit kit that turns a manual pallet jack into a powered, walk-behind unit with a UWB follow-me mode and layered stopping.
 
-A sprung module with two 24 V hub motors clamps to the jack's steering yoke, with a 25.6 V 20 Ah LiFePO4 pack and the electronics in a low enclosure under the handle's sweep. In walk mode the operator steers with the handle and a walkie-style tiller head. With the kit fitted the handle turns about 40° each way, set by rubber stops (a bare jack turns about 90°), so the jack turns more widely than before: a turning radius of roughly 1.5 m about the load wheels, to be confirmed in the TRL 4 aisle test. In follow mode the operator wears a UWB tag and the motors steer by differential drive to hold a 1.5 m gap. Stopping is layered: a 2D lidar watches a 0.86 m field ahead of the truck in follow mode, hardwired emergency stops act through a dual-channel safety relay and two contactors in series, and a contact bumper is the last layer.
+A sprung module with two 24 V hub motors clamps to the jack's steering yoke, with a 25.6 V 20 Ah LiFePO4 pack and the electronics in a low enclosure under the handle's sweep. In walk mode the operator steers with the handle and a walkie-style tiller head. With the kit fitted the handle turns about 40° each way, set by rubber stops (a bare jack turns about 90°), so the jack turns more widely than before: a turning radius of roughly 1.5 m about the load wheels, to be confirmed in the TRL 4 aisle test. In follow mode the operator wears a UWB tag and the motors steer by differential drive to hold a 1.5 m gap. Stopping is layered: a safety laser scanner watches a 0.80 m field ahead of the truck in follow mode, hardwired emergency stops act through a dual-channel safety relay and two contactors in series, and a contact bumper is the last layer.
 
-The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 28 % of the pack left and stops from 0.6 m/s in 0.42 to 0.76 m. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). With the kit fitted the jack steers about 40° each way, against about 90° bare. Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md) and [PLP-DDR-002](docs/decisions/0002-recommendations-accepted.md); the changes that made the design buildable are in [PLP-DDR-003](docs/decisions/0003-design-for-construction.md).
+The sizing note ([PLP-CAL-001](docs/04-calcs/01-sizing.md)) finds that the kit moves 1,000 kg, starts on a 2 % ramp, works a 60-move shift with 24 % of the pack left and stops from 0.6 m/s in 0.36 to 0.70 m. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and the 40 kg kit mass goal (42.9 kg, inside the 45 kg prototype limit). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 5,065 (USD 3,455 over the target), because personnel detection now uses a safety-rated laser scanner. With the kit fitted the jack steers about 40° each way, against about 90° bare. Requirement status is in [docs/03-requirements.md](docs/03-requirements.md); decisions are in [PLP-DDR-001](docs/decisions/0001-trl2-review-decisions.md) and [PLP-DDR-002](docs/decisions/0002-recommendations-accepted.md); the changes that made the design buildable are in [PLP-DDR-003](docs/decisions/0003-design-for-construction.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
@@ -71,7 +71,7 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - 25.6 V 20 Ah LiFePO4 pack with BMS
 - Tiller control head with throttle, belly-reverse paddle and mode key
 - Two hardwired emergency stops, a safety relay and two main contactors
-- 2D lidar stop layer for follow mode
+- Safety laser scanner (PL d class) for personnel detection in follow mode, to ISO 3691-4
 - Contact bumper (safety edge) as the last layer
 - Three UWB anchors and an operator tag
 - ESP32-S3 class controller
@@ -80,13 +80,13 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 ## Building the prototype
 
-The [prototype build plan](docs/05-build-plan.md) (PLP-BLD-001) shows how to make each of the 17 components and fit them to a donor jack in 15 steps, with a making sketch for every made part, close-ups of the joints and a picture for every step. Eleven parts are cut, drilled, welded or folded in a small fabrication shop; the motors, battery, electronics, safety edge, lidar and tiller head are bought. The subframe grips the jack's yoke plate between a top plate and a bolted jaw, so nothing on the jack is drilled. It is a plan, not a record of a build: building and testing to it is TRL 4 work. Decisions still open are in the [design decisions register](docs/06-design-decisions.md).
+The [prototype build plan](docs/05-build-plan.md) (PLP-BLD-001) shows how to make each of the 17 components and fit them to a donor jack in 15 steps, with a making sketch for every made part, close-ups of the joints and a picture for every step. Eleven parts are cut, drilled, welded or folded in a small fabrication shop; the motors, battery, electronics, safety edge, safety scanner and tiller head are bought. The subframe grips the jack's yoke plate between a top plate and a bolted jaw, so nothing on the jack is drilled. It is a plan, not a record of a build: building and testing to it is TRL 4 work. Decisions still open are in the [design decisions register](docs/06-design-decisions.md).
 
 ![PalletPilot kit: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
 ## Safety
 
-> Moving machinery near people. The design uses hardwired emergency stops, walking-pace speed limits, a lidar stop layer in follow mode and a bumper that stops the unit on contact. The lidar is not safety-rated, so follow mode stays at 0.15 m/s or less in a closed area until the layer is built and tested. Follow mode is treated as a driverless truck function under ISO 3691-4, so its personnel detection and stopping functions must meet that standard before any trial with people present. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface. In the United States a powered pallet jack needs trained operators and the jack maker's written approval for modifications (29 CFR 1910.178). Builds are research prototypes, not certified industrial trucks. See [docs/02-concept.md](docs/02-concept.md#safety).
+> Moving machinery near people. The design uses hardwired emergency stops, walking-pace speed limits, a safety laser scanner stop layer in follow mode and a bumper that stops the unit on contact. The scanner layer is not yet built or tested, so follow mode stays at 0.15 m/s or less in a closed area until the layer is built and tested. Follow mode is treated as a driverless truck function under ISO 3691-4, so its personnel detection and stopping functions must meet that standard before any trial with people present. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface. In the United States a powered pallet jack needs trained operators and the jack maker's written approval for modifications (29 CFR 1910.178). Builds are research prototypes, not certified industrial trucks. See [docs/02-concept.md](docs/02-concept.md#safety).
 
 ## Repository layout
 

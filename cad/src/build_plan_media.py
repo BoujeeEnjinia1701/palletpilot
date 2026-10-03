@@ -23,7 +23,7 @@ from model import PARAMS as P, build_components, derived, release_state, box  # 
 
 OUT = ROOT / "docs" / "05-build-plan"
 DWG = ROOT / "cad" / "drawings"
-DATE = "2026-10-01"
+DATE = "2026-10-02"
 D = derived(P)
 C = build_components(P)
 
@@ -74,7 +74,7 @@ def made():
         "jaw": part("Lower jaw, packing bar and M12 bolts", S("jaw", "clamp_bolts"), COL["jaw"]),
         "motors": part("Hub motors (2)", C["motors"].shape, "#111827"),
         "arms": part("Drive arms (2)", S("arm_r", "arm_l"), COL["arms"]),
-        "pin": part("Pivot pin, spacers and nuts", C["pivot_pin"].shape, COL["pin"]),
+        "pin": part("Pivot tubes, spacers and bolts", C["pivot_pin"].shape, COL["pin"]),
         "springs": part("Springs, saddles and lift straps", S("springs", "saddles", "straps"), COL["spring"]),
         "lever": part("Release lever, link and pins", S("lever", "link", "lever_pins"), COL["lever"]),
         "enc": part("Enclosure with feet and M8 bolts", S("enclosure", "feet", "feet_bolts"), COL["enc"]),
@@ -82,7 +82,7 @@ def made():
         "lid": part("Enclosure lid", C["lid"].shape, "#115E59"),
         "hoop": part("Bumper hoop and M8 bolts", S("hoop", "hoop_bolts"), COL["hoop"]),
         "edge": part("Safety edge", C["edge"].shape, COL["edge"]),
-        "lidar": part("Lidar and its bracket", S("lidar", "lidar_bracket"), "#0EA5E9"),
+        "lidar": part("Safety scanner and its shelf", S("lidar", "lidar_bracket"), "#0EA5E9"),
         "anchors": part("UWB anchors (2)", C["anchors"].shape, "#7C3AED"),
         "tiller": part("Tiller head, beacon, stop and anchor", S("tiller", "beacon", "estop_head", "anchor_head"), "#1F2937"),
     }
@@ -126,8 +126,8 @@ def sheets(which=None):
         out.append(bv.component_sheet(
             Part("Subframe", C["subframe"].shape, COL["subframe"]), [Y, M["arms"], M["motors"], M["hoop"]],
             dwg_no="PLP-DWG-101", title="PalletPilot subframe (top plate and welded hangers): making sketch",
-            material="Steel plate 6 mm and 10 mm, S275 or A36; welded",
-            notes=["Top plate: 6 mm steel, 295 x 400 mm. Front corners cut off at 45 degrees,",
+            material="Steel plate 5 mm, 6 mm and 10 mm, S275 or A36; welded",
+            notes=["Top plate: 5 mm steel, 295 x 400 mm. Front corners cut off at 45 degrees,",
                    "  50 mm along each edge. Pump notch: radius 62 mm, centred 15 mm in",
                    "  front of the front edge on the centre line (reaches 47 mm in).",
                    "Holes (from the front edge; sideways from the centre line):",
@@ -189,16 +189,16 @@ def sheets(which=None):
 
     if want(104):
         out.append(bv.component_sheet(
-            Part("Pivot pin", C["pivot_pin"].shape, COL["pin"]), [Y, M["subframe"], M["arms"]],
-            dwg_no="PLP-DWG-104", title="PalletPilot arm pivot pin, spacers and nuts: making sketch",
-            material="Bright steel bar 20 mm; steel tube 30 x 5 mm; M20 nuts", inset_view=(20, -35),
-            notes=["Pin: 20 mm bright steel bar, 392 mm long. Thread both ends M20 for",
-                   "  25 mm. Grease it before fitting.",
+            Part("Pivot tubes", C["pivot_pin"].shape, COL["pin"]), [Y, M["subframe"], M["arms"]],
+            dwg_no="PLP-DWG-104", title="PalletPilot arm pivot tubes, spacers and bolts: making sketch",
+            material="Steel tube 20 x 3.5 mm; steel tube 30 x 5 mm; M12 bolts", inset_view=(20, -35),
+            notes=["Pivot tubes (make 2): 20 mm outside, 13 mm bore, 31 mm long. Deburr",
+                   "  the bore. Grease the outside before fitting.",
                    "Spacers: two tubes 30 mm outside, 20 mm bore, 5 mm long.",
-                   "Order along the pin, from the left end: nut, left rear hanger, spacer,",
-                   "  left arm, (open span), right arm, spacer, right rear hanger, nut.",
-                   "The arms must turn freely on the pin; the nuts clamp the hangers only.",
-                   "Use nyloc nuts or a split pin through each end.",
+                   "Each side, from the middle: tube through the arm, spacer, rear hanger;",
+                   "  an M12 bolt through the bore with a 30 mm washer and a nyloc nut",
+                   "  outside the hanger. The two sides are mirror images; the middle is open.",
+                   "The arms must turn freely on the tubes; the bolts clamp the hangers only.",
                    "Check: each arm swings by hand through its full travel."],
             **base))
 
@@ -243,9 +243,11 @@ def sheets(which=None):
         out.append(bv.component_sheet(
             Part("Release lever", C["lever"].shape, COL["lever"]), [Y, M["subframe"], M["enc"], part("Link", C["link"].shape, COL["link"])],
             dwg_no="PLP-DWG-107", title="PalletPilot release lever: making sketch",
-            material="Steel flat bar 20 x 10 mm; steel tube 28 mm (grip)", inset_view=(20, -60),
-            notes=["Main bar: 20 x 10 mm flat bar, 410 mm long. 12 mm pivot hole 10 mm",
-                   "  from the back end.",
+            material="Steel tube 20 x 10 x 2 mm; flat bar 20 x 10 mm; steel tube 28 mm (grip)", inset_view=(20, -60),
+            notes=["Main tube: 20 x 10 x 2 mm rectangular steel tube, 376 mm long, the",
+                   "  front end closed by a 2 mm plate. Pivot boss: 20 x 10 mm flat bar,",
+                   "  34 long, butt-welded to the back end; 12 mm pivot hole 10 mm from",
+                   "  its back end (410 mm overall).",
                    "Up-arm: 20 x 10 mm bar, ends rounded, welded at the pivot end standing",
                    "  square to the main bar; 10 mm hole 50 mm above the pivot hole.",
                    "Grip: 28 mm tube 30 mm long, welded across the front end so it",
@@ -278,7 +280,7 @@ def sheets(which=None):
             Part("Enclosure", enc, COL["enc"]), [Y, M["subframe"], M["lever"]],
             dwg_no="PLP-DWG-109", title="PalletPilot enclosure, lid and feet: making sketch",
             material="Aluminium sheet 2 mm, 5052; aluminium angle 25 x 20 x 3 mm (feet)", inset_view=(25, -55),
-            notes=["Box: 2 mm aluminium folded to 270 long x 300 wide x 89 tall, open",
+            notes=["Box: 2 mm aluminium folded to 270 long x 300 wide x 90 tall, open",
                    "  top, corners riveted or welded; gasket on the top flange (IP54).",
                    "Lid: 2 mm aluminium, 270 x 300 with a 6 mm down-turned edge; held by",
                    "  six M5 screws into rivet nuts in the box flange.",
@@ -312,18 +314,19 @@ def sheets(which=None):
 
     if want(111):
         out.append(bv.component_sheet(
-            Part("Lidar bracket", C["lidar_bracket"].shape, "#64748B"), [M["hoop"], part("Lidar", C["lidar"].shape, "#0EA5E9")],
-            dwg_no="PLP-DWG-111", title="PalletPilot lidar bracket: making sketch",
-            material="Steel strip 40 x 4 mm; steel plate 6 mm (shelf)", inset_view=(25, -50),
-            notes=["Foot and upright: 4 mm steel strip 40 wide, bent to an L: foot",
-                   "  20 long, upright 44 tall to the shelf.",
-                   "Shelf: 6 mm plate 60 x 50, welded to the top of the upright,",
-                   "  reaching forward. Drill it for the lidar's own mounting holes.",
-                   "Foot: two 5.5 mm holes; it is screwed M5 into rivet nuts in the",
-                   "  top of the hoop's front bar, on the centre line.",
-                   "Fit: the lidar's scan plane must be 200 mm above the floor, and the",
-                   "  lidar's front 10 mm behind the safety edge face.",
-                   "Check: shelf level within 1 degree side to side and front to back."],
+            Part("Scanner shelf", C["lidar_bracket"].shape, "#64748B"), [M["hoop"], part("Safety scanner", C["lidar"].shape, "#0EA5E9")],
+            dwg_no="PLP-DWG-111", title="PalletPilot safety scanner shelf: making sketch",
+            material="Steel plate 3 mm", inset_view=(25, -50),
+            notes=["Shelf: one flat piece of 3 mm steel plate, 118 long x 80 wide,",
+                   "  laser or plasma cut. No bending.",
+                   "Holes: two 5.5 mm holes, 30 apart sideways, 68 from the back edge,",
+                   "  to match the rivet nuts in the top of the hoop's front bar; four",
+                   "  more to suit the scanner's own mounting holes.",
+                   "Fit: the shelf lies on the top of the hoop's front bar, reaching 58 mm",
+                   "  back and 40 mm forward, with 2 mm of air over the safety edge. The",
+                   "  scanner stands on it: scan plane 173 mm above the floor, front 10 mm",
+                   "  behind the safety edge face.",
+                   "Check: shelf flat and level within 1 degree; 2 mm clear of the edge."],
             **base))
     return out
 
@@ -354,9 +357,9 @@ def joints(which=None):
         bx = (360, 440, 150, 200, 110, 218)
         j(2, [part("Rear hanger", win(C["subframe"].shape, *bx), COL["subframe"]),
               part("Drive arm", win(C["arm_r"].shape, *bx), COL["arms"]),
-              part("Pivot pin, spacer and nut", win(C["pivot_pin"].shape, *bx), COL["pin"])],
-          "drive arm on its pivot pin (right side, rear)",
-          "Spacer between arm and hanger; the nut clamps the hanger, the arm turns on the pin",
+              part("Pivot tube, spacer and nut", win(C["pivot_pin"].shape, *bx), COL["pin"])],
+          "drive arm on its pivot tube (right side, rear)",
+          "Spacer between arm and hanger; the bolt and nut clamp the hanger, the arm turns on the tube",
           elev=12, azim=-55, size=(8, 6))
     if want(3):
         bx = (240, 340, 135, 190, 30, 100)
@@ -421,11 +424,11 @@ def joints(which=None):
         bx = (400, 500, -250, 60, 80, 230)
         j(9, [part("Hoop front bar", win(C["hoop"].shape, *bx), COL["hoop"]),
               part("Front safety edge", win(C["edge"].shape, *bx), COL["edge"]),
-              part("Lidar bracket", win(C["lidar_bracket"].shape, *bx), "#64748B"),
-              part("Lidar", win(C["lidar"].shape, *bx), "#0EA5E9"),
+              part("Scanner shelf", win(C["lidar_bracket"].shape, *bx), "#64748B"),
+              part("Safety scanner", win(C["lidar"].shape, *bx), "#0EA5E9"),
               part("UWB anchor on its corner plate", win(C["anchors"].shape, *bx), "#7C3AED")],
-          "lidar and anchor on the hoop (left half)",
-          "Seen from behind the hoop. Lidar scan plane 200 mm up, its front 10 mm behind the edge face; the anchor stays below it",
+          "safety scanner and anchor on the hoop (left half)",
+          "Seen from behind the hoop. Scanner scan plane 173 mm up, its front 10 mm behind the edge face; the anchor stays below it",
           elev=25, azim=-150, size=(8, 6))
     if want(10):
         from build123d import Pos, Rot
@@ -473,7 +476,7 @@ def steps(which=None):
        "Shaft through the axle hole with the 5 mm spacer inside; nut outside, motor maker's torque", elev=20, azim=-40)
     st(6, on_jack, [mv(part("Arms with motors", S("arm_r", "arm_l", "motors"), COL["arms"]), (0, 0, -150)),
                     mv(M["pin"], (0, -320, 0))],
-       "arms and motors onto the pivot pin", "Lift the arms under the rear hangers; push the pin through hangers, spacers and arms",
+       "arms and motors onto the pivot tubes", "Lift the arms under the rear hangers; push a pivot tube through each arm and hanger with its spacer; bolt",
        elev=15, azim=-55, label_done=False)
     drive = on_jack + [M["arms"], M["motors"], M["pin"]]
     spr = S("springs", "saddles", "straps")
@@ -499,7 +502,7 @@ def steps(which=None):
     st(13, closed + [M["hoop"]], [mv(M["edge"], (220, 0, 0))], "safety edge onto the hoop",
        "Rivet the edge's rail to the front and side faces; run its lead to the evaluation unit", elev=20, azim=-40, label_done=False)
     st(14, closed + [M["hoop"], M["edge"]], [mv(M["lidar"], (0, 0, 120)), mv(M["anchors"], (0, 0, 90))],
-       "lidar and corner anchors onto the hoop", "M5 screws into rivet nuts; lidar scan plane 200 mm above the floor",
+       "safety scanner and corner anchors onto the hoop", "M5 screws into rivet nuts; scanner scan plane 173 mm above the floor",
        elev=25, azim=-40, label_done=False)
     tx, tz = D["handle_top"]
     hand = part("Jack handle (donor)", C["donor_yoke"].shape & box(tx - 260, tx + 200, -200, 200, tz - 420, tz + 200), COL["donor"])
@@ -553,18 +556,19 @@ def wiring():
     blk(2, 22, 15, 14, "Emergency stops", "tiller head and\nenclosure rear,\n2 NC contacts each", "#DC2626")
     blk(21, 22, 15, 14, "Safety edge", "evaluation unit,\nfront and sides", "#1F2937")
     blk(42, 20, 18, 16, "Safety relay", "dual channel;\nopens K1 and K2;\nmanual reset", "#15803D")
-    blk(66, 20, 16, 16, "Controller", "ESP32-S3 class,\nCAN, UART, SPI;\nasks for a stop,\nnever closes the chain", "#15803D")
-    blk(88, 22, 13, 14, "Lidar", "UART;\nprotective and\nwarning fields", "#0EA5E9")
-    blk(104, 22, 14, 14, "UWB anchors", "3 modules on SPI;\ntag with stop\nbutton (radio)", "#7C3AED")
-    wire([(17, 31), (42, 31)], ORG); lab(18, 33, "stop channel A and B, 0.75 mm²", ORG)
+    blk(66, 20, 16, 16, "Controller", "ESP32-S3 class,\nCAN, SPI;\nasks for a stop,\nnever closes the chain", "#15803D")
+    blk(88, 22, 14, 14, "UWB anchors", "3 modules on SPI;\ntag with stop\nbutton (radio)", "#7C3AED")
+    blk(105, 20, 13, 16, "Safety scanner", "24 V, fused;\nsafety outputs\nto the relay;\nfields stored\nin the scanner", "#0EA5E9")
+    wire([(17, 31), (42, 31)], ORG); lab(3, 19.6, "stop channel A and B, 0.75 mm²", ORG)
     wire([(28.5, 36), (28.5, 39), (51, 39), (51, 36)], ORG); lab(30, 40.7, "edge output to relay inputs", ORG)
     wire([(54, 36), (54, 46)], ORG, 1.4); wire([(57, 36), (57, 42), (75, 42), (75, 46)], ORG, 1.4)
     lab(57.6, 40.7, "coil A and coil B, 0.75 mm²", ORG)
     wire([(60, 28), (66, 28)], GRY, 1.2); lab(61, 26.2, "stop request", GRY)
-    wire([(82, 29), (88, 29)], BLU, 1.2); wire([(101, 29), (104, 29)], BLU, 1.2)
+    wire([(82, 29), (88, 29)], BLU, 1.2)
+    wire([(111.5, 20), (111.5, 18.3), (46, 18.3), (46, 20)], ORG, 1.4); lab(84, 17.2, "scanner safety outputs to relay inputs", ORG)
     wire([(74, 36), (74, 40.5), (93, 40.5), (93, 46)], BLU, 1.2); lab(80, 38.6, "CAN, twisted pair", BLU)
-    blk(66, 6, 16, 9, "DC-DC 24 V to 5 V", "controller, lidar,\nanchors (fused 3 A)", "#16A34A")
-    wire([(74, 15), (74, 20)], RED, 1.2); lab(74.6, 17.5, "1 mm²", RED)
+    blk(66, 6, 16, 9, "DC-DC 24 V to 5 V", "controller and\nanchors (fused 3 A)", "#16A34A")
+    wire([(74, 15), (74, 20)], RED, 1.2); lab(74.6, 16.0, "1 mm²", RED)
     ax.text(2, 13, "Safety: disconnect off and pack fuse out until the stop points of section 6 are passed.", fontsize=7.6,
             color="#B45309", fontweight="bold")
     ax.text(2, 10, "The hardwired stops and the edge open both contactors through the relay;", fontsize=7.2, color=MUT)

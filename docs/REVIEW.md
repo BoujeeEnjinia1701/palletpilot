@@ -345,7 +345,7 @@ Five, all moved to "Decisions made" in PLP-DEC-001 (open items 1 to 5): kit mass
 ### Documents changed
 
 - `docs/06-design-decisions.md` PLP-DEC-001 v0.3: decisions made; open decisions section now reads "None"; To confirm item 1 and the value engineering note updated.
-- `docs/decisions/0003-design-for-construction.md` PLP-DDR-003 v0.3: A2 and A3 accepted (status Draft kept); the Table 1 changes stay open.
+- `docs/decisions/0003-design-for-construction.md` PLP-DDR-003 v0.3: A2 and A3 accepted (status Draft kept); the Table 1 changes stayed open until Amish accepted them later on 2026-10-02 (see the next session).
 - `docs/03-requirements.md` PLP-REQ-001 v0.8: R15 restated with a 45 kg prototype limit (now met for the prototype); R7 tied to ISO 3691-4; summary counts.
 - `docs/04-calcs/01-sizing.md` PLP-CAL-001 v0.6: R15a status and totals; no figures changed.
 - `docs/01-problem.md` PLP-PRB-001 v0.5 and `docs/02-concept.md` PLP-PRC-001 v0.8: follow mode classification, donor survey, first candidate partners, R15 and the wheel lift.
@@ -361,6 +361,69 @@ Five, all moved to "Decisions made" in PLP-DEC-001 (open items 1 to 5): kit mass
 
 ### Points found in the review
 
-- The design for construction changes P1 to P10 (DDR-003, Table 1) are still open for Amish's review, but the register has no row for accepting them. They should get one; the recommendation is to accept.
+- The design for construction changes P1 to P10 (DDR-003, Table 1) were still open for Amish's review, with no row in the register for accepting them; the recommendation was to accept. Amish accepted them later on 2026-10-02 (see the next session).
 - R15: the register said "2.0 kg over was accepted for now", but the kit is now 4.4 kg over; the accepted figure was out of date (now superseded by the 45 kg prototype limit).
 - Cost is $1,690 against the $1,610 target, $80 over, all of it from parts added for construction.
+
+## Session 2026-10-02: design-for-construction changes accepted
+
+Amish, 2026-10-02: "APPROVED: Design-for-construction changes in 10 repos (CityTwin, CoolShade, PalletPilot, Heliolite, PotholeLog, EarthPress, ReadyKit, CellCheck, CargoMule and ThermaCart)". This accepts the design-for-construction changes P1 to P10 in Table 1 of PLP-DDR-003, which were left open for his review when the open decisions were decided earlier the same day. No other item is decided by it. trl stays 3; no build or test work was done, and the model, BOM, calculations and pictures are unchanged.
+
+### Documents changed
+
+- `docs/decisions/0003-design-for-construction.md` (PLP-DDR-003 v0.4, status Draft): status line now "accepted" with Amish's words.
+- `docs/06-design-decisions.md` (PLP-DEC-001 v0.4): Decisions made row added, dated 2026-10-02; the 2026-09-30 row no longer calls the record open for review.
+- `docs/05-build-plan.md` (PLP-BLD-001 v0.4): section 2 says the Table 1 changes are accepted.
+- PDFs regenerated.
+
+### Recommended next step
+
+No change: the follow-up actions of the previous session stand. TRL 4 remains on hold by Amish's instruction.
+
+## Session 2026-10-02: approved follow-ups carried out
+
+Amish approved every follow-up action of the open-decision sign-off on 2026-10-02 ("APPROVED CHANGES, COMPLETE THESE"). Four follow-ups were listed above; results:
+
+### Approved follow-ups carried out
+
+1. Calculations, R15a limit: done. `docs/04-calcs/sizing.py` restates R15a to a 45 kg prototype limit (status Met at 42.9 kg).
+2. Model and drawings, 5 mm top plate, tube lever, hollow pivot: done. The top plate is 5 mm, the lever a 20 x 10 x 2 mm tube, and the single pin is two hollow 20 mm pivot tubes (one per arm; this also frees the middle of the frame for the scanner). Kit mass is 42.9 kg (was 44.4 kg). The enclosure is 1 mm deeper (96 mm) because the plate is thinner. STEP and STL regenerated; constructability checks pass (0 overlaps, 46 contacts, nine new clearance checks).
+3. Safety-rated personnel sensor and ISO 3691-4 stopping: done on paper. BOM line 18 is now a SICK nanoScan3 Core I/O class scanner (USD 3,444.30 listed, plus about USD 11 for a 3 mm shelf; USD 3,455 for the line). Stopping function defined: scanner safety outputs to the safety relay, monitored controlled stop (stop category 1) by the driver, brakes close at standstill; the driver specification now includes safe torque off. R7 case rerun: controlled stop 0.36 to 0.70 m inside a 0.80 m field (delay 0.15 s). Not resolved: if the drive's controlled stop fails and only the brakes act, the 1,500 kg 2 % downgrade case needs 1.15 m, beyond the field; R7 stays At risk. The scan plane is now 173 mm (was 200 mm), the safety edge 68 mm high and the anchors 165 mm tall, all to make the scanner fit.
+4. Donor survey dimensions (packing bar, clamp holes, notch, stop angle): not done. They need the dimensioned drawings of the three surveyed jacks, which are not in the repo; the model keeps the reference donor. This is survey work for the donor jacks, listed under "To confirm when parts are bought" in PLP-DEC-001.
+
+Done 3 of 4.
+
+### Key results
+
+- Requirement changes: none. 11 met, 1 not met (R5), 2 at risk (R7, R9), 3 not verifiable at TRL 3. R15 kit mass 42.9 kg (met for the prototype; 2.9 kg over the 40 kg goal). R12 reserve 24 % (was 28 %, scanner draws about 2 W more). R17: Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 5,065 (USD 3,455 over the target). `budget_usd` unchanged.
+- Cost saving worth trying: a cheaper safety scanner that fits in front of the enclosure. The cheaper Hokuyo UAM-05LP-T301 (refurbished USD 1,347.53) has a 143 x 110 x 110 mm body that does not fit as laid out.
+- Assumed until the scanner is bought: its scan plane about 40 mm above its base, 70 ms response, envelope about 107 x 80 x 118 mm, four mounting holes (register item 6).
+
+### Documents changed (new versions)
+
+PLP-CAL-001 v0.7, PLP-REQ-001 v0.9, PLP-PRC-001 v0.9, PLP-PRB-001 v0.6, PLP-DEC-001 v0.5, PLP-DDR-003 v0.5, PLP-BLD-001 v0.5, README, `bom/bom.csv`, `bom/bom-notes.md`, `docs/04-calcs/sizing.py`, `cad/src/model.py` (new clearance checks), `cad/src/product_model.py`.
+
+### Pictures regenerated
+
+General arrangement PLP-DWG-001 Rev P5; concept media (hero, blueprint, cutaway, exploded, flow, viewer; concept sheet Rev P3); all build plan pictures (overview, 11 making sketches PLP-DWG-101 to 111, 10 joints, 15 steps, wiring diagram). Text check on all drawings clean. The earlier note that the pictures were unchanged no longer applies.
+
+### Render scenes exported
+
+Appearance model `cad/src/product_model.py` updated (drive module, release, hoop, scanner and steering stops are now the model's own shapes). `python3 .kit/export_views.py /home/claude/renders/palletpilot` wrote hero, exploded and detail (.npz and .json each) and `palletpilot__jobs.json`. Photoreal images, `card.png` and `social-preview.png` are for Amish's Mac.
+
+### Cross-repo actions
+
+None found for this repo.
+
+### Safety concerns
+
+The personnel stop for follow mode is on paper only. Brakes-only worst case (1.15 m) exceeds the 0.80 m field; TRL 4 must size the field from the scanner's own stopping-distance rules before any trial with people present.
+
+### Recommended next step
+
+Amish decides whether a USD 3,455 scanner line is acceptable against the value-engineering target or whether to pursue a cheaper PL d scanner that fits; TRL 4 remains on hold.
+
+
+## 2026-10-02: photoreal renders redone on the constructable design
+
+Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.

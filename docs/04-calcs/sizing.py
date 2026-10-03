@@ -37,10 +37,11 @@ A = dict(
     t_brake=20.0,              # N m per motor, specified minimum spring-brake dynamic torque
     a_level=0.30, a_ramp=0.10, a_heavy=0.20,   # m/s2 acceleration settings
     v_walk=1.2, v_forks=0.8, v_creep=0.3, v_follow=0.6, v_bumper=0.15,   # bumper-only limit decided 2026-09-25 (PLP-DDR-002, O4); was 0.2
-    eff_drive=0.70, p_ctrl=9.2, shift_h=8.0, soc_use=0.80, eff_cell=0.95, eff_chg=0.88,
+    eff_drive=0.70, p_ctrl=11.3, shift_h=8.0, soc_use=0.80, eff_cell=0.95, eff_chg=0.88,
     pack_v=25.6, pack_ah=20.0, chg_a=5.0, cv_h=0.5,
     moves=60, dist=40.0, starts=4,
-    td_lidar=0.25, td_bumper=0.10, td_tag=0.20,
+    td_scanner=0.15, td_bumper=0.10, td_tag=0.20,   # scanner: 0.07 s response (SICK nanoScan3 data sheet) plus safety relay and driver stop start 0.08 s; was 0.25 s for the C1 lidar through the controller
+    r15_limit=45.0,            # kg, R15 prototype limit restated 2026-10-02 (PLP-DDR-003 A2); the product target stays 40 kg
     field_margin=0.10, sigma_r=0.10, uwb_hz=20.0, window_s=0.5, bias_r=0.03,
     gap=1.5, gap_tol=0.3, tag_to_legs=0.15,
     pallet_cg_x=-615.0, jack_rear_share=0.45,
@@ -65,12 +66,12 @@ masses = {
     "7 Controller and safety relay": 0.4, "8 Tiller head": 1.5, "9 Emergency stops": 0.2, "10 Bumper": bumper,
     "11 UWB anchors": 0.15, "12 Beacon": 0.2, "13 Release mechanism and springs": release,
     "16 Handle sensor and gas spring": 0.5, "17 Wiring and hardware": 2.0,
-    "18 Lidar and bracket": 0.2 + MM["lidar_bracket"], "19 Steering stops": MM["steer_stops"],
+    "18 Safety scanner and bracket": 0.67 + MM["lidar_bracket"], "19 Steering stops": MM["steer_stops"],
 }
 kit = sum(masses.values())
 for k, v in masses.items():
     out("B0", f"mass {k}: {v:.2f} kg")
-out("B1", f"kit mass on the truck {kit:.1f} kg (charger and tag not carried); R15 target 40 kg")
+out("B1", f"kit mass on the truck {kit:.1f} kg (charger and tag not carried); R15 prototype limit {A['r15_limit']:.0f} kg (product target 40 kg)")
 m = A["pallet"] + A["jack"] + kit
 m_heavy = A["pallet_max"] + A["jack"] + kit
 m_empty = A["jack"] + kit
@@ -139,9 +140,10 @@ stops = [
     ("walk 1.2 m/s, controlled, level", A["v_walk"], m, f_ctrl, A["td_bumper"], 0),
     ("walk 1.2 m/s, e-stop (brakes), level", A["v_walk"], m, f_ebrk, A["td_bumper"], 0),
     ("walk 1.2 m/s, e-stop, 2 % downgrade", A["v_walk"], m, f_ebrk, A["td_bumper"], A["grade"]),
-    ("follow 0.6 m/s, lidar stop, level", A["v_follow"], m, f_ctrl, A["td_lidar"], 0),
-    ("follow 0.6 m/s, lidar stop, 2 % downgrade", A["v_follow"], m, f_ctrl, A["td_lidar"], A["grade"]),
-    ("follow 0.6 m/s, lidar stop, 1,500 kg, 2 % downgrade", A["v_follow"], m_heavy, f_ctrl, A["td_lidar"], A["grade"]),
+    ("follow 0.6 m/s, scanner stop, level", A["v_follow"], m, f_ctrl, A["td_scanner"], 0),
+    ("follow 0.6 m/s, scanner stop, 2 % downgrade", A["v_follow"], m, f_ctrl, A["td_scanner"], A["grade"]),
+    ("follow 0.6 m/s, scanner stop, 1,500 kg, 2 % downgrade", A["v_follow"], m_heavy, f_ctrl, A["td_scanner"], A["grade"]),
+    ("follow 0.6 m/s, scanner stop by brakes only (drive stop failed), 1,500 kg, 2 % downgrade", A["v_follow"], m_heavy, f_ebrk, A["td_scanner"], A["grade"]),
     ("follow 0.6 m/s, bumper only, level", A["v_follow"], m, f_ebrk, A["td_bumper"], 0),
     ("creep 0.3 m/s, bumper only, level", A["v_creep"], m, f_ebrk, A["td_bumper"], 0),
     ("0.15 m/s bumper-only limit, level", A["v_bumper"], m, f_ebrk, A["td_bumper"], 0),
@@ -160,11 +162,16 @@ out("S3", f"bumper-only speed that stops within {P['edge_travel']:.0f} mm travel
           f"at the 0.15 m/s limit the truck travels {res['0.15 m/s bumper-only limit, level']*1000:.0f} mm; "
           f"at the former 0.2 m/s it would need {res['0.2 m/s, bumper only, level (TRL 3 v0.1 limit)']*1000:.0f} mm")
 need_travel_lim = res["0.15 m/s bumper-only limit, level"] * 1000
-field = max(res[k] for k in res if "lidar" in k) + A["field_margin"]
+scan_ok = [k for k in res if "scanner" in k and "brakes only" not in k]       # the field is sized for the controlled stop
+field = max(res[k] for k in scan_ok) + A["field_margin"]
+scan_fault = res["follow 0.6 m/s, scanner stop by brakes only (drive stop failed), 1,500 kg, 2 % downgrade"]
 limit = A["gap"] - A["gap_tol"] - A["tag_to_legs"]
-out("S4", f"lidar protective field length {field:.2f} m ahead of the bumper face (worst lidar stop plus {A['field_margin']} m); "
-          f"nearest operator legs at about {limit:.2f} m, so the field stays clear of the operator by {limit-field:.2f} m")
-out("S5", f"lidar lateral field: truck width {P['out_w']:.0f} mm plus 100 mm each side = {P['out_w']+200:.0f} mm")
+out("S4", f"scanner protective field length {field:.2f} m ahead of the bumper face (worst controlled scanner stop plus {A['field_margin']} m; "
+          f"the scanner's protective range is 3 m); nearest operator legs at about {limit:.2f} m, so the field stays clear of the operator by {limit-field:.2f} m")
+out("S5", f"scanner lateral field: truck width {P['out_w']:.0f} mm plus 100 mm each side = {P['out_w']+200:.0f} mm; "
+          f"personnel stop is a controlled stop at the drive's peak torque limit, then the brakes close (stop category 1, ISO 3691-4)")
+out("S5a", f"if the drive's controlled stop fails and only the spring brakes act, the 1,500 kg 2 % downgrade case stops in {scan_fault:.2f} m, "
+           f"{'inside' if scan_fault <= field else 'beyond'} the {field:.2f} m field (operator legs at {limit:.2f} m)")
 out("S6", f"tag loss: timeout 3 missed frames at {A['uwb_hz']:.0f} Hz plus command = {A['td_tag']:.2f} s to stop command (R6 target 0.3 s)")
 hold = f_grade
 out("S7", f"parking on 2 %: needs {hold:.0f} N = {hold*A['r']:.1f} N m total; spring brakes give {2*A['t_brake']:.0f} N m "
@@ -199,7 +206,7 @@ usable = A["pack_v"] * A["pack_ah"] * A["soc_use"]
 w_wall = w_pack / A["eff_cell"] / A["eff_chg"]
 t_chg = A["pack_ah"] / A["chg_a"] + A["cv_h"]
 out("E1", f"work at the wheels {w_wheels:.0f} Wh ({w_move/3600:.2f} Wh per move); driver input {w_drive:.0f} Wh; "
-          f"controls, UWB, lidar and lights {w_ctrl:.0f} Wh")
+          f"controls, UWB, scanner and lights {w_ctrl:.0f} Wh")
 out("E2", f"from the pack {w_pack:.0f} Wh of {usable:.0f} Wh usable; left {(usable-w_pack)/usable*100:.0f} % (R12 needs 20 %)")
 out("E3", f"from the wall {w_wall:.0f} Wh; charge time {t_chg:.1f} h at {A['chg_a']:.0f} A (R13 target 5 h)")
 out("E4", f"losses: charging {w_wall-w_pack:.0f} Wh, controls {w_ctrl:.0f} Wh, motors and driver {w_drive-w_wheels:.0f} Wh")
@@ -211,8 +218,8 @@ clr70 = P["pivot_z"] + (x_front - P["kingpin_x"]) / math.tan(a70) - P["handle_r"
 out("G1", f"handle clearance over the enclosure: {clr70:.0f} mm at 70 deg, {D['handle_clear_90']:.0f} mm with the handle horizontal")
 out("G2", f"added length at floor level {D['added_length']:.0f} mm (bumper face X {D['bumper_face_x']:.0f}, bare jack rear X "
           f"{D['bare_rear_x']:.0f}); overall {D['overall_len']:.0f} mm against {D['bare_len']:.0f} mm bare")
-out("G3", f"drive wheel tread to rigid hoop {P['bumper_clear']:.0f} mm; lidar scan plane {P['lidar_scan_z']:.0f} mm above the floor, "
-          f"above the hoop ({P['bumper_z1']:.0f}) and anchors ({P['anchor_top']:.0f})")
+out("G3", f"drive wheel tread to rigid hoop {P['bumper_clear']:.0f} mm; scanner scan plane {P['lidar_scan_z']:.0f} mm above the floor, "
+          f"above the hoop (130), the safety edge ({P['bumper_z1']:.0f}) and the anchors ({P['anchor_top']:.0f})")
 throw, lever, eff = P["cam_e"], P["lever_len"], 0.8
 # the cam turns a quarter turn while the lever does, so the peak lever effort is spring force x eccentricity / lever
 f_spr = 2 * D["spring_force"]
@@ -242,7 +249,7 @@ status = [
     ("R4", "Speed limits", "1.2, 0.8, 0.3, 0.6 m/s set in the controller", "Met"),
     ("R5", "Gap +/-0.3 m, bearing +/-10 deg", f"gap +/-{2*A['sigma_r']/math.sqrt(n):.2f} m; bearing +/-{2*s_tot:.0f} deg (2 sigma)", "Not met"),
     ("R6", "Stop within 0.3 s of tag loss", f"timing budget {A['td_tag']:.2f} s; firmware not written", "Not verifiable at TRL 3"),
-    ("R7", "Stop without contact from 0.6 m/s (lidar layer)", f"stop {max(res[k] for k in res if 'lidar' in k):.2f} m inside a {field:.2f} m field; sensor not safety-rated", "At risk"),
+    ("R7", "Stop without contact from 0.6 m/s (scanner layer)", f"controlled stop {max(res[k] for k in scan_ok):.2f} m inside a {field:.2f} m field; PL d class scanner chosen; brakes-only stop {scan_fault:.2f} m", "At risk"),
     ("R8", "Bumper stop in 100 ms; bumper-only 0.15 m/s or less", f"0.10 s chain; 0.15 m/s stops in {need_travel_lim:.0f} mm of {P['edge_travel']:.0f} mm travel", "Met" if need_travel_lim <= P["edge_travel"] else "Not met"),
     ("R9", "Hardwired stops, PL d", "Dual-channel relay, two contactors in series; PL not calculated", "At risk"),
     ("R10", "Brakes hold 2 % with power off", f"{2*A['t_brake']:.0f} N m spec vs {hold*A['r']:.1f} N m", "Met"),
@@ -250,7 +257,7 @@ status = [
     ("R12", "Shift with 20 % left", f"{w_pack:.0f} of {usable:.0f} Wh; {(usable-w_pack)/usable*100:.0f} % left", "Met"),
     ("R13", "Charge in 5 h or less", f"{t_chg:.1f} h", "Met"),
     ("R14", "Push by hand; 10 s release; +10 % force max", f"+{kit/(A['pallet']+A['jack'])*100:.1f} %; lever {effort:.0f} N", "Met"),
-    ("R15a", "Kit mass 40 kg or less", f"{kit:.1f} kg", "Not met" if kit > 40 else "Met"),
+    ("R15a", f"Kit mass {A['r15_limit']:.0f} kg or less for the prototype (40 kg product target)", f"{kit:.1f} kg", "Not met" if kit > A["r15_limit"] else "Met"),
     ("R15b", "Added length 300 mm or less", f"{D['added_length']:.0f} mm", "Met" if D["added_length"] <= 300 else "Not met"),
     ("R16", "0 to 40 degC, IP54, no charge below 0 degC", "By specification of bought parts", "Not verifiable at TRL 3"),
     ("R17", f"Kit parts against the ${BUDGET:,} value-engineering target", f"${total:,.0f}",

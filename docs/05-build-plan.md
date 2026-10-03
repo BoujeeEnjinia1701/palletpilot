@@ -3,7 +3,7 @@ doc_id: PLP-BLD-001
 title: PalletPilot prototype build plan
 project: PalletPilot
 doc_type: Build plan
-version: "0.3"
+version: "0.5"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,6 +21,14 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Release for smooth indoor floors only; safety stop S7 treats follow mode under ISO 3691-4 (decided by Amish on 2026-10-02)"
+  - version: "0.4"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Section 2: the Table 1 changes of PLP-DDR-003 accepted by Amish on 2026-10-02"
+  - version: "0.5"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Approved follow-ups carried in: 5 mm top plate, tube lever, two hollow pivot tubes, safety laser scanner on a shelf in place of the lidar; pictures and sizes updated"
 ---
 
 # PalletPilot prototype build plan
@@ -33,24 +41,24 @@ revisions:
 
 *Figure 1. The 17 components of the kit, pulled apart and numbered in build order. The donor jack is not shown.*
 
-The prototype is the PalletPilot kit fitted to one ordinary 27 x 48 in manual pallet jack. Everything hangs off the jack's steering yoke, behind its pump: a steel subframe clamped to the yoke plate, two hub motors on sprung drive arms, a release lever that lifts the motors clear for pushing by hand, a low aluminium box holding the battery and electronics, a bumper hoop with a safety edge, a lidar and two radio anchors on the hoop, and a new control head on the jack's handle. Figure 1 shows the 17 components in the order you make or fit them. Eleven are made in a small fabrication shop: the subframe, lower jaw, drive arms, pivot pin, cam shaft, spring saddles and straps, lever, link, enclosure, bumper hoop and lidar bracket. The rest are bought: the hub motors, springs, steering stops, battery, motor driver, contactors, controller, safety edge, lidar, anchors and tiller head. The work is cutting and drilling steel plate, MIG welding, bending strip, folding aluminium sheet, riveting, and wiring bought modules at 25.6 V. The parts cost about $1,690 from the bill of materials. Nothing is drilled, cut or welded on the jack itself.
+The prototype is the PalletPilot kit fitted to one ordinary 27 x 48 in manual pallet jack. Everything hangs off the jack's steering yoke, behind its pump: a steel subframe clamped to the yoke plate, two hub motors on sprung drive arms, a release lever that lifts the motors clear for pushing by hand, a low aluminium box holding the battery and electronics, a bumper hoop with a safety edge, a safety laser scanner and two radio anchors on the hoop, and a new control head on the jack's handle. Figure 1 shows the 17 components in the order you make or fit them. Eleven are made in a small fabrication shop: the subframe, lower jaw, drive arms, pivot tubes, cam shaft, spring saddles and straps, lever, link, enclosure, bumper hoop and scanner shelf. The rest are bought: the hub motors, springs, steering stops, battery, motor driver, contactors, controller, safety edge, safety scanner, anchors and tiller head. The work is cutting and drilling steel plate, MIG welding, bending strip, folding aluminium sheet, riveting, and wiring bought modules at 25.6 V. The parts cost about $5,065 from the bill of materials, most of it the safety scanner. Nothing is drilled, cut or welded on the jack itself.
 
 > **Safety:** The finished kit is moving machinery that can push a 1,000 kg load, and it carries a 512 Wh lithium iron phosphate battery that can deliver very high currents. Keep the battery fuse out and the disconnect off until section 6 says otherwise, keep the drive wheels lifted (lever up) and the jack chocked for every powered check, and never ride on the jack. Welding, grinding and cutting steel need eye, hand and fire precautions. The kit is a research prototype for a closed area and is not a certified industrial truck.
 
 ## 2. What changed to make it buildable
 
-The concept showed what the kit does; several of its parts could not be made or fixed as drawn. Each change below keeps what the kit does, and all of them are recorded in decision record PLP-DDR-003, open for Amish's review.
+The concept showed what the kit does; several of its parts could not be made or fixed as drawn. Each change below keeps what the kit does, and all of them are recorded in decision record PLP-DDR-003; Amish accepted the changes in its Table 1 on 2026-10-02.
 
 *Table 1. Changes from the concept.*
 
 | Component | The concept had | The buildable design has | Why |
 | --- | --- | --- | --- |
-| Yoke clamp | A thick slab with a block that did not reach the yoke and a loose tongue under it | A 6 mm top plate on the yoke plate with a notch round the pump, a lower jaw underneath, and four M12 bolts behind the yoke's edge (Figure 6) | Grips the yoke plate without drilling the jack |
-| Drive wheel mounts | Side cheeks welded solid to the plate, and springs floating beside it | Two drive arms on a pivot pin behind the wheels, each pushed down by a spring at its front end (Figures 7 and 12) | The wheels can follow the floor and carry the 1.5 kN preload |
+| Yoke clamp | A thick slab with a block that did not reach the yoke and a loose tongue under it | A 5 mm top plate on the yoke plate with a notch round the pump, a lower jaw underneath, and four M12 bolts behind the yoke's edge (Figure 6) | Grips the yoke plate without drilling the jack |
+| Drive wheel mounts | Side cheeks welded solid to the plate, and springs floating beside it | Two drive arms, each on a hollow pivot tube behind its wheel, each pushed down by a spring at its front end (Figures 7 and 12) | The wheels can follow the floor and carry the 1.5 kN preload |
 | Hub motors | Wheels with no shaft into their mounts | Each motor's shaft passes through its arm with a spacer and a nut (Figure 7) | How a single-sided hub motor is mounted |
-| Manual release | A lever along the box with no pivot and no link to the springs | A cam shaft with two cams, a crank, a link and a 400 mm lever; raising the lever lifts the wheels 10 mm (Figures 15 and 16) | One lever lifts both wheels with about 58 N of effort |
+| Manual release | A lever along the box with no pivot and no link to the springs | A cam shaft with two cams, a crank, a link and a 400 mm steel tube lever; raising the lever lifts the wheels 10 mm (Figures 15 and 16) | One lever lifts both wheels with about 58 N of effort |
 | Bumper | One solid block, mounted from the moving cheeks | A tube hoop bolted to brackets on the subframe, with the safety edge riveted on (Figure 21) | The bumper face no longer moves with the wheels |
-| Lidar and anchors | Brackets in space the arms now need, and anchors with no fixing | A bent bracket and two corner plates screwed to the top of the hoop (Figure 23) | Scan height and anchor spacing unchanged |
+| Scanner and anchors | A lidar on a bracket in space the arms now need, and anchors with no fixing | A safety laser scanner for personnel detection on a flat steel shelf, and two corner plates, screwed to the top of the hoop (Figure 23) | The follow mode stop must meet ISO 3691-4; the scan plane is 173 above the floor and the anchor spacing is unchanged |
 | Enclosure | No fixing | Four riveted angle feet, one M8 bolt each (Figure 18) | The box floor stays whole |
 | Steering | Nothing stopped the drive end swinging into the jack's frame | Corners of the top plate cut back and two rubber steering stops that meet the frame at 40° (Figure 3) | Steel parts of the kit never strike the jack |
 
@@ -64,7 +72,7 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 *Figure 2. Subframe making sketch (PLP-DWG-101).*
 
-**What it is and what it is made from.** The plate everything hangs from. It sits on the jack's yoke plate, carries the enclosure on top and, underneath, the hangers for the cam shaft and the drive arms and the brackets for the bumper. Steel plate, S275 or A36 class: 6 mm for the top plate, front hangers, bumper brackets and lever bracket; 10 mm for the rear hangers.
+**What it is and what it is made from.** The plate everything hangs from. It sits on the jack's yoke plate, carries the enclosure on top and, underneath, the hangers for the cam shaft and the drive arms and the brackets for the bumper. Steel plate, S275 or A36 class: 5 mm for the top plate; 6 mm for the front hangers, bumper brackets and lever bracket; 10 mm for the rear hangers.
 
 **How to make it.**
 
@@ -170,30 +178,30 @@ The jaw's front part lies under the yoke plate's rear margin, 35 deep. Four M12 
 3. Cut two spring tabs 44 x 44 from 10 mm plate. Weld one to the outer face of each arm at the front end, square to the arm, its top face 90 below the pivot hole centre, reaching 34 out from the arm.
 4. Drill and tap an M6 hole into the middle of each tab's front and back edges, 5 below its top face (for the lift straps).
 
-**How it fits the parts next to it.** The pivot pin passes through the back hole (Figure 10), the motor shaft through the axle hole (Figure 7), and the spring stands on the tab (Figure 12).
+**How it fits the parts next to it.** Each pivot tube passes through the back hole of its arm (Figure 10), the motor shaft through the axle hole (Figure 7), and the spring stands on the tab (Figure 12).
 
 **Check before moving on.** Laid back to back, the two arms' holes line up.
 
-### 3.7 Pivot pin, spacers and nuts
+### 3.7 Pivot tubes, spacers and bolts
 
-![Figure 9. Making sketch of the pivot pin](../cad/drawings/PLP-DWG-104.png)
+![Figure 9. Making sketch of the pivot tubes](../cad/drawings/PLP-DWG-104.png)
 
-*Figure 9. Pivot pin making sketch (PLP-DWG-104).*
+*Figure 9. Pivot tube making sketch (PLP-DWG-104).*
 
-**What it is and what it is made from.** The pin the two arms turn on. 20 mm bright steel bar; two spacers from 30 x 5 tube; two M20 nyloc nuts.
+**What it is and what it is made from.** The two short tubes the arms turn on, one for each arm, so the middle of the frame stays open. 20 mm outside, 13 mm bore steel tube; two spacers from 30 x 5 tube; two M12 bolts, each with a 30 mm washer and a nyloc nut.
 
 **How to make it.**
 
-1. Cut the pin 392 long and thread both ends M20 for 25.
+1. Cut two pivot tubes 31 long from the 20 mm tube and deburr the bores.
 2. Cut two spacers 5 long from 30 mm tube with a 20 mm bore; deburr.
 
 **How it fits the parts next to it.**
 
-![Figure 10. Joint 2: drive arm on its pivot pin](05-build-plan/joint-02.png)
+![Figure 10. Joint 2: drive arm on its pivot tube](05-build-plan/joint-02.png)
 
-*Figure 10. Each arm turns on the pin between a spacer and the open middle; the nut clamps the hanger, not the arm.*
+*Figure 10. Each arm turns on its tube between a spacer and the open middle; the bolt and nut clamp the hanger, not the arm.*
 
-**Check before moving on.** Each arm swings freely by hand on the greased pin.
+**Check before moving on.** Each arm swings freely by hand on its greased tube.
 
 ### 3.8 Springs, spring saddles and lift straps
 
@@ -228,13 +236,13 @@ Each spring is squashed about 4 by the cam when the wheels are down, which puts 
 
 *Figure 14. Release link making sketch (PLP-DWG-108).*
 
-**What it is and what it is made from.** The lever on the left of the enclosure that lifts the drive wheels for pushing by hand, and the link that joins it to the cam shaft's crank. It lifts the wheels about 10 mm, so the release is for smooth indoor floors only (PLP-DEC-001). 20 x 10 flat bar with a 28 mm tube grip; link from 20 x 8 flat bar.
+**What it is and what it is made from.** The lever on the left of the enclosure that lifts the drive wheels for pushing by hand, and the link that joins it to the cam shaft's crank. It lifts the wheels about 10 mm, so the release is for smooth indoor floors only (PLP-DEC-001). A 20 x 10 x 2 steel tube with a flat bar boss and a 28 mm tube grip; link from 20 x 8 flat bar.
 
 **How to make it.**
 
-1. Lever: cut the main bar 410 long and drill a 12 mm pivot hole 10 from one end. Cut the up-arm from the same bar, round its ends, drill a 10 mm hole 50 from the pivot hole centre, and weld it at the pivot end, square to the main bar. Weld a 30 long piece of 28 mm tube across the far end as a grip, standing out to the left.
+1. Lever: cut the main tube 376 long from 20 x 10 x 2 rectangular tube and cap its front end with a 2 mm plate. Cut a 34 long boss from 20 x 10 flat bar, drill a 12 mm pivot hole 10 from its end, and butt-weld it to the tube's back end. Cut the up-arm from flat bar, round its ends, drill a 10 mm hole 50 from the pivot hole centre, and weld it at the pivot end, square to the main bar. Weld a 30 long piece of 28 mm tube across the far end as a grip, standing out to the left.
 2. Link: measure the distance from the cam shaft's centre to the lever bracket's pivot hole on your subframe (228.7 on the drawing). Cut the link and drill its two 10 mm holes exactly that distance apart, within 0.5.
-3. Make the pivot pin (12 mm, 27 long, with a split pin hole) and an 11 long spacer of 20 mm tube.
+3. Make the lever's pivot pin (12 mm, 27 long, with a split pin hole) and an 11 long spacer of 20 mm tube.
 
 **How it fits the parts next to it.**
 
@@ -260,7 +268,7 @@ The lever turns on its pin in the bracket with the spacer between them. The link
 
 **How to make it.**
 
-1. Have the box folded from 2 mm sheet to 270 long, 300 wide and 89 tall, open at the top with an inward flange for the lid gasket; rivet or weld the corners.
+1. Have the box folded from 2 mm sheet to 270 long, 300 wide and 90 tall, open at the top with an inward flange for the lid gasket; rivet or weld the corners.
 2. Fold the lid to 270 x 300 with a 6 mm down-turned edge. Fit six M5 rivet nuts in the box flange and drill the lid to match.
 3. Cut holes: 40 mm on the right side for the disconnect, 180 from the front end and 45 up; 22 mm in the back face for the emergency stop, 80 left of centre and 45 up; and glands for the cables as the wiring needs. Never put a hole in the lid.
 4. Cut four feet 24 long from the angle and drill a 9 mm hole in each flat leg, 12 from the upright leg. Rivet each upright leg to the box side with two 4.8 mm rivets, 20 and 210 from the front end, bottoms flush with the box bottom.
@@ -286,10 +294,10 @@ The lever turns on its pin in the bracket with the spacer between them. The link
 | Battery | 8S LiFePO4, 25.6 V, 20 Ah, about 270 x 115 x 85, with a BMS rated 50 A continuous and a charge temperature cut-off below 0 °C |
 | Main fuse and disconnect | 80 A fuse at the battery terminal; lockable battery disconnect for panel mounting |
 | Contactors | Two 24 V main contactors rated 80 A or more, with a pre-charge resistor for the driver's input capacitors |
-| Motor driver | Dual-channel 24 V brushless servo driver, 2 x 15 A continuous, 30 A peak, CAN, brake outputs, matched to the motors' encoders |
+| Motor driver | Dual-channel 24 V brushless servo driver, 2 x 15 A continuous, 30 A peak, CAN, brake outputs, safe torque off and a monitored controlled-stop input, matched to the motors' encoders |
 | Controller and safety relay | ESP32-S3 class controller with a CAN transceiver; dual-channel safety relay with manual reset |
 | Stop devices | Two 22 mm emergency stops with two normally closed contacts each; the safety edge's evaluation unit |
-| Sensors | 2D lidar (RPLIDAR C1 class); three UWB anchor modules (DWM3000 class); Hall angle sensor on the handle pivot |
+| Sensors | Safety laser scanner (Type 3, PL d, 3 m protective field, 70 ms response, about 107 x 80 x 118, 0.67 kg; mounted on the hoop, section 3.12); three UWB anchor modules (DWM3000 class); Hall angle sensor on the handle pivot |
 
 Wire it as Figure 19 shows. All main power is 5.3 mm² (10 AWG) with crimped lugs; stop-chain and coil wiring 0.75 mm²; signals in twisted pairs. Both emergency stops and the safety edge feed the safety relay's two channels; each channel opens one contactor. The controller can only ask the relay for a stop; it can never close the chain. The motor brakes close when power is removed.
 
@@ -307,7 +315,7 @@ Wire it as Figure 19 shows. All main power is 5.3 mm² (10 AWG) with crimped lug
 
 1. Cut the front bar 440 long and two side legs 210 long, outside lengths, with 45° mitres at the corners. Weld all round and grind the corners smooth.
 2. In the inner face of each leg drill two 11 mm holes, 120 and 140 from the leg's open end, centred on the tube's height, and set an M8 rivet nut in each.
-3. In the top of the front bar, on the centre line, drill and set two M5 rivet nuts for the lidar bracket, and two at each front corner for the anchor plates.
+3. In the top of the front bar, on the centre line, drill and set two M5 rivet nuts, 30 apart, for the scanner shelf, and two at each front corner for the anchor plates.
 4. Paint safety yellow.
 
 **How it fits the parts next to it.**
@@ -320,27 +328,26 @@ The tube's underside is 90 above the floor and the front bar is 30 behind the dr
 
 **Check before moving on.** The legs are parallel and 400 apart inside, within 1.
 
-### 3.12 Lidar bracket
+### 3.12 Scanner shelf
 
-![Figure 22. Making sketch of the lidar bracket](../cad/drawings/PLP-DWG-111.png)
+![Figure 22. Making sketch of the scanner shelf](../cad/drawings/PLP-DWG-111.png)
 
-*Figure 22. Lidar bracket making sketch (PLP-DWG-111).*
+*Figure 22. Scanner shelf making sketch (PLP-DWG-111).*
 
-**What it is and what it is made from.** A small bent bracket that holds the lidar just behind the bumper face. 40 x 4 steel strip and a 6 mm plate shelf.
+**What it is and what it is made from.** A flat shelf that holds the safety scanner just behind the bumper face. 3 mm steel plate.
 
 **How to make it.**
 
-1. Bend the strip to an L: foot 20 long, upright 44 tall.
-2. Weld the shelf (60 x 50) to the top of the upright, reaching forward, and drill it for the lidar's own mounting holes.
-3. Drill two 5.5 mm holes in the foot to match the rivet nuts in the hoop.
+1. Have the shelf laser or plasma cut from 3 mm plate, 118 long and 80 wide. It is not bent.
+2. Drill two 5.5 mm holes, 30 apart sideways and 68 from the back edge, to match the rivet nuts in the hoop's front bar, and four more to suit the scanner's own mounting holes.
 
 **How it fits the parts next to it.**
 
-![Figure 23. Joint 9: lidar and anchor on the hoop](05-build-plan/joint-09.png)
+![Figure 23. Joint 9: scanner and anchor on the hoop](05-build-plan/joint-09.png)
 
-*Figure 23. The lidar's scan plane is 200 above the floor and its front 10 behind the bumper face; each anchor sits on a corner plate below the scan plane.*
+*Figure 23. The scanner's scan plane is 173 above the floor and its front 10 behind the bumper face; the shelf reaches back and forward from the hoop's front bar with 2 of air over the safety edge; each anchor sits on a corner plate below the scan plane.*
 
-**Check before moving on.** The shelf is level within 1° both ways.
+**Check before moving on.** The shelf is flat and level within 1° both ways and 2 clear of the safety edge.
 
 ### 3.13 Bought components
 
@@ -352,7 +359,7 @@ Buy to specification, not brand. Line numbers are those of the bill of materials
 - **Battery, driver, contactors, controller, relay and stops (lines 4 to 7 and 9).** As Table 2.
 - **Tiller head (line 8).** A clamp-on walkie head that fits the jack's handle tube, with a thumbwheel throttle, belly-reverse paddle, mode key, horn and a beacon mount; carries the beacon (line 12), the second emergency stop and the third UWB anchor.
 - **Safety edge (line 10).** Pressure-sensitive edge with its evaluation unit and an aluminium mounting rail: front length 480 with 40 or more of travel, two side lengths of about 210.
-- **UWB anchors (line 11) and lidar (line 18).** As Table 2; each anchor in a small box on a corner plate screwed to the hoop.
+- **UWB anchors (line 11) and safety scanner (line 18).** As Table 2; the scanner's safety outputs go to the safety relay; each anchor in a small box on a corner plate screwed to the hoop.
 - **Handle sensor and gas spring (line 16), charger (line 14), operator tag (line 15).** As the bill of materials; the charger and tag are not fitted to the jack.
 - **Fixings (line 17).** Four M12 x 50 bolts (8.8) with nuts and hardened washers; M8 bolts, nyloc nuts and rivet nuts; M6 and M5 screws; M5 rivet nuts; 4.8 mm rivets; 5 mm roll pins; split pins; 5.3 mm² cable, lugs, spiral wrap and labels.
 
@@ -390,11 +397,11 @@ Offer the jaw up under the yoke plate with the packing bar behind the yoke's edg
 
 On the bench, pass each motor's shaft through its arm's axle hole with the 5 mm spacer between motor and arm, and fit the nut outside to the motor maker's torque.
 
-### Step 6: arms and motors onto the pivot pin
+### Step 6: arms and motors onto the pivot tubes
 
 ![Step 6](05-build-plan/step-06.png)
 
-With a helper, lift both arms with their motors under the subframe so the back holes line up with the rear hangers. Push the greased pin through the left hanger, a spacer, the left arm, the right arm, a spacer and the right hanger, and fit the nuts. The wheels rest on the floor.
+With a helper, lift both arms with their motors under the subframe so the back holes line up with the rear hangers. On each side, push a greased pivot tube through the arm, a spacer and the hanger, then pass an M12 bolt through the tube's bore and fit its washer and nyloc nut outside the hanger. The wheels rest on the floor.
 
 ### Step 7: springs, saddles and lift straps
 
@@ -418,7 +425,7 @@ Stand the box on the top plate and fit one M8 bolt through each foot and the pla
 
 ![Step 10](05-build-plan/step-10.png)
 
-Fit each module on its own bracket or pads and wire as Figure 19, with the disconnect off and the battery fuse out. Run the motor, safety edge and lidar cables through glands. **Hold point:** the wiring checks of section 3.10.1 pass.
+Fit each module on its own bracket or pads and wire as Figure 19, with the disconnect off and the battery fuse out. Run the motor, safety edge and scanner cables through glands. **Hold point:** the wiring checks of section 3.10.1 pass.
 
 ### Step 11: close the lid
 
@@ -438,11 +445,11 @@ Slide the hoop forward over the bumper brackets from behind and fit two M8 bolts
 
 Rivet the edge's rail to the front and side faces of the hoop and run its lead to the evaluation unit in the enclosure.
 
-### Step 14: lidar and corner anchors onto the hoop
+### Step 14: safety scanner and corner anchors onto the hoop
 
 ![Step 14](05-build-plan/step-14.png)
 
-Screw the lidar bracket and the two anchor plates to the hoop with M5 screws, fit the lidar and anchors, and check the lidar's scan plane is 200 above the floor.
+Screw the scanner shelf and the two anchor plates to the hoop with M5 screws, fit the scanner and anchors, and check the scanner's scan plane is 173 above the floor and the scanner clears the enclosure by at least 5.
 
 ### Step 15: tiller head onto the handle
 
@@ -480,7 +487,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S4. Before the motors turn.** Both emergency stops and the edge open both contactors (section 5, stop chain). Driver current limits set to the motors' ratings; speed limited to the creep setting.
 - **S5. Before the wheels go down on the floor under power.** A cordoned, level, dry area with no other people in it; the operator wears safety footwear; walk mode only, with the handle-angle drive band and belly-reverse paddle checked with the wheels lifted. No load on the forks.
 - **S6. Before any load goes on the forks.** All checks of section 5 pass empty. Start with a light pallet and work up; no ramps.
-- **S7. Follow mode.** Follow mode is treated as a driverless truck function under ISO 3691-4 (PLP-DEC-001): no trial with people present until its personnel detection and stopping functions meet that standard. Not run until the lidar layer is built and tested, and then only at 0.15 m/s or less in a cordoned area with no other people present, the operator wearing the tag with its stop button.
+- **S7. Follow mode.** Follow mode is treated as a driverless truck function under ISO 3691-4 (PLP-DEC-001): no trial with people present until its personnel detection and stopping functions meet that standard. Not run until the scanner layer is built and tested, and then only at 0.15 m/s or less in a cordoned area with no other people present, the operator wearing the tag with its stop button.
 - **S8. Charging.** Only with the certified charger, on the charging spot, never below 0 °C and never a damaged or swollen pack; never left unattended on a first charge.
 
 ## 7. Tools, skills and workspace
@@ -495,10 +502,10 @@ Stop at each point. Carry on only when everything listed is true.
 
 ## 8. Where the numbers come from
 
-- Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`): overlaps, contacts, the release lever's raised state and the steering sweep; STEP and STL exports in `cad/step/` and `cad/stl/`.
+- Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`): overlaps, contacts, the scanner and lever clearances, the release lever's raised state and the steering sweep; STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/PLP-DWG-101` to `PLP-DWG-111`.
-- General arrangement: `cad/drawings/PLP-DWG-001.pdf`, Rev P4.
-- Calculations: `docs/04-calcs/01-sizing.md` (PLP-CAL-001 v0.5) and `docs/04-calcs/sizing.py`; mass [B0], [B1], loads [C1] to [C3], torque [F4], stopping [S2], [S3], release [G4], steering [G5].
+- General arrangement: `cad/drawings/PLP-DWG-001.pdf`, Rev P5.
+- Calculations: `docs/04-calcs/01-sizing.md` (PLP-CAL-001 v0.7) and `docs/04-calcs/sizing.py`; mass [B0], [B1], loads [C1] to [C3], torque [F4], stopping [S2], [S3], release [G4], steering [G5].
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (PLP-DDR-003), with PLP-DDR-001 and PLP-DDR-002; open decisions in `docs/06-design-decisions.md` (PLP-DEC-001).
 - Requirements: `docs/03-requirements.md` (PLP-REQ-001 v0.7).

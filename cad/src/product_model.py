@@ -1,13 +1,13 @@
 """PalletPilot product appearance model (build123d), TRL 3.
 
 Finished-product look for photoreal renders of the retrofit kit on a donor manual pallet jack:
-a charcoal drive module subframe with filleted plate, trailing cheeks, axle caps, bolt heads and
-coil preload springs; two hub motor wheels with grooved treads and machined hub faces; a teal
+a charcoal drive module (5 mm top plate with hangers, lower jaw, drive arms on hollow pivot tubes,
+saddles, cam shaft and coil preload springs, all taken from the constructable model); two hub motor wheels with grooved treads and machined hub faces; a teal
 folded aluminium enclosure with side louvers, a charcoal lid frame and a clear polycarbonate
 window over the LiFePO4 pack, motor driver, contactors and controller; a rear emergency stop on
 its yellow plate, a red battery disconnect knob, cable glands and a name plate; the manual release
-lever; a steel U hoop carrying a black safety edge, with white UWB anchor radomes on its corners;
-the obstacle lidar puck on its bracket; and a tiller control head with rubber grips, thumbwheel
+steel tube lever; a steel U hoop carrying a black safety edge, with white UWB anchor radomes on its corners;
+the safety laser scanner on its shelf; and a tiller control head with rubber grips, thumbwheel
 throttles, belly-reverse paddle, key switch, horn button, emergency stop, UWB anchor and a lit
 amber beacon (walk mode), joined to the enclosure by a spiral-wrapped cable. Context is the donor
 jack, a 48 x 40 in stringer pallet with cartons, and the shared clay mannequin holding the tiller
@@ -17,7 +17,7 @@ A research prototype, not a certified industrial truck.
 
 Every main dimension and interface comes from PARAMS and derived() in model.py. Axes as model.py:
 fork tips toward -X, drive end toward +X, Y across the forks, Z up from the floor. Differences
-from model.py (see docs/REVIEW.md, session 2026-09-26): the handle is drawn at HANDLE_DEG (40 deg
+from model.py (see docs/REVIEW.md, session 2026-09-26; the drive module, release, hoop, scanner shelf and steering stops are the model's own shapes since 2026-10-02): the handle is drawn at HANDLE_DEG (40 deg
 from vertical, mid walk band) instead of the 20 deg that model.py shows, so the operator's hands
 meet the grips at a natural height; the tiller head grips span GRIP_SPAN over their end caps
 against the 220 mm head_w; and the tiller's UWB anchor sits under the left grip instead of 35 mm
@@ -46,10 +46,10 @@ RENDER_VIEWS = [
              "operator walking behind the load holding the tiller"},
     {"name": "exploded", "groups": ["shell", "internal", "accessory"], "explode": True, "el": 28, "az": -55,
      "note": "Exploded view from the front right and above (about 28 deg elevation): subframe, hub motors, "
-             "enclosure and electronics, bumper, UWB anchors, lidar, tiller head, tag"},
+             "enclosure and electronics, bumper, UWB anchors, safety scanner, tiller head, tag"},
     {"name": "detail", "groups": ["shell", "internal"], "explode": False, "el": 26, "az": -34,
      "note": "Detail from the front right and above (about 26 deg elevation): drive module, enclosure with "
-             "electronics behind the clear lid, lidar, bumper and UWB anchors"},
+             "electronics behind the clear lid, safety scanner, bumper and UWB anchors"},
 ]
 
 HANDLE_DEG = 40.0            # handle angle from vertical shown in the renders (walk band 20 to 70 deg)
@@ -276,43 +276,33 @@ def product_parts(P=PARAMS):
     add("Cartons, about 1,000 kg", _union(cartons), C_KRAFT, "paper", None, "context", (0, 0, 0))
     add("Carton tape", _union(tape), C_TAPE, "paper", None, "context", (0, 0, 0))
 
-    # ============================================================ 1 drive module subframe
-    t = P["plate_t"]
-    hy = P["drive_track"] / 2 + P["drive_w"] / 2 + 5
-    ES = (0, 0, 0)
-    plate = _box(P["plate_x0"], P["plate_x1"], -P["plate_half_w"], P["plate_half_w"], P["plate_z"], P["plate_z"] + 20)
-    plate = _fillet_try(plate, _par(plate, Axis.Z), [16.0, 10.0])
-    plate = _fillet_try(plate, _top(plate), [2.0, 1.0])
-    clamp = _box(P["plate_x0"], P["plate_x0"] + 20, -40, 40, 140, P["plate_z"]) + _box(kx + 10, P["plate_x0"], -40, 40, 140, 150)
-    cheeks = []
-    for s in (-1, 1):
-        y0, y1 = (hy, hy + 2 * t) if s > 0 else (-hy - 2 * t, -hy)
-        c = _box(P["cheek_x0"], P["cheek_x1"], y0, y1, 70, P["plate_z"])
-        c = _fillet_try(c, [e for e in _par(c, Axis.Y) if e.center().Z < 100], [45.0, 30.0, 15.0])
-        cheeks.append(c)
-    sub = plate + clamp + _union(cheeks)
-    add("Drive module subframe", sub, C_CHAR, "painted", 1, "shell", ES)
+    # ============================================================ 1 drive module (constructable design, PLP-DDR-003)
+    # The made parts come from model.build_components(), so every size and joint is the model's.
+    import model as _m
+    MC = _m.build_components(P)
 
-    bolts = []
-    for x in (P["plate_x0"] + 8, P["plate_x1"] - 12):
-        for s in (-1, 1):
-            bolts.append(_hex_z(x, s * 166, P["plate_z"] + 23, 13.0, 6.0))
-    for s in (-1, 1):
-        bolts.append(_hex_z(P["plate_x0"] + 10, s * 25, 137, 13.0, 6.0))
-        cap_y = s * (hy + 2 * t + 4)
-        bolts.append(_hex_y(P["drive_x"], cap_y, P["drive_r"], 24.0, 8.0))
-        bolts.append(_ycyl(P["drive_x"], s * (hy + 2 * t + 9), P["drive_r"], 7, 3))
-    add("Subframe bolts and axle nuts", _union(bolts), C_ZINC, "metal", 1, "shell", ES)
+    def _mc(key, name, color, material, bom, group="shell", fillet=None):
+        sh = MC[key].shape
+        if fillet:
+            sh = _fillet_try(sh, _par(sh, Axis.Z), fillet)
+        add(name, sh, color, material, bom, group, MC[key].explode)
 
-    springs, cups = [], []
-    for s in (-1, 1):
-        sx, sy = P["drive_x"] - 70, s * (hy + 30)
-        cups.append(_zcyl(sx, sy, 200, 22, 10) + _zcyl(sx, sy, 162, 22, 6))
-        cups.append(_box(sx - 22, sx + 22, min(sy, s * hy), max(sy, s * hy), 157, 165))
-        for k in range(5):
-            springs.append(Pos(sx, sy, 170 + 6.5 * k) * Torus(15.0, 2.8))
-    add("Preload spring seats", _union(cups), C_CHAR, "painted", 1, "shell", ES)
-    add("Preload springs", _union(springs), C_ACCENT, "painted", 1, "shell", ES)
+    _mc("subframe", "Drive module top plate (5 mm) with hangers", C_CHAR, "painted", 1)
+    _mc("jaw", "Lower jaw and packing bar", C_CHAR, "painted", 1)
+    _mc("clamp_bolts", "Clamp bolts M12", C_ZINC, "metal", 17)
+    _mc("arm_r", "Drive arm, right", C_CHAR, "painted", 1)
+    _mc("arm_l", "Drive arm, left", C_CHAR, "painted", 1)
+    _mc("pivot_pin", "Hollow pivot tubes, spacers and bolts", C_ZINC, "metal", 1)
+    _mc("springs", "Preload springs", C_ACCENT, "painted", 13)
+    _mc("saddles", "Spring saddles", C_CHAR, "painted", 13)
+    _mc("straps", "Lift straps", C_ZINC, "metal", 13)
+    _mc("camshaft", "Cam shaft, cams and crank", C_METAL, "metal", 13)
+    _mc("link", "Release link", C_METAL, "metal", 13)
+    _mc("lever_pins", "Lever and link pins", C_ZINC, "metal", 13)
+    _mc("steer_stops", "Steering stops (rubber)", C_RUBBER, "rubber", 19)
+    _mc("feet", "Enclosure feet (angle)", C_METAL, "metal", 3)
+    _mc("feet_bolts", "Enclosure foot bolts", C_ZINC, "metal", 17)
+    _mc("hoop_bolts", "Hoop bolts and rivet nuts", C_ZINC, "metal", 17)
 
     # ============================================================ 2 hub motors
     r, dx, dy = P["drive_r"], P["drive_x"], P["drive_track"] / 2
@@ -461,20 +451,12 @@ def product_parts(P=PARAMS):
     edge = outer - core
     edge = _fillet_try(edge, [e for e in edge.edges() if e.center().Z > b1 - 1 or e.center().Z < b0 + 1], [8.0, 5.0, 3.0])
     add("Contact bumper safety edge", edge, C_RUBBER, "rubber", 10, "shell", EB)
-    hoop = (_box(x0b, bx - 40, -bh + 15, bh - 15, 72, 128) - _box(x0b - 1, bx - ed - 2, -bh + 40, bh - 40, 60, 140))
-    hoop = _fillet_try(hoop, [e for e in _par(hoop, Axis.Z) if e.center().X > bx - 60], [22.0, 15.0])
-    add("Bumper hoop, 40 x 20 mm tube", hoop, C_YELLOW, "painted", 10, "shell", EB)
+    add("Bumper hoop, 40 x 20 mm tube", MC["hoop"].shape, C_YELLOW, "painted", 10, "shell", EB)
     stripes = []
     for k in range(-5, 6):
         y = 40.0 * k
         stripes.append(_box(bx - 0.2, bx + 0.6, y - 9, y + 9, 88, 112))
     add("Safety edge marking", _union(stripes), C_YELLOW, "painted", 10, "shell", EB)
-    mounts = []
-    for s in (-1, 1):
-        y0, y1 = (hy + 2 * t, bh - 40) if s > 0 else (-bh + 40, -hy - 2 * t)
-        m = _box(P["cheek_x1"] - 20, bx - ed, y0, y1, 110, 130)
-        mounts.append(_fillet_try(m, _par(m, Axis.Y), [4.0, 2.0]))
-    add("Bumper mounts", _union(mounts), C_CHAR, "painted", 10, "shell", EB)
 
     # ============================================================ 11 UWB anchors on the bumper corners
     ay, at = P["anchor_y"], P["anchor_top"]
@@ -489,30 +471,25 @@ def product_parts(P=PARAMS):
 
     # ============================================================ 13 manual release lever
     ER = (0, -220, 200)
-    lev = _box(ex0 + 20, ex1 - 40, -ey - 30, -ey - 12, 252, 268)
-    lev = _fillet_try(lev, _par(lev, Axis.X), [5.0, 3.0])
-    lev += _box(ex1 - 60, ex1 - 40, -ey - 30, -ey, 240, 280)
-    add("Manual release lever", lev, C_METAL, "metal", 13, "shell", ER)
-    grip = _xcyl(ex0 + 45, -ey - 21, 260, 13, 50)
-    grip = _fillet_try(grip, grip.edges(), [4.0, 2.0])
+    lpx, lpz = P["lever_pivot_xz"]
+    grip_c = _m.ycyl(lpx - P["lever_len"] + 15, lpz, 14.0, -251, -221)
+    lev = MC["lever"].shape - grip_c
+    add("Manual release lever (steel tube)", lev, C_METAL, "metal", 13, "shell", ER)
+    grip = _fillet_try(grip_c, grip_c.edges(), [4.0, 2.0])
     add("Release lever grip", grip, C_RED, "rubber", 13, "shell", ER)
 
-    # ============================================================ 18 obstacle lidar and bracket
+    # ============================================================ 18 safety laser scanner and shelf
     lx = D["lidar_x"]
-    lz0 = P["lidar_scan_z"] - P["lidar_h"] / 2
+    lz0 = P["lidar_base_z"]
     EL = (380, 0, 40)
-    br = _box(P["plate_x1"] - 20, lx + 20, -35, 35, lz0 - 6, lz0) + _box(P["plate_x1"] - 20, P["plate_x1"], -35, 35, lz0 - 6, P["plate_z"])
-    br = _fillet_try(br, _par(br, Axis.Y), [3.0, 1.5])
-    add("Lidar bracket", br, C_CHAR, "painted", 18, "shell", EL)
-    lr = P["lidar_d"] / 2
-    base = _zcyl(lx, 0, lz0 + 8, lr, 16)
-    base = _fillet_try(base, _bottom(base), [3.0, 1.5])
-    add("Lidar base", base, C_BLACK, "plastic", 18, "shell", EL)
-    band = _zcyl(lx, 0, lz0 + 24, lr - 1.5, 16)
-    add("Lidar scan window", band, "#0B0E12", "screen", 18, "shell", EL)
-    capl = _zcyl(lx, 0, lz0 + 36.5, lr - 1, 9)
-    capl = _fillet_try(capl, _top(capl), [4.0, 2.0])
-    add("Lidar top cap", capl, C_CHAR, "plastic", 18, "shell", EL)
+    add("Scanner shelf (3 mm plate)", MC["lidar_bracket"].shape, C_CHAR, "painted", 18, "shell", EL)
+    house = MC["lidar"].shape
+    house = _fillet_try(house, _par(house, Axis.Z), [10.0, 6.0])
+    house = _fillet_try(house, _top(house), [4.0, 2.0])
+    add("Safety scanner housing", house, C_YELLOW, "painted", 18, "shell", EL)
+    fx = lx + P["lidar_d"] / 2
+    win = _box(fx - 0.5, fx + 1.0, -P["lidar_w"] / 2 + 12, P["lidar_w"] / 2 - 12, P["lidar_scan_z"] - 12, P["lidar_scan_z"] + 12)
+    add("Safety scanner optic window", win, "#0B0E12", "screen", 18, "shell", EL)
 
     # ============================================================ 8 tiller head, 9, 11, 12 on it
     # Built in a local frame at the handle top (z along the handle, x toward the operator), then placed.

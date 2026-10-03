@@ -37,14 +37,15 @@ PARAMS = {
     "pivot_z": 350.0, "handle_len": 900.0, "handle_r": 16.0, "handle_walk_deg": 20.0,
     # drive (BOM 1, 2)
     "drive_x": 290.0, "drive_r": 100.0, "drive_w": 60.0, "drive_track": 260.0,
-    "plate_t": 6.0,            # top plate thickness
+    "plate_t": 5.0,            # top plate thickness (5 mm, was 6; PLP-DDR-003 A2, approved 2026-10-02)
     "plate_x0": 125.0, "plate_x1": 420.0, "plate_half_w": 200.0,
     "plate_z": 219.0,          # underside of the top plate (= top of the yoke plate)
     "notch_r": 62.0,           # pump notch radius in the top plate
     "jaw_t": 10.0, "jaw_x1": 196.0, "jaw_half_w": 95.0,
     "clamp_bolt_x": 174.0, "clamp_bolt_y": (35.0, 80.0),
     "arm_y": 165.0, "arm_t": 10.0,                 # inner face of each drive arm, arm plate thickness
-    "pivot_xz": (400.0, 145.0), "pivot_r": 10.0,   # rear pivot pin of the drive arms
+    "pivot_xz": (400.0, 145.0), "pivot_r": 10.0,   # rear pivot pin of the drive arms (20 mm tube)
+    "pivot_bore_r": 6.5,       # bore of each hollow pivot tube (13 mm, 3.5 mm wall; an M12 bolt runs through it)
     "cheek_x0": 205.0, "cheek_x1": 400.0,          # spring position and pivot position along X
     "spring_xz": (205.0, 50.0),                    # front end of each arm (spring tab)
     "spring_y": 192.0, "spring_r": 17.0, "spring_rate": 100.0,   # N/mm
@@ -52,18 +53,22 @@ PARAMS = {
     # release mechanism (BOM 13)
     "cam_xz": (200.0, 182.0), "shaft_r": 8.0, "cam_r": 36.0, "cam_e": 22.0, "axle_r": 10.0,
     "crank_len": 50.0, "lever_len": 400.0, "lever_pivot_xz": (415.0, 260.0),
+    "lever_wall": 2.0,         # lever is a 20 x 10 x 2 mm steel tube (was a solid bar)
     # enclosure (BOM 3), top under the handle sweep
-    "enc_x0": 185.0, "enc_x1": 455.0, "enc_half_w": 150.0, "enc_z0": 225.0, "enc_top": 320.0,
+    "enc_x0": 185.0, "enc_x1": 455.0, "enc_half_w": 150.0, "enc_z0": 224.0, "enc_top": 320.0,   # enc_z0 = plate_z + plate_t
     "enc_t": 2.0, "lid_t": 6.0,
     "pack_l": 270.0, "pack_w": 115.0, "pack_h": 85.0,
     # bumper (BOM 10): 40 x 20 x 2 tube hoop with a safety edge on the front and sides
     "bumper_clear": 30.0, "edge_depth": 70.0, "edge_travel": 40.0, "bumper_half_w": 240.0,
-    "bumper_z0": 60.0, "bumper_z1": 140.0, "bumper_x0": 230.0,
+    "bumper_z0": 60.0, "bumper_z1": 128.0, "bumper_x0": 230.0,
     "hoop_z": (90.0, 130.0), "side_edge_t": 20.0,
     # UWB anchors (BOM 11) on the hoop's front corners, below the lidar scan plane
-    "anchor_y": 225.0, "anchor_top": 180.0,
-    # obstacle lidar (BOM 18)
-    "lidar_d": 56.0, "lidar_h": 41.0, "lidar_scan_z": 200.0,
+    "anchor_y": 225.0, "anchor_top": 165.0,
+    # safety laser scanner for personnel detection (BOM 18), SICK nanoScan3 class, envelope from its data sheet
+    # (106.6 wide x 80 high x 117.5 deep including the rear plug); scan plane about 40 mm above its base (to confirm)
+    "lidar_w": 106.6, "lidar_d": 117.5, "lidar_h": 80.0, "lidar_plane": 40.0,
+    "lidar_base_z": 133.0, "lidar_scan_z": 173.0,      # scan plane = base + plane
+    "lidar_t": 3.0,            # bracket strap thickness
     # tiller head (BOM 8)
     "head_w": 220.0,
     # steering stops (BOM 19)
@@ -237,10 +242,15 @@ def build_components(P=PARAMS):
     arm = arm_shape()
     add("arm_r", "Drive arm, right", arm, "#0F766E", 1, (0, 140, 0), "make")
     add("arm_l", "Drive arm, left", mirror_y(arm), "#0F766E", 1, (0, -140, 0), "make")
-    pin = ycyl(px_, pz_, P["pivot_r"], -196, 196)
+    # two short hollow pivots, one per arm (20 mm tube, 13 mm bore), so the middle of the frame stays free for the
+    # scanner; an M12 bolt runs through each bore, its head and nut modelled as the solid ends
+    pin = None
     for s in (1, -1):
-        pin += ycyl(px_, pz_, 15.0, s * (ay0 + at), s * 180) + ycyl(px_, pz_, 15.0, s * 190, s * 198)
-    add("pivot_pin", "Arm pivot pin, spacers and nuts", pin, "#B45309", 1, (180, 0, 0), "make")
+        st_p = (ycyl(px_, pz_, P["pivot_r"], *sorted((s * ay0, s * 196)))
+                + ycyl(px_, pz_, 15.0, *sorted((s * (ay0 + at), s * 180))) + ycyl(px_, pz_, 15.0, *sorted((s * 190, s * 198))))
+        st_p -= ycyl(px_, pz_, P["pivot_bore_r"], *sorted((s * (ay0 - 1), s * 189)))
+        pin = st_p if pin is None else pin + st_p
+    add("pivot_pin", "Arm pivot tube, spacers and nuts", pin, "#B45309", 1, (180, 0, 0), "make")
 
     # ---- 13 release mechanism: springs, saddles, straps, cam shaft, crank, link, lever
     sx, sy, sr = P["spring_xz"][0], P["spring_y"], P["spring_r"]
@@ -273,10 +283,14 @@ def build_components(P=PARAMS):
     link = capsule_y(cp, lp, 10, -229, -221)
     link -= ycyl(cp[0], cp[1], 5.0, -230, -220) + ycyl(lp[0], lp[1], 5.0, -230, -220)
     add("link", "Release link", link, "#6D28D9", 13, (0, -60, 0), "make")
-    lever = box(lpx - P["lever_len"], lpx + 10, -221, -211, lpz - 10, lpz + 10) + capsule_y((lpx, lpz), lp, 10, -221, -211)
+    lw = P["lever_wall"]
+    tx0, tx1 = lpx - P["lever_len"], lpx - 24.0
+    tube = box(tx0, tx1, -221, -211, lpz - 10, lpz + 10) - box(tx0 + lw, tx1 + 1, -221 + lw, -211 - lw, lpz - 10 + lw, lpz + 10 - lw)
+    # tube welded to a solid pivot boss and the up-arm; the far end is capped
+    lever = tube + box(tx1, lpx + 10, -221, -211, lpz - 10, lpz + 10) + capsule_y((lpx, lpz), lp, 10, -221, -211)
     lever -= ycyl(lpx, lpz, 6.0, -222, -210) + ycyl(lp[0], lp[1], 5.0, -222, -210)
     lever += ycyl(lpx - P["lever_len"] + 15, lpz, 14.0, -251, -221)                         # grip
-    add("lever", "Release lever with grip", lever, "#DC2626", 13, (0, -80, 80), "make")
+    add("lever", "Release lever (steel tube) with grip", lever, "#DC2626", 13, (0, -80, 80), "make")
     add("lever_pins", "Lever pivot pin with spacer, and link pins",
         ycyl(lpx, lpz, 6.0, -221, -194) + ycyl(lpx, lpz, 10.0, -211, -200) + ycyl(lp[0], lp[1], 5.0, -229, -211),
         "#111827", 13, (0, -80, 80))
@@ -309,15 +323,17 @@ def build_components(P=PARAMS):
     ay, atop = P["anchor_y"], P["anchor_top"]
     anc = None
     for s in (1, -1):
-        a_ = box(hx0, hx0 + 20, s * (hy - 15), s * hy, hz1, P["bumper_z1"]) + box(hx0 - 2, hx0 + 22, s * (ay - 18), s * (ay + 18), P["bumper_z1"], atop)
+        a_ = box(hx0, hx0 + 20, s * (hy - 15), s * hy, hz1, hz1 + P["lidar_t"]) + box(hx0 - 2, hx0 + 22, s * (ay - 18), s * (ay + 18), hz1 + P["lidar_t"], atop)
         anc = a_ if anc is None else anc + a_
     add("anchors", "UWB anchors (2) on corner plates", anc, "#7C3AED", 11, (300, 0, 120))
     lx = D["lidar_x"]
-    lz0 = P["lidar_scan_z"] - P["lidar_h"] / 2
-    lbr = (box(hx0, hx0 + 20, -20, 20, hz1, hz1 + 4) + box(hx0, hx0 + 4, -20, 20, hz1 + 4, lz0 - 6)
-           + box(hx0, lx + 28, -25, 25, lz0 - 6, lz0))
-    add("lidar_bracket", "Lidar bracket (bent strap)", lbr, "#64748B", 18, (300, 0, 200), "make")
-    add("lidar", "Obstacle lidar", zcyl(lx, 0, P["lidar_d"] / 2, lz0, lz0 + P["lidar_h"]), "#0EA5E9", 18, (300, 0, 260))
+    lz0 = P["lidar_base_z"]
+    lt_ = P["lidar_t"]
+    assert abs(lz0 - (hz1 + lt_)) < 1e-6 and abs(P["lidar_scan_z"] - (lz0 + P["lidar_plane"])) < 1e-6
+    lbr = box(lx - P["lidar_d"] / 2, bf - 10, -40, 40, hz1, hz1 + lt_)   # flat 3 mm shelf: on the hoop's front bar, reaching back and forward under the scanner, over the safety edge
+    add("lidar_bracket", "Scanner bracket (bent strap)", lbr, "#64748B", 18, (300, 0, 200), "make")
+    add("lidar", "Safety laser scanner", box(lx - P["lidar_d"] / 2, lx + P["lidar_d"] / 2, -P["lidar_w"] / 2, P["lidar_w"] / 2, lz0, lz0 + P["lidar_h"]),
+        "#0EA5E9", 18, (300, 0, 260))
 
     # ---- 3 enclosure with feet; 4 to 7 inside; 9 rear emergency stop
     ex0, ex1, ey, ez0, etop, et, lt = (P["enc_x0"], P["enc_x1"], P["enc_half_w"], P["enc_z0"], P["enc_top"],
@@ -406,7 +422,7 @@ BOM_GROUPS = {
     11: ("UWB anchors (3)", ["anchors", "anchor_head"], "#7C3AED", (560, 0, 0)),
     12: ("Status beacon and buzzer", ["beacon"], "#38BDF8", (260, 0, 260)),
     13: ("Manual release: cam shaft, lever, springs", ["springs", "saddles", "straps", "camshaft", "link", "lever", "lever_pins"], "#E5E7EB", (620, -260, 260)),
-    18: ("Obstacle lidar and bracket", ["lidar", "lidar_bracket"], "#0EA5E9", (700, 0, 60)),
+    18: ("Safety laser scanner and bracket", ["lidar", "lidar_bracket"], "#0EA5E9", (700, 0, 60)),
     19: ("Steering stops", ["steer_stops"], "#111827", (-200, 0, 0)),
 }
 
@@ -503,6 +519,31 @@ def check_fits(C=None, tol=1.0, verbose=True):
         for g in gaps:
             print(f"  NO CONTACT {g[0]} / {g[1]}: {g[2]:.2f} mm apart")
     return overlaps, gaps
+
+
+CLEARANCES = [   # (part, part, least gap in mm): parts that must not touch, with the gap they need
+    ("lidar", "subframe", 3.0), ("lidar", "enclosure", 5.0), ("lidar_bracket", "edge", 1.5), ("lidar", "edge", 1.5),
+    ("lidar", "pivot_pin", 40.0), ("lidar", "motors", 30.0), ("lidar", "anchors", 100.0), ("lever", "enclosure", 20.0),
+]
+
+
+def check_clearances(C=None, verbose=True):
+    """Gaps the scanner and the lighter parts need (approved follow-ups of 2026-10-02), and the scan plane
+    above the anchors."""
+    C = C or build_components()
+    bad = []
+    for a, b, need in CLEARANCES:
+        d = min(sa.distance_to(sb) for sa in _solids(C[a].shape) for sb in _solids(C[b].shape))
+        if d < need:
+            bad.append((a, b, d, need))
+    plane_gap = PARAMS["lidar_scan_z"] - PARAMS["anchor_top"]
+    if plane_gap < 3.0:
+        bad.append(("scan plane", "anchors", plane_gap, 3.0))
+    if verbose:
+        print(f"clearance check: {len(CLEARANCES) + 1} gaps checked, {len(bad)} too small")
+        for b_ in bad:
+            print(f"  TOO CLOSE {b_[0]} / {b_[1]}: {b_[2]:.1f} mm, needs {b_[3]:.1f} mm")
+    return bad
 
 
 STEERS = None   # every key except the fixed donor frame turns with the yoke
@@ -626,6 +667,7 @@ if __name__ == "__main__":
         ov, gp = check_fits(C)
         sc = steer_clear(C)
         rh, lifted = check_release(C)
+        cl_bad = check_clearances(C)
         ok_steer = all(st is not None and (fh is None or fh[0] > st) for st, fh in sc.values())
         D = derived()
         print(f"arm ratio {D['arm_ratio']:.3f}; spring force {D['spring_force']:.0f} N each; preload compression "
@@ -633,7 +675,7 @@ if __name__ == "__main__":
               f"spring installed length {D['spring_len']:.1f} mm")
         for k, v in masses(C).items():
             print(f"  mass {k}: {v:.2f} kg")
-        ok = not (ov or gp or rh) and ok_steer and lifted > 5
+        ok = not (ov or gp or rh or cl_bad) and ok_steer and lifted > 5
         print("constructability checks:", "PASS" if ok else "FAIL")
         sys.exit(0 if ok else 1)
     from build123d import Compound, export_step, export_stl

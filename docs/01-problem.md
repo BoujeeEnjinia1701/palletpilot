@@ -3,7 +3,7 @@ doc_id: PLP-PRB-001
 title: PalletPilot problem statement
 project: PalletPilot
 doc_type: Problem statement
-version: "0.5"
+version: "0.6"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Follow mode classification, donor survey and first candidate partners decided by Amish on 2026-10-02 (PLP-DEC-001)"
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Approved follow-up: the stop layer in follow mode is a safety laser scanner (ISO 3691-4), not a lidar"
 ---
 
 # PalletPilot problem statement
@@ -75,7 +79,7 @@ So a retrofit kit only earns its place if it does something a cheap walkie does 
 - Garage-buildable prototype, $1,610 USD for the kit (budget raised from $1,200 to $1,550 by Amish on 2026-09-25, PLP-DDR-001, and to $1,610 on 2026-09-26 to cover the priced BOM, PLP-DDR-002). The donor manual jack is not included.
 - Bolt-on to a common 27 x 48 in manual jack with no welding, cutting or drilling of the jack's load-bearing structure, and removable to restore the jack.
 - Keep the jack's 75 mm lowered height, fork length and its ability to enter a standard pallet.
-- Walking pace only, with layered stopping as the pitch states: hardwired emergency stops, a non-contact lidar stop layer in follow mode, and a stop on bumper contact as the last layer.
+- Walking pace only, with layered stopping as the pitch states: hardwired emergency stops, a non-contact safety laser scanner stop layer in follow mode, and a stop on bumper contact as the last layer.
 - Low-voltage (24 V class) DC system with a lithium iron phosphate pack.
 - Legal and workplace rules: in the United States a motorized pallet jack is a powered industrial truck, so every operator needs formal training and evaluation under 29 CFR 1910.178(l) ([OSHA 1910.178](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178); [summary](https://www.safetyvideos.com/OSHA-Regulations-for-Pallet-Jack-Use)). The same standard states that "modifications and additions which affect capacity and safe operation shall not be performed by the customer or user without manufacturers prior written approval" (1910.178(a)(4), wording checked against the OSHA page on 2026-09-25). A retrofit on a jack in a workplace therefore needs the jack maker's approval. Amish decided on 2026-09-25 to document the kit for research use now and to approach a jack maker before any workplace trial (PLP-DDR-001, D8).
 - A truck that moves with no one at the tiller comes close to the scope of ISO 3691-4 for driverless industrial trucks, which calls for personnel detection that stops the truck before it contacts a person ([ISO 3691-4](https://www.iso.org/standard/70660.html); [overview](https://www.fabrico.io/blog/iso-3691-4-driverless-industrial-trucks/)). How a follow-me mode is classified must be settled before any trial with people. Decided 2026-10-02 (PLP-DEC-001): follow mode is treated as a driverless truck function under ISO 3691-4, with personnel detection and stopping functions to that standard, unless a standards body or a notified body confirms that the walking follower counts as the operator.

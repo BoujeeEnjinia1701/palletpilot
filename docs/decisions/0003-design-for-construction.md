@@ -3,7 +3,7 @@ doc_id: PLP-DDR-003
 title: PalletPilot design for construction
 project: PalletPilot
 doc_type: Design decision record
-version: "0.3"
+version: "0.5"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,12 +21,20 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "A2 and A3 accepted by Amish on 2026-10-02 (R15 prototype limit 45 kg; 10 mm lift for smooth indoor floors only); Table 1 changes still open"
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Table 1 changes (P1 to P10) accepted by Amish on 2026-10-02"
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Approved follow-ups carried into the model: 5 mm top plate, tube lever and two hollow pivots (A2); safety laser scanner in place of the lidar (ISO 3691-4); Table 4 added; Consequences updated"
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. The items in Table 3 change what the kit does or how it is pitched, so they are Proposed, awaiting Amish, and are listed in the design decisions register (PLP-DEC-001). A1 is decided: Amish, 2026-10-01: "i accept your recommendations for PalletPilot". He was given the recommendation for A1 only, so A1 is decided as recommended (option a, with the TRL 4 aisle test as a go or no-go gate) and recorded in PLP-DEC-001. A2 and A3 are decided: Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." A2 is decided as option (a) with R15's prototype limit restated as 45 kg, and A3 as option (a) for smooth indoor floors only; both are recorded in PLP-DEC-001. The changes in Table 1 have no row of their own in the register and stay open for Amish's review.
+- **Status:** accepted. Amish, 2026-10-02: "APPROVED: Design-for-construction changes in 10 repos (CityTwin, CoolShade, PalletPilot, Heliolite, PotholeLog, EarthPress, ReadyKit, CellCheck, CargoMule and ThermaCart)". This covers the changes P1 to P10 in Table 1, made under Amish's 2026-09-30 instruction to make the design physically buildable, and is recorded in the design decisions register (PLP-DEC-001). The items in Table 3 change what the kit does or how it is pitched, so they were proposed separately and listed in the register. A1 is decided: Amish, 2026-10-01: "i accept your recommendations for PalletPilot". He was given the recommendation for A1 only, so A1 is decided as recommended (option a, with the TRL 4 aisle test as a go or no-go gate) and recorded in PLP-DEC-001. A2 and A3 are decided: Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." A2 is decided as option (a) with R15's prototype limit restated as 45 kg, and A3 as option (a) for smooth indoor floors only; both are recorded in PLP-DEC-001.
 
 ## Context
 
@@ -69,10 +77,20 @@ The changes keep what the kit does: the same drive layout (two 200 mm hub motors
 | A2 | Mass. The kit is 44.4 kg against R15's 40 kg; Amish accepted 2.0 kg over for now. | (a) Accept for the prototype and recheck at the motor quote; (b) lighten now: 5 mm top plate, tube lever, hollow pivot pin (about 1.5 kg). | (a), keeping (b) as savings to try in the TRL 4 drawings. **Accepted by Amish, 2026-10-02**, with R15's prototype limit restated as 45 kg and rechecked at the motor quote. |
 | A3 | Wheel lift. The lever lifts the drive wheels 10 mm clear. A larger lift needs a larger cam, which the top plate's height does not leave room for. | (a) Accept 10 mm for smooth indoor floors; (b) lower the cam shaft and raise the hangers for about 15 mm. | (a). **Accepted by Amish, 2026-10-02**, for smooth indoor floors only; the build plan says so. |
 
+*Table 4. Follow-ups of the 2026-10-02 decisions, carried into the model.*
+
+| # | Change | Why |
+| --- | --- | --- |
+| F1 | The top plate is 5 mm (was 6 mm), the release lever is a 20 x 10 x 2 mm steel tube (was a solid bar), and the single 20 mm pivot pin is replaced by two hollow 20 mm tubes with a 4 mm wall, one per drive arm, each held by an M12 bolt through its bore. The enclosure sits 1 mm lower on the thinner plate and is 96 mm deep. | A2 (approved 2026-10-02): about 2.0 kg saved. Two short pivots also leave the middle of the frame free for the scanner. |
+| F2 | The lidar is replaced by a safety laser scanner (SICK nanoScan3 class, about 107 x 80 x 118 mm) on a 3 mm steel shelf on the hoop's front bar, scan plane 173 mm above the floor (was 200 mm). The safety edge is 68 mm high (was 80 mm) and the anchor tops are 165 mm (was 180 mm) so that both stay clear of the shelf and the scan plane. | Follow mode is treated under ISO 3691-4 (approved 2026-10-02), which needs a safety-rated personnel sensor. The body is larger than the lidar's, and it must fit between the bumper and the enclosure with 5 mm to spare. |
+| F3 | Personnel stop: scanner to the safety relay, monitored controlled stop (stop category 1) by the driver, brakes close at standstill; the relay opens both contactors if the monitored time runs out. Field 0.80 m (was 0.86 m); the delay is 0.15 s (was 0.25 s). | PLP-CAL-001 v0.7 [S4], [S5], [S5a]. |
+
+The constructability checks now include clearances for the scanner and lever (nine gaps). The steering stops, the donor survey items (packing bar thickness, clamp holes, notch, stop angle) and everything else in Tables 1 to 3 are unchanged; the survey items wait for the three surveyed jacks.
+
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan PLP-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`); open decisions are in PLP-DEC-001.
-- Requirement status is unchanged by the changes: 10 met, 2 not met (R5, R15 mass), 2 at risk (R7, R9), 3 not verifiable at TRL 3 (R1, R6, R16). With A2 decided on 2026-10-02 (R15 prototype limit 45 kg) it is 11 met and 1 not met (R5); R17 is reported against the value-engineering target, USD 80 over.
-- The photoreal renders (`media/render-*.png`), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept subframe, cheeks, springs and release lever; they need updating on Amish's Mac, where Blender is.
+- Requirement status is unchanged by the changes: 10 met, 2 not met (R5, R15 mass), 2 at risk (R7, R9), 3 not verifiable at TRL 3 (R1, R6, R16). With A2 decided on 2026-10-02 (R15 prototype limit 45 kg) it is 11 met and 1 not met (R5); with the follow-ups of Table 4 the kit is 42.9 kg and R17 is reported against the value-engineering target, USD 3,455 over (USD 5,065 against USD 1,610; USD 80 over before the safety scanner).
+- The appearance model `cad/src/product_model.py` now takes its drive module, release, hoop, scanner shelf and steering stops from the constructable model (2026-10-02), and the render scenes are exported. The photoreal renders (`media/render-*.png`), `media/card.png` and `media/social-preview.png` still show the earlier design until they are remade on Amish's Mac, where Blender is.
 - With A1 accepted (2026-10-01), the prototype steers about 40° each way with the kit fitted, set by rubber stops (a bare jack turns about 90°), for a turning radius of roughly 1.5 m about the load wheels; the range is confirmed in the TRL 4 aisle test. The precis (PLP-PRC-001 v0.7), README, requirements (PLP-REQ-001 v0.7) and build plan (PLP-BLD-001 v0.2) state this range. The TRL 4 aisle test is a go or no-go gate: if the kit cannot make a right-angle turn into a standard pallet bay, the drive layout changes before TRL 5 (option c, for example one centre drive wheel under the yoke, which reopens D3 of PLP-DDR-001).
 - The donor survey (R1, O3) now sets four numbers in the build: the yoke plate's thickness (packing bar), its rear edge and the pump's position (notch and clamp), and the frame head's position (steering stop angle).

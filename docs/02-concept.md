@@ -3,7 +3,7 @@ doc_id: PLP-PRC-001
 title: PalletPilot design precis
 project: PalletPilot
 doc_type: Design precis
-version: "0.8"
+version: "0.9"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -41,11 +41,15 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Follow mode classification, donor survey, partners, R15 and wheel lift decided by Amish on 2026-10-02 (PLP-DEC-001)"
+- version: "0.9"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Approved follow-ups carried out: safety laser scanner replaces the lidar (ISO 3691-4), 5 mm top plate, tube lever and hollow pivots; mass, stopping and cost figures from PLP-CAL-001 v0.7"
 ---
 
 # PalletPilot design precis
 
-PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a 2D lidar stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the lidar's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and kit mass (44.4 kg against 40 kg). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 1,690 (USD 80 over the target). The design was made constructable on 2026-10-01 (PLP-DDR-003, Draft) and the prototype build plan is PLP-BLD-001; with the kit fitted the jack steers about 40° each way, set by rubber stops, against about 90° for a bare jack, so it turns more widely: a turning radius of roughly 1.5 m about the load wheels. Amish accepted this range for the prototype on 2026-10-01 (PLP-DEC-001); the TRL 4 aisle test confirms it and is a go or no-go gate for the drive layout. The lidar is not safety-rated, so the kit is a research prototype for a closed area.
+PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke of an ordinary manual pallet jack, powers it from a 25.6 V LiFePO4 pack in a low enclosure on the same yoke, and adds a walkie-style tiller head, a UWB follow-me mode and layered stopping: hardwired emergency stops, a safety laser scanner stop layer in follow mode and a contact bumper as the last layer. The calculation note PLP-CAL-001 shows the kit can move a 1,000 kg pallet at walking pace for a full shift of 60 moves on one overnight charge, start on a 2 % ramp, and stop from follow-mode speed inside the scanner's field without reaching the operator it follows. Two targets are missed on paper: follow bearing accuracy (about ±16° against ±10°) and the 40 kg kit mass goal (42.9 kg, inside the 45 kg prototype limit). Value-engineering target: USD 1,610. Estimated cost of the constructable design: USD 5,065 (USD 3,455 over the target), because personnel detection now uses a safety-rated scanner. The design was made constructable on 2026-10-01 (PLP-DDR-003, Draft) and the prototype build plan is PLP-BLD-001; with the kit fitted the jack steers about 40° each way, set by rubber stops, against about 90° for a bare jack, so it turns more widely: a turning radius of roughly 1.5 m about the load wheels. Amish accepted this range for the prototype on 2026-10-01 (PLP-DEC-001); the TRL 4 aisle test confirms it and is a go or no-go gate for the drive layout. The scanner layer is not yet built or tested, so the kit is a research prototype for a closed area.
 
 ![Hero render](../media/hero.png)
 
@@ -53,10 +57,10 @@ PalletPilot clamps a drive module with two 24 V hub motors to the steering yoke 
 
 ## How it works
 
-1. **Drive.** A steel subframe clamps to the jack's steering yoke: its top plate sits on the yoke plate with the pump in a notch, and a lower jaw bolted to it grips the yoke plate from below, so nothing is drilled in the jack. Two 200 mm hub motors sit on drive arms that pivot behind them, 180 mm from the steering axis toward the handle end, on a 260 mm track that passes beside the steer wheels. Springs at the arms' front ends press them onto the floor with 1.5 kN of preload. They turn with the yoke, so the kit steers with the handle; rubber stops limit the turn to about 40° each way, where the bare jack turns about 90° (PLP-DDR-003).
+1. **Drive.** A steel subframe clamps to the jack's steering yoke: its top plate sits on the yoke plate with the pump in a notch, and a lower jaw bolted to it grips the yoke plate from below, so nothing is drilled in the jack. Two 200 mm hub motors sit on drive arms that each pivot on a hollow tube behind the wheel, 180 mm from the steering axis toward the handle end, on a 260 mm track that passes beside the steer wheels. Springs at the arms' front ends press them onto the floor with 1.5 kN of preload. They turn with the yoke, so the kit steers with the handle; rubber stops limit the turn to about 40° each way, where the bare jack turns about 90° (PLP-DDR-003).
 2. **Walk mode.** The operator holds the tiller as usual and sets speed with a thumbwheel. As on a factory walkie, drive is enabled only with the handle between about 20° and 70° from vertical, a belly-reverse paddle pushes the truck away if it pins the operator, and releasing the handle to upright brakes the truck. The two motors run at equal torque so the handle steers freely, but not as far as on a bare jack: two rubber stops limit the turn to about 40° each way, for a turning radius of roughly 1.5 m about the load wheels (to be confirmed in the TRL 4 aisle test).
 3. **Follow mode.** With the key switch set to follow and the handle latched upright by a gas spring, the operator walks ahead of the drive end wearing a UWB tag. Two anchors on the bumper corners and one on the tiller head measure range to the tag. The controller turns the two motors at different speeds while the truck rolls, and this steers the yoke toward the tag. It holds a 1.5 m gap, stops when the operator stops, and stops if the tag is lost, the tag's stop button is pressed or the gap exceeds 3 m.
-4. **Layered stopping.** In follow mode a 2D lidar just inside the bumper face watches a 0.86 m protective field ahead of the truck, 885 mm wide, and commands a controlled stop when anything enters it; a longer warning field slows the truck first. The contact bumper, the two emergency stops and the tag stop open a dual-channel safety relay that drops two main contactors in series, and the spring-applied hub motor brakes close when power is removed.
+4. **Layered stopping.** In follow mode a safety laser scanner just inside the bumper face watches a 0.80 m protective field ahead of the truck, 885 mm wide; when anything enters it, the scanner signals the safety relay, which commands a controlled stop (stop category 1, ISO 3691-4) and then lets the brakes close; a longer warning field slows the truck first. The contact bumper, the two emergency stops and the tag stop open a dual-channel safety relay that drops two main contactors in series, and the spring-applied hub motor brakes close when power is removed.
 5. **Charge.** A certified 29.2 V, 5 A charger fills the pack from a wall outlet in about 4.5 h overnight.
 6. **Push by hand.** Raising a release lever turns a cam shaft that lifts the spring saddles; slotted straps then lift the drive arms, so the drive wheels clear the floor by about 10 mm (enough for smooth indoor floors only, decided 2026-10-02) and the jack can be pushed as a manual jack if the pack is flat or the kit fails.
 
@@ -72,9 +76,9 @@ Table 1. Main components.
 
 | # | Component | Choice | Notes |
 | --- | --- | --- | --- |
-| 1 | Drive module | 6 mm steel top plate on the yoke plate with a notch round the pump, a lower jaw and four M12 bolts gripping the yoke; two drive arms on a pivot pin behind the wheels; two springs at the arm fronts giving 1.5 kN preload | Clamp fit per donor model; about 10.6 kg (PLP-DDR-003) |
+| 1 | Drive module | 5 mm steel top plate on the yoke plate with a notch round the pump, a lower jaw and four M12 bolts gripping the yoke; two drive arms, each on a hollow tube pivot behind its wheel; two springs at the arm fronts giving 1.5 kN preload | Clamp fit per donor model; about 8.9 kg (PLP-DDR-003) |
 | 2 | Hub motors | Two 24 V brushless hub servo motors, 200 mm, 12 N·m continuous and 30 N·m peak or more, spring-applied brakes of 20 N·m or more | About 7 kg each; brake data to confirm |
-| 3 | Enclosure | 2 mm aluminium box 270 x 300 x 95 mm, IP54, top at 320 mm, below the 350 mm handle pivot | Turns with the yoke; never on the forks |
+| 3 | Enclosure | 2 mm aluminium box 270 x 300 x 96 mm, IP54, top at 320 mm, below the 350 mm handle pivot | Turns with the yoke; never on the forks |
 | 4 | Battery | 8S6P LiFePO4, 25.6 V, 20 Ah (512 Wh), BMS with charge temperature cut-off | About 4.9 kg |
 | 5 | Motor driver | Dual-channel 24 V servo driver, 2 x 15 A continuous, 30 A peak, CAN | Differential control for follow mode |
 | 6 | Contactors, fuse and disconnect | 80 A fuse, two main contactors in series with pre-charge, lockable disconnect | One contactor per safety relay channel (PLP-DDR-002) |
@@ -84,8 +88,8 @@ Table 1. Main components.
 | 10 | Contact bumper | Pressure-sensitive safety edge, 40 mm travel, on a U hoop around the drive end | Last stopping layer |
 | 11 | UWB anchors | Three DWM3000 class modules: two on the bumper corners (450 mm baseline), one on the tiller head | Range about 10 cm precision ([Qorvo](https://www.qorvo.com/products/p/DWM3000)) |
 | 12 | Status beacon and buzzer | On the tiller head; amber in walk mode, blue in follow mode | Moved off the lid for handle clearance |
-| 13 | Manual release | 400 mm over-center lever turns a cam shaft through a link; the cams raise the spring saddles and straps lift the drive wheels about 10 mm | About 58 N peak effort |
-| 18 | Obstacle lidar | 2D time-of-flight lidar (RPLIDAR C1 class, 10 Hz, 12 m on white and 6 m on black targets), scan plane 200 mm above the floor | Approved stopping layer; not safety-rated ([DFRobot](https://www.dfrobot.com/product-2803.html)) |
+| 13 | Manual release | 400 mm over-center steel tube lever turns a cam shaft through a link; the cams raise the spring saddles and straps lift the drive wheels about 10 mm | About 58 N peak effort |
+| 18 | Safety laser scanner | Safety laser scanner for personnel detection (SICK nanoScan3 class: Type 3, PL d, SIL 2, 3 m protective field, 70 ms response), on a shelf above the bumper hoop, scan plane about 173 mm above the floor | Replaces the lidar after the ISO 3691-4 decision of 2026-10-02; USD 3,444.30 listed ([Lesman](https://www.lesman.com/nans3-aaaz30an1)); not yet built or tested |
 | 14 to 17 | Charger, operator tag, handle sensor and gas spring, wiring | See `bom/bom.csv` | Not modelled |
 
 ![Exploded view](../media/exploded.png)
@@ -94,11 +98,11 @@ Table 1. Main components.
 
 ![Cutaway](../media/cutaway.png)
 
-*Figure 4. Section through the center of the kit, showing the pack (yellow), motor driver (orange), contactors (red) and controller (green) in the low enclosure, and the lidar (blue) under its rear edge.*
+*Figure 4. Section through the center of the kit, showing the pack (yellow), motor driver (orange), contactors (red) and controller (green) in the low enclosure, and the safety scanner (blue) under its rear edge.*
 
 ## Key numbers
 
-All values come from PLP-CAL-001, which lists its assumptions and the full requirement table. The design load case is 1,108 kg in total (1,000 kg pallet, 64 kg jack, 44.4 kg kit) on level, dry, sealed concrete.
+All values come from PLP-CAL-001, which lists its assumptions and the full requirement table. The design load case is 1,107 kg in total (1,000 kg pallet, 64 kg jack, 42.9 kg kit) on level, dry, sealed concrete.
 
 Table 2. Drive, stopping, tracking, energy, mass and cost.
 
@@ -106,20 +110,20 @@ Table 2. Drive, stopping, tracking, energy, mass and cost.
 | --- | --- | --- |
 | Rolling and breakaway force, level | 130 N and 271 N | |
 | Available traction (1.5 kN preload, friction 0.5) | 750 N (600 N at friction 0.4) | |
-| 2 % ramp start | 488 N needed, margin 1.54 | R3 met |
+| 2 % ramp start | 489 N needed, margin 1.54 | R3 met |
 | Torque per motor, worst case in R2 and R3 | 25.5 N·m of 30 N·m specified | R2 met; 1,500 kg on level floors only |
-| Peak wheel power and pack current | 554 W; 31 A | Driver and BMS adequate |
-| Lidar stop from 0.6 m/s | 0.42 m level; 0.76 m at 1,500 kg on a 2 % downgrade | R7 at risk (0.86 m field) |
-| Emergency stop from 1.2 m/s | 1.62 m level; 2.66 m on a 2 % downgrade | |
+| Peak wheel power and pack current | 555 W; 31 A | Driver and BMS adequate |
+| Scanner stop from 0.6 m/s | 0.36 m level; 0.70 m at 1,500 kg on a 2 % downgrade (1.15 m on brakes alone) | R7 at risk (0.80 m field) |
+| Emergency stop from 1.2 m/s | 1.62 m level; 2.67 m on a 2 % downgrade | |
 | Bumper-only speed limit | 0.15 m/s; stops in 38 mm of 40 mm travel | R8 met |
 | Parking brake on 2 % | 40 N·m available, 21.7 N·m needed | R10 met |
 | UWB bearing error | ±16° (2σ) after filtering | R5 not met |
-| Energy from the pack per shift | 293 Wh of 410 Wh usable (28 % left) | R12 met |
+| Energy from the pack per shift | 310 Wh of 410 Wh usable (24 % left) | R12 met |
 | Charge time at 5 A | 4.5 h | R13 met |
 | Handle clearance over the enclosure | 40 mm at 70°, 14 mm lowered flat | R11 met |
 | Added length at floor level | 290 mm | R15 length met |
-| Kit mass | 44.4 kg | R15 met for the prototype (45 kg limit, decided 2026-10-02); 4.4 kg over the 40 kg goal |
-| Kit parts cost | $1,690 | USD 80 over the USD 1,610 value-engineering target |
+| Kit mass | 42.9 kg | R15 met for the prototype (45 kg limit, decided 2026-10-02); 2.9 kg over the 40 kg goal |
+| Kit parts cost | $5,065 | USD 3,455 over the USD 1,610 value-engineering target |
 | Donor jack (not in kit) | about $396 new | |
 
 Three findings shaped the TRL 3 layout. First, the TRL 2 enclosure sat above the handle pivot, so the handle would have struck it at about 51°, inside the walk band; the enclosure is now lower and the beacon and second emergency stop have moved. Second, 1.1 kN of preload left the 2 % ramp at risk, so it is now 1.5 kN; with the jack empty the steer wheels then lift slightly and the drive wheels carry the yoke, which is acceptable. Third, because the drive axle is offset from the steering axis, the motors cannot swing the yoke at standstill (98 N·m available against 135 N·m of scrub), so follow mode steers only while rolling, and hand steering at standstill is about 112 N heavier at the grip.
@@ -130,15 +134,15 @@ For comparison, a complete 1,500 kg lithium walkie costs about $1,640 ([Home Dep
 
 Amish decided the TRL 2 review items on 2026-09-25 (PLP-DDR-001), going with each recommendation.
 
-- **Layered stopping (D1).** A low-cost 2D lidar is the main stopping layer in follow mode, the bumper is the last layer, follow mode runs at 0.6 m/s or less, and trials are for research in a closed area. A safety-rated laser scanner is the named route to workplace use. The pitch now reads "layered stopping".
+- **Layered stopping (D1).** A 2D lidar was chosen as the main stopping layer in follow mode, the bumper is the last layer, follow mode runs at 0.6 m/s or less, and trials are for research in a closed area. On 2026-10-02 the lidar was replaced by a safety-rated laser scanner, the named route to workplace use, when follow mode was classed as a driverless truck function under ISO 3691-4. The pitch now reads "layered stopping".
 - **Budget (D2).** $1,550 for the kit, donor jack excluded; raised to $1,610 by Amish on 2026-09-26 to cover the priced BOM (PLP-DDR-002).
 - **Drive layout (D3).** Two hub motors on a sprung module on the yoke, differential drive in follow mode.
 - **Power (D4).** 24 V LiFePO4, 20 Ah, not a SwapCell pack; the SwapCell interface changes approved for the portfolio do not apply.
 - **Mounting (D5).** Everything on the yoke, now checked for handle clearance (R11 met) and steering bearing load (no added vertical load; up to 750 N horizontal).
-- **Speeds (D6).** Walk 1.2 m/s handle-end first, 0.8 m/s forks first, creep 0.3 m/s, follow 0.6 m/s. Until the lidar layer is built and tested, follow mode runs at 0.15 m/s or less, the bumper-only limit below.
+- **Speeds (D6).** Walk 1.2 m/s handle-end first, 0.8 m/s forks first, creep 0.3 m/s, follow 0.6 m/s. Until the scanner layer is built and tested, follow mode runs at 0.15 m/s or less, the bumper-only limit below.
 - **Kit rating (D7).** 1,000 kg design load; 1,500 kg at 0.8 m/s or less. PLP-CAL-001 limits the 1,500 kg rating to level floors.
 - **Legal route (D8).** Research use now; a jack maker's written approval before any workplace trial.
-- **TRL 3 sizing choices** made in v0.3, within the decided configuration: preload 1.5 kN, motor torque and brake minimums, enclosure height, drive axle position and track, and the lidar's position.
+- **TRL 3 sizing choices** made in v0.3, within the decided configuration: preload 1.5 kN, motor torque and brake minimums, enclosure height, drive axle position and track, and the scanner's position.
 
 Amish decided the items raised at TRL 3 on 2026-09-25 (PLP-DDR-002), again going with each recommendation.
 
@@ -153,7 +157,7 @@ Decided on 2026-10-02 (PLP-DEC-001): follow mode is treated as a driverless truc
 > **Safety:** PalletPilot is moving machinery that carries up to 1.5 t close to people's feet and legs, and it contains a lithium battery. Every build is a research prototype for a closed test area, not a certified industrial truck. Do not use it in a workplace until the questions below are answered.
 
 - **Crushing and collision.** A loaded jack at 1.2 m/s carries about 796 J and needs 1.2 to 1.6 m to stop on the level, and 2.7 m on a 2 % downgrade. Foot injuries under the drive end and pinning against racking or walls are the classic walkie hazards. Use the belly-reverse paddle, handle-angle braking, walking-pace speed limits, safety footwear and a bumper hoop that shields the wheels. Never ride on the jack.
-- **Follow mode.** The truck moves with no hand on the tiller. The lidar layer is not safety-rated and its detection of dark or shiny clothing at shin height is unproven. Until it is built and tested, follow mode runs only at 0.15 m/s or less, the bumper-only limit, in a cordoned area with no other people present. Loss of the tag, a tag stop press, a gap over 3 m, a lidar fault or any other fault must stop the truck with brakes applied. Follow mode is treated as a driverless truck function under ISO 3691-4 (decided 2026-10-02), so its personnel detection and stopping functions must meet that standard before any trial with people present.
+- **Follow mode.** The truck moves with no hand on the tiller. The scanner layer is a safety-rated class part, but its detection of dark or shiny clothing at shin height is unproven until it is built and tested. Until it is built and tested, follow mode runs only at 0.15 m/s or less, the bumper-only limit, in a cordoned area with no other people present. Loss of the tag, a tag stop press, a gap over 3 m, a scanner fault or any other fault must stop the truck with brakes applied. Follow mode is treated as a driverless truck function under ISO 3691-4 (decided 2026-10-02), so its personnel detection and stopping functions must meet that standard before any trial with people present.
 - **Emergency stop.** The emergency stops and bumper act through a hardwired dual-channel safety relay and two main contactors in series, never only through software. The spring-applied brakes close on loss of power. The performance level (target PL d) is still to be calculated.
 - **Runaway on slopes.** Emergency braking falls by about 40 % on a 2 % downgrade. Do not use on ramps steeper than 2 %, and do not move 1,500 kg loads on any ramp.
 - **Lithium pack.** LiFePO4 is more stable than other lithium-ion chemistries but still stores 512 Wh and can deliver very high currents. Use a BMS with cell-level protection and a charge temperature cut-off, fuse the pack at the terminal, provide a lockable disconnect, charge on a non-combustible surface away from stored goods, and do not charge below 0 °C or a pack that is damaged or swollen.
@@ -166,7 +170,7 @@ Decided on 2026-10-02 (PLP-DEC-001): follow mode is treated as a driverless truc
 - Donor survey of three jacks (decided 2026-10-02: a Crown PTH 50 series class model, a distributor's standard model such as Uline's and the Harbor Freight Pittsburgh 5,500 lb jack): yoke geometry, handle pivot height (the enclosure clears a 350 mm pivot by 14 mm), steering bearing condition.
 - Floor friction and rolling resistance on real floors, which set the traction margins.
 - Hub motor with a published 24 V winding, peak torque and brake torque at about 7 kg or less.
-- Closing the R5 bearing gap: angle-of-arrival UWB or lidar leg tracking.
+- Closing the R5 bearing gap: angle-of-arrival UWB or scanner leg tracking.
 - PL calculation of the two-contactor stop chain (R9).
 - Rechecking the $60 cost and 2.0 kg mass overruns at a motor quote.
 
