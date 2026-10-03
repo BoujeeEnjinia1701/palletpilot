@@ -3,9 +3,9 @@ doc_id: PLP-DEC-001
 title: PalletPilot design decisions register
 project: PalletPilot
 doc_type: Design decisions register
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-03'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Approved follow-ups carried out: row added to decisions made; value engineering section restated (safety scanner, USD 5,065, 42.9 kg); To confirm items 4, 5 and 6 updated"
+  - version: "0.6"
+    date: '2026-10-03'
+    author: Amish Chadha
+    change: "Amish accepted the PL d safety scanner at USD 3,455 and the kit estimate of about USD 5,065 against the USD 1,610 target (2026-10-03); row added to decisions made; value engineering section updated"
 ---
 
 # PalletPilot design decisions register
@@ -54,6 +58,8 @@ None. All open decisions were decided on 2026-10-02.
 
 Value-engineering target: USD 1,610 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 5,065 (USD 3,455 over the target). Main cost drivers and savings worth trying:
 
+Amish accepted this overrun on 2026-10-03: the safety scanner line of USD 3,455 and the kit estimate of USD 5,065 against the USD 1,610 target (USD 3,455 over). Amish: "PalletPilot - i accept it". Amish: "Cost over target - i accept all the cost variations and overruns". It stays reported against the target as an accepted overrun, and the savings below remain worth trying.
+
 - The safety laser scanner for personnel detection is USD 3,455 (USD 3,444.30 listed for a SICK nanoScan3 class unit, plus a shelf), 68 % of the kit. It replaced a USD 80 lidar line when Amish decided on 2026-10-02 that follow mode is treated under ISO 3691-4. The next largest lines are the two hub motors (USD 400), the battery (USD 180), the motor driver (USD 150), the drive module (USD 130) and the contact bumper (USD 110).
 - Making the design constructable added USD 80: the drive module with its clamp, arms and pivot (USD 90 to USD 130), the release mechanism with its cams, link, springs and straps (USD 20 to USD 45), the enclosure feet (USD 5) and the steering stops (USD 10).
 - The 5 mm top plate, tube lever and hollow pivots decided on 2026-10-02 are in the model and cut the kit mass by about 2.0 kg (kit now 42.9 kg); they change no price.
@@ -76,3 +82,4 @@ Value-engineering target: USD 1,610 (a hypothetical control target, not a limit)
 | 2026-10-02 | Partners near Irving: Dallas Makerspace as the first candidate maker space, and a small food bank or charity warehouse in the Dallas and Fort Worth area as the first candidate warehouse, which trials only after the jack maker's written approval under D8 (open item 5) | Amish: "i approve your recommendations for all 555 open decisions." | PLP-DDR-001, O1 |
 | 2026-10-02 | Design for construction accepted: the changes P1 to P10 in Table 1, as made | Amish: "APPROVED: Design-for-construction changes in 10 repos (CityTwin, CoolShade, PalletPilot, Heliolite, PotholeLog, EarthPress, ReadyKit, CellCheck, CargoMule and ThermaCart)" | [PLP-DDR-003](decisions/0003-design-for-construction.md), Table 1 |
 | 2026-10-02 | Every follow-up action of the open-decision sign-off that needs CAD, drawing, picture, BOM or calculation work is carried out: the 5 mm top plate, tube lever and hollow pivots in the model; a safety laser scanner (SICK nanoScan3 class) in place of the lidar with the personnel stop to ISO 3691-4 stop category 1 and the R7 case rerun; R15a restated to 45 kg in the script. The donor survey dimensions (packing bar, clamp holes, notch, stop angle) wait for the surveyed jacks | Amish: "APPROVED CHANGES, COMPLETE THESE" | [REVIEW.md](REVIEW.md), session 2026-10-02 (approved follow-ups carried out) |
+| 2026-10-03 | Safety laser scanner at PL d (SICK nanoScan3 class) at USD 3,455 accepted; the kit estimate of about USD 5,065 against the USD 1,610 value-engineering target (USD 3,455 over) accepted | Amish: "PalletPilot - i accept it"; and "Cost over target - i accept all the cost variations and overruns" | [REVIEW.md](REVIEW.md), session 2026-10-03; PLP-DEC-001, Value engineering |

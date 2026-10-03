@@ -427,3 +427,10 @@ Amish decides whether a USD 3,455 scanner line is acceptable against the value-e
 ## 2026-10-02: photoreal renders redone on the constructable design
 
 Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.
+
+## 2026-10-03: decisions recorded
+
+Amish decided on 2026-10-03: "PalletPilot - i accept it" (the PL d safety scanner at USD 3,455; kit about USD 5,065 against the USD 1,610 value-engineering target) and "Cost over target - i accept all the cost variations and overruns".
+
+- `docs/06-design-decisions.md` (PLP-DEC-001): row added to decisions made; value engineering section says the overrun was accepted by Amish on 2026-10-03.
+- The 2026-10-02 next step (whether the USD 3,455 scanner line is acceptable) is answered; a cheaper PL d scanner stays a saving worth trying. TRL 4 remains on hold.
